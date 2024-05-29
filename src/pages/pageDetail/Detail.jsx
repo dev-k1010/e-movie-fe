@@ -225,9 +225,13 @@ export default function PhimDetail() {
                   ),
                   key: "2",
                   children: (
-                    <span className="text-xl text-justify px-10 leading-relaxed">
+                    <div className="px-10 pb-10">
+                    <div className="bg-slate-300 rounded-md p-10">
+                    <span className="text-xl leading-relaxed">
                       {lichChieuPhim.moTa}
                     </span>
+                    </div>
+                    </div>
                   ),
                 },
                 {

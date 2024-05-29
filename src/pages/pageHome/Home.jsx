@@ -11,6 +11,8 @@ import RapList from "./listRap/RapList";
 import HomeTool from "./homeTool/HomeTool";
 import ListPhanTrang from "./listPhimPagination/ListPhanTrang";
 import News from "./news/News";
+import AppMobile from "./appMobile/AppMobile";
+
 
 export default function Home() {
   const dispatch = useDispatch();
@@ -50,6 +52,9 @@ export default function Home() {
 
       <div id="tinTuc">
         <News />
+      </div>
+      <div id="appMobile">
+        < AppMobile/>
       </div>
     </div>
   );

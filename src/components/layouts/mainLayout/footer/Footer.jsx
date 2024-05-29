@@ -1,10 +1,37 @@
-import React, { memo, useEffect } from "react";
-import { logo2 } from "./dataImg/footer-icon-2";
-import { logo1 } from "./dataImg/footer-icon-1";
+import React, { memo, useEffect, useState } from "react";
 import { dataImage } from "./ImageFooter";
 
 function Footer() {
   const anhFooter = dataImage;
+  const text = 'The project was implemented by "KHANG KHÔ KHỐC".';
+  const [index, setIndex] = useState(0);
+
+  useEffect(() => {
+    let currentIndex = 0; // theo dõi index hiện tại
+
+    const displayNextChar = () => {
+      // Nếu index hiện tại vượt quá số ký tự trong text, reset index về 0 và gọi lại hàm sau 1000ms
+      if (currentIndex >= text.length) {
+        setTimeout(() => {
+          setIndex(0);
+          currentIndex = 0; 
+          displayNextChar(); 
+        }, 1000)
+      } 
+      // Nếu chưa hết text, hiển thị ký tự tiếp theo
+      else {
+        setIndex(currentIndex);
+        currentIndex++; 
+        setTimeout(displayNextChar, 100); 
+      }
+    };
+
+    displayNextChar();
+
+    return () => clearTimeout();
+  }, [text]);
+
+
   return (
     <div className="bg-black">
       <div className="pt-10">
@@ -127,15 +154,30 @@ function Footer() {
 
             {/* IMG */}
             <div className="flex justify-center items-center col-span-2 w-full">
-              <div className=" col-span-1 flex items-center">
-                <div className=" col-span-4 px-4 md:px-8" colSpan={2}>
-                  <p className="text-xl text-white px-6 py-2 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-sm animate-bounce hover:cursor-pointer">
-                    QUOC KHANG A_A
+              <div className="col-span-1 flex items-center">
+                <div className="col-span-4 px-4 md:px-8" colSpan={2}>
+                  <p className="text-lg text-white font-mono px-8 py-4 bg-cyan-500 shadow-2xl shadow-cyan-500/50 rounded-lg hover:cursor-pointer">
+                    <span style={{ display: 'inline-block', overflow: 'hidden' }}>
+                      {text.split('').map((char, idx) => (
+                        <span
+                          key={idx}
+                          style={{
+                            opacity: idx <= index ? 1 : 0, 
+                            animation: 'fadeIn 1s forwards, move 20s linear infinite',
+                            animationDelay: `${idx * 0.5}s`, 
+                            whiteSpace: 'nowrap',
+                          }}
+                        >
+                          {char}
+                        </span>
+                      ))}
+                    </span>
                   </p>
                 </div>
                 <img
                   src="/icon.png"
                   className="w-24 mb-3 md:mx-8 lg:ml-0 lg:m-4"
+                  alt="icon"
                 />
               </div>
             </div>
@@ -147,3 +189,5 @@ function Footer() {
   );
 }
 export default memo(Footer);
+
+

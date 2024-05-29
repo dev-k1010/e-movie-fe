@@ -1,5 +1,4 @@
-import { Card, Tabs } from "antd";
-import Meta from "antd/es/card/Meta";
+import { Tabs } from "antd";
 import TabPane from "antd/es/tabs/TabPane";
 import axios from "axios";
 import React, { memo, useEffect, useState } from "react";
@@ -9,24 +8,27 @@ function News() {
   const [newsDienAnhMore, setNewsDienAnhMore] = useState(null);
   const [newsReviewMore, setNewsReviewMore] = useState(null);
   const [newsKhuyenMaiMore, setNewsKhuyenMaiMore] = useState(null);
-  const [seeMore, setSeeMore] = useState(false);
   const [value, setValue] = useState(0);
+  console.log("🙂 ~ News ~ value:", value)
+  const [seeMore, setSeeMore] = useState({ 0: false, 1: false, 2: false });
+  console.log("🙂 ~ News ~ seeMore:", seeMore)
 
   const handleChange = (newValue) => {
-    console.log("🙂 ~ handleChange ~ newValue:", newValue);
     setValue(newValue);
   };
-  const callAxios = (url, setState, boolSeeMore) => {
+
+  const callAxios = (url, setState, tabKey) => {
     return axios({
       url,
       method: "GET",
     })
       .then((result) => {
         setState(result.data);
-        setSeeMore(boolSeeMore);
+        setSeeMore((prev) => ({ ...prev, [tabKey]: true }));
       })
       .catch((error) => console.log(error));
   };
+
   const renderNews = (newsArr) => {
     return (
       <div className="space-y-5">
@@ -197,7 +199,7 @@ function News() {
                 rel="noreferrer"
                 className="text-lg text-color4 font-semibold hover:text-color1"
               >
-                <p c>{newsArr[6].title}</p>
+                <p>{newsArr[6].title}</p>
               </a>
             </div>
             {/* item7 */}
@@ -226,36 +228,41 @@ function News() {
       </div>
     );
   };
+
   const onClickSeeMore = () => {
-    switch (value) {
-      case 0:
-        callAxios(
-          `https://60b9f19280400f00177b744b.mockapi.io/ArticlesDienAnh02`,
-          setNewsDienAnhMore,
-          true
-        );
-        break;
-      case 1:
-        callAxios(
-          `https://60babc8f42e1d0001761ff84.mockapi.io/ArticlesReview02`,
-          setNewsReviewMore,
-          true
-        );
-        break;
-      case 2:
-        callAxios(
-          `https://60babc8f42e1d0001761ff84.mockapi.io/ArticlesKhuyenMai02`,
-          setNewsKhuyenMaiMore,
-          true
-        );
-      // eslint-disable-next-line no-fallthrough
-      default:
-        break;
+    const actions = {
+      0: {
+        url: `https://60b9f19280400f00177b744b.mockapi.io/ArticlesDienAnh02`,
+        setMore: setNewsDienAnhMore,
+        more: newsDienAnhMore,
+      },
+      1: {
+        url: `https://60babc8f42e1d0001761ff84.mockapi.io/ArticlesReview02`,
+        setMore: setNewsReviewMore,
+        more: newsReviewMore,
+      },
+      2: {
+        url: `https://60babc8f42e1d0001761ff84.mockapi.io/ArticlesKhuyenMai02`,
+        setMore: setNewsKhuyenMaiMore,
+        more: newsKhuyenMaiMore,
+      },
+    };
+  
+    const action = actions[value];
+  
+    if (action) {
+      if (!action.more) {
+        callAxios(action.url, action.setMore, value);
+      } else {
+        setSeeMore((prev) => ({ ...prev, [value]: true }));
+      }
     }
   };
+
   const onClickSeeLess = () => {
-    setSeeMore(false);
+    setSeeMore((prev) => ({ ...prev, [value]: false }));
   };
+
   const itemsButton = [
     {
       key: "0",
@@ -265,7 +272,9 @@ function News() {
         </button>
       ),
       children: (
-        <>{seeMore && newsDienAnhMore && renderNews(newsDienAnhMore)}</>
+        <>
+          {seeMore[0] && newsDienAnhMore && renderNews(newsDienAnhMore)}
+        </>
       ),
     },
     {
@@ -275,7 +284,11 @@ function News() {
           Review
         </button>
       ),
-      children: <></>,
+      children: (
+        <>
+          {seeMore[1]  && newsDienAnhMore && renderNews(newsDienAnhMore)}
+        </>
+      ),
     },
     {
       key: "2",
@@ -284,22 +297,27 @@ function News() {
           Khuyến mãi
         </button>
       ),
-      children: <></>,
+      children: (
+        <>
+          {seeMore[2] && newsDienAnhMore && renderNews(newsDienAnhMore)}
+        </>
+      ),
     },
   ];
+
   return (
-    <div className=" py-10">
+    <div className="py-10">
       <Tabs
         defaultActiveKey="0"
         centered
         destroyInactiveTabPane={true}
-        className="px-7 md:px-5 "
+        className="px-7 md:px-5"
         onChange={handleChange}
       >
         {itemsButton.map((item) => (
           <TabPane
             className="px-32"
-            tab={<span className=" text-black text-xs">{item.label}</span>}
+            tab={<span className="text-black text-xs">{item.label}</span>}
             key={item.key}
           >
             {item.children}
@@ -308,14 +326,15 @@ function News() {
       </Tabs>
       <div className="flex flex-col justify-center items-center mt-5">
         <Button
-          onClick={seeMore ? onClickSeeLess : onClickSeeMore}
+          onClick={seeMore[value] ? onClickSeeLess : onClickSeeMore}
           className="px-4 py-2 bg-color4 rounded-md"
           variant="outlined"
         >
-          {seeMore ? "RÚT GỌN" : "XEM THÊM"}
+          {seeMore[value] ? "RÚT GỌN" : "XEM THÊM"}
         </Button>
       </div>
     </div>
   );
 }
+
 export default memo(News);
