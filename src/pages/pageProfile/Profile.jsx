@@ -13,7 +13,7 @@ export default function ThongTinCaNhan() {
    }, [])
 
    return (
-      <div className='ThongTinCaNhan container py-20'> 
+      <div className='container pt-32 mb-64'> 
       <p className="text-xl text-center mb-10">Trang cá nhân</p>
          <div className='text-lg font-semibold border-b pb-3 flex'>
             <div>
@@ -26,7 +26,7 @@ export default function ThongTinCaNhan() {
                <p><span>Số điện thoại: </span><span className='text-amber-500'>{ttTaiKhoan?.soDT}</span></p>
             </div>
          </div>
-         <Collapse accordion>
+         <Collapse accordion className="">
             <Panel header={<span className="text-lg font-semibold text-amber-500">Lịch sử đặt vé</span>}>
                <div>
                   {ttTaiKhoan?.thongTinDatVe.map((ve, i) => (

@@ -17,7 +17,7 @@ function RapList(props) {
     }
   };
   return (
-    <div className="container">
+    <div className="container hidden md:block lg:block ">
       <div className="text-white grid grid-cols-12 justify-between items-center my-5">
         <div className="h-1 w-full bg-white col-span-4 "></div>
         <span className="text-3xl font-bold col-span-4 text-center">

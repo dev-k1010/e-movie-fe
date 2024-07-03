@@ -48,7 +48,7 @@ export default function PhimDetail() {
       style={{ backgroundImage: `url(${lichChieuPhim.hinhAnh})` }}
     >
       <div
-        className="p-64 pb-5 backdrop-blur-[12px]"
+        className="lg:p-64 pb-5 backdrop-blur-[12px]"
         style={{ backgroundColor: "#00000087" }}
       >
         <div className="container text-white">

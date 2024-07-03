@@ -50,7 +50,7 @@ function News() {
                 target="_blank"
                 href={newsArr[0].url}
                 rel="noreferrer"
-                className="text-xl text-color4 font-semibold hover:text-color1"
+                className="text-base lg:text-xl text-color4 font-semibold hover:text-color1"
               >
                 <p>{newsArr[0].title}</p>
               </a>
@@ -74,7 +74,7 @@ function News() {
                 target="_blank"
                 href={newsArr[1].url}
                 rel="noreferrer"
-                className="text-xl text-color4 font-semibold hover:text-color1"
+                className="text-base lg:text-xl text-color4 font-semibold hover:text-color1"
               >
                 <p>{newsArr[1].title}</p>
               </a>
@@ -104,7 +104,7 @@ function News() {
                   target="_blank"
                   href={newsArr[2].url}
                   rel="noreferrer"
-                  className="text-xl text-color4 font-semibold hover:text-color1"
+                  className="text-base lg:text-xl text-color4 font-semibold hover:text-color1"
                 >
                   <p>{newsArr[2].title}</p>
                 </a>
@@ -128,7 +128,7 @@ function News() {
                   target="_blank"
                   href={newsArr[3].url}
                   rel="noreferrer"
-                  className="text-xl text-color4 font-semibold hover:text-color1"
+                  className="text-base lg:text-xl text-color4 font-semibold hover:text-color1"
                 >
                   <p>{newsArr[3].title}</p>
                 </a>
@@ -155,7 +155,7 @@ function News() {
                 target="_blank"
                 href={newsArr[4].url}
                 rel="noreferrer"
-                className="text-lg text-color4 font-semibold hover:text-color1"
+                className="text-sm lg:text-lg text-color4 font-semibold hover:text-color1"
               >
                 <p>{newsArr[4].title}</p>
               </a>
@@ -176,7 +176,7 @@ function News() {
                 target="_blank"
                 href={newsArr[5].url}
                 rel="noreferrer"
-                className="text-lg text-color4 font-semibold hover:text-color1"
+                className="text-sm lg:text-lg text-color4 font-semibold hover:text-color1"
               >
                 <p>{newsArr[5].title}</p>
               </a>
@@ -197,7 +197,7 @@ function News() {
                 target="_blank"
                 href={newsArr[6].url}
                 rel="noreferrer"
-                className="text-lg text-color4 font-semibold hover:text-color1"
+                className="text-sm lg:text-lg text-color4 font-semibold hover:text-color1"
               >
                 <p>{newsArr[6].title}</p>
               </a>
@@ -218,7 +218,7 @@ function News() {
                 target="_blank"
                 href={newsArr[7].url}
                 rel="noreferrer"
-                className="text-lg text-color4 font-semibold hover:text-color1"
+                className="text-sm lg:text-lg text-color4 font-semibold hover:text-color1"
               >
                 <p>{newsArr[7].title}</p>
               </a>
@@ -247,9 +247,9 @@ function News() {
         more: newsKhuyenMaiMore,
       },
     };
-  
+
     const action = actions[value];
-  
+
     if (action) {
       if (!action.more) {
         callAxios(action.url, action.setMore, value);
@@ -267,7 +267,7 @@ function News() {
     {
       key: "0",
       label: (
-        <button className="text-2xl transition duration-300 font-semibold rounded-lg shadow mr-2 hover:bg-white-500 text-white ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 hover:text-color1 ">
+        <button className="text-lg lg:text-2xl transition duration-300 font-semibold rounded-lg shadow mr-2 hover:bg-white-500 text-white ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 hover:text-color1 ">
           Điện ảnh 24H
         </button>
       ),
@@ -280,20 +280,20 @@ function News() {
     {
       key: "1",
       label: (
-        <button className="text-2xl transition duration-300 font-semibold rounded-lg shadow mr-2 hover:bg-white-500 text-white ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 hover:text-color1 ">
+        <button className="text-lg lg:text-2xl transition duration-300 font-semibold rounded-lg shadow mr-2 hover:bg-white-500 text-white ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 hover:text-color1 ">
           Review
         </button>
       ),
       children: (
         <>
-          {seeMore[1]  && newsDienAnhMore && renderNews(newsDienAnhMore)}
+          {seeMore[1] && newsDienAnhMore && renderNews(newsDienAnhMore)}
         </>
       ),
     },
     {
       key: "2",
       label: (
-        <button className="text-2xl transition duration-300 font-semibold rounded-lg shadow mr-2 hover:bg-white-500 text-white ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 hover:text-color1 ">
+        <button className="text-lg lg:text-2xl transition duration-300 font-semibold rounded-lg shadow mr-2 hover:bg-white-500 text-white ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 hover:text-color1 ">
           Khuyến mãi
         </button>
       ),
@@ -316,7 +316,7 @@ function News() {
       >
         {itemsButton.map((item) => (
           <TabPane
-            className="px-32"
+            className=" md:px-32"
             tab={<span className="text-black text-xs">{item.label}</span>}
             key={item.key}
           >

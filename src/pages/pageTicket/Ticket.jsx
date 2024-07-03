@@ -16,24 +16,20 @@ import animateSrc from "./anhdaden.json";
 import animateSrcSuccess from "./successamination.json";
 import monkeyanimation from "./monkeyamination.json";
 import {
-  EllipsisOutlined,
-  StopOutlined,
   WarningOutlined,
 } from "@ant-design/icons";
 import io from "socket.io-client";
 
 export default function Ticket() {
   return (
-    <div
+    <Container
+      className="DatVe"
       style={{
         backgroundImage: `url( '/IMG/bg-1.jpg')`,
       }}
     >
-      <Container
-        style={{
-          backgroundImage: `url( 'IMG/bg-1.jpg')`,
-        }}
-        className="DatVe p-20  "
+      <div
+        className="pt-20 px-10 lg:p-20  "
       >
         <Tabs
           items={[
@@ -57,8 +53,8 @@ export default function Ticket() {
             },
           ]}
         />
-      </Container>
-    </div>
+      </div>
+    </Container>
   );
 }
 
@@ -179,28 +175,7 @@ function ChonGhe() {
     socket.emit("updatedSeats", updatedSeats);
     dispatch(quanLyDatVeActions.danhSachGheDangDat(ghe));
   };
-  // Tour
-  const ref1 = useRef(null);
-  const ref2 = useRef(null);
-  const ref3 = useRef(null);
-  const [open, setOpen] = useState(false);
-  const steps = [
-    {
-      title: "Upload File",
-      description: "Put your files here.",
-      target: () => ref1.current,
-    },
-    {
-      title: "Save",
-      description: "Save your changes.",
-      target: () => ref2.current,
-    },
-    {
-      title: "Other Actions",
-      description: "Click to see other actions.",
-      target: () => ref3.current,
-    },
-  ];
+
 
   return (
     <div className="ChonGhe pt-3">
@@ -246,9 +221,8 @@ function ChonGhe() {
                     onClick={() => {
                       handleChonGhe(ghe);
                     }}
-                    className={`w-4 h-4 m-[1px] text-[10px] sm:w-6 sm:h-6 sm:text-xs sm:m-1 md:w-8 md:h-8 md:m-[6px] md:text-base lg:w-9 lg:h-9 lg:m-[8px] xl:w-9 xl:h-9 shadow transition duration-300 ease-in-out transform  rounded-md  ${
-                      danhSachGheDangDat ? backgroundColorClass : ""
-                    } ${classGheVip} ${classGheDaDat} ${classGheDangDat} ${classGheDangChon}`}
+                    className={`w-4 h-4 m-[1px] text-[10px] sm:w-6 sm:h-6 sm:text-xs sm:m-1 md:w-8 md:h-8 md:m-[6px] md:text-base lg:w-9 lg:h-9 lg:m-[8px] xl:w-9 xl:h-9 shadow transition duration-300 ease-in-out transform  rounded-md  ${danhSachGheDangDat ? backgroundColorClass : ""
+                      } ${classGheVip} ${classGheDaDat} ${classGheDangDat} ${classGheDangChon}`}
                   >
                     {ghe.daDat === true ? "X" : ghe.stt}
                   </button>
@@ -258,42 +232,45 @@ function ChonGhe() {
             })}
           </div>
           {/* Chú thích các loại ghế */}
-          <div className="border-t pt-3 text-center text-white flex space-x-5 justify-center items-center">
-            <span className="whitespace-nowrap">
-              <button
-                className="bg-white rounded-md shadow ghe w-6 h-6"
-                style={{ cursor: "default" }}
-              ></button>
-              <span>Ghế thường</span>
-            </span>
-            <span className="whitespace-nowrap">
-              <button
-                className="bg-yellow-500 ghe gheVip w-6 h-6 rounded-md shadow"
-                style={{ cursor: "default" }}
-              ></button>{" "}
-              <span>Ghế VIP</span>
-            </span>
-            <span className="whitespace-nowrap">
-              <button
-                className="bg-blue-700 ghe gheDangDat w-6 h-6 rounded-md shadow"
-                style={{ cursor: "default" }}
-              ></button>{" "}
-              <span>Ghế đang chọn</span>
-            </span>
-            <span className="whitespace-nowrap">
-              <button
-                className="bg-red-500 rounded-md shadow ghe gheDaDat w-6 h-6"
-                style={{ cursor: "default" }}
-              ></button>{" "}
-              <span>Ghế đã đặt</span>
-            </span>
-            <span className="whitespace-nowrap">
-              <button
-                className="bg-gray-800 w-6 h-6 inline-block rounded-md shadow"
-                style={{ cursor: "default" }}
-              ></button>{" "}
-              <span>Ghế đang có người chọn</span>
-            </span>
+          <div className="border-t pt-3 text-center text-white flex space-x-5 justify-center items-center ">
+            <div className="flex flex-wrap gap-4">
+              <span className="whitespace-nowrap flex items-center">
+                <button
+                  className="bg-white rounded-md shadow ghe w-6 h-6"
+                  style={{ cursor: "default" }}
+                ></button>
+                <span className="ml-2">Ghế thường</span>
+              </span>
+              <span className="whitespace-nowrap flex items-center">
+                <button
+                  className="bg-yellow-500 ghe gheVip w-6 h-6 rounded-md shadow"
+                  style={{ cursor: "default" }}
+                ></button>
+                <span className="ml-2">Ghế VIP</span>
+              </span>
+              <span className="whitespace-nowrap flex items-center">
+                <button
+                  className="bg-blue-700 ghe gheDangDat w-6 h-6 rounded-md shadow"
+                  style={{ cursor: "default" }}
+                ></button>
+                <span className="ml-2">Ghế đang chọn</span>
+              </span>
+              <span className="whitespace-nowrap flex items-center">
+                <button
+                  className="bg-red-500 rounded-md shadow ghe gheDaDat w-6 h-6"
+                  style={{ cursor: "default" }}
+                ></button>
+                <span className="ml-2">Ghế đã đặt</span>
+              </span>
+              <span className="whitespace-nowrap flex items-center">
+                <button
+                  className="bg-gray-800 w-6 h-6 inline-block rounded-md shadow"
+                  style={{ cursor: "default" }}
+                ></button>
+                <span className="ml-2">Ghế đang có người chọn</span>
+              </span>
+            </div>
+
           </div>
         </div>
         {/* Thông tin đặt vé */}
@@ -379,16 +356,6 @@ function ChonGhe() {
             >
               Đặt vé
             </button>
-            <Tour
-              open={open}
-              onClose={() => setOpen(false)}
-              steps={steps}
-              indicatorsRender={(current, total) => (
-                <span>
-                  {current + 1} / {total}
-                </span>
-              )}
-            />
           </div>
         </div>
       </div>

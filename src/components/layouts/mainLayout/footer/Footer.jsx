@@ -14,15 +14,15 @@ function Footer() {
       if (currentIndex >= text.length) {
         setTimeout(() => {
           setIndex(0);
-          currentIndex = 0; 
-          displayNextChar(); 
+          currentIndex = 0;
+          displayNextChar();
         }, 1000)
-      } 
+      }
       // Nếu chưa hết text, hiển thị ký tự tiếp theo
       else {
         setIndex(currentIndex);
-        currentIndex++; 
-        setTimeout(displayNextChar, 100); 
+        currentIndex++;
+        setTimeout(displayNextChar, 100);
       }
     };
 
@@ -35,11 +35,11 @@ function Footer() {
   return (
     <div className="bg-black">
       <div className="pt-10">
-        <div className="grid grid-cols-4 bg-black mx-40">
+        <div className="grid grid-cols-4 bg-black mx-5 lg:mx-40">
           {/* TIX */}
           <div className=" col-span-1 text-white space-y-5">
-            <h2 className="text-xl font-semibold ">TIX</h2>
-            <div className="space-y-2 text-gray-300">
+            <h2 className="text-base lg:text-xl font-semibold ">TIX</h2>
+            <div className="space-y-2 text-gray-300 text-sm">
               <p className="hover:text-color4">FAQ</p>
               <p className="hover:text-color4">Brand Guidelines</p>
               <p className="hover:text-color4">Thỏa thuận sử dụng</p>
@@ -48,13 +48,33 @@ function Footer() {
           </div>
           {/* Đố tác */}
           <div className=" col-span-1 text-white space-y-5">
-            <h2 className="text-xl font-semibold text-center">ĐỐI TÁC</h2>
+            <h2 className="text-base lg:text-xl font-semibold text-center">ĐỐI TÁC</h2>
             <div className="align-top">
-              <div className="grid md:grid-cols-3 grid-cols-2 justify-items-center">
+              <div className="md:grid md:grid-cols-3 grid-cols-2 justify-items-center hidden">
                 {anhFooter.map((item, index) => (
                   <div
                     key={index}
-                    className="h-10 w-10 small_wh rounded-full mb-4"
+                    className="h-7 w-7 lg:h-10 lg:w-10 small_wh rounded-full mb-4"
+                    style={{
+                      backgroundImage: `url(${item.url})`,
+                      backgroundSize: "cover",
+                    }}
+                  >
+                    <a
+                      href={item.href}
+                      className="hover:text-white cursor-pointer h-full w-full inline-block"
+                      style={{
+                        color: "#9e9e9e",
+                      }}
+                    ></a>
+                  </div>
+                ))}
+              </div>
+              <div className="grid md:grid-cols-3 grid-cols-2 justify-items-center md:hidden">
+                {anhFooter.slice(0,8).map((item, index) => (
+                  <div
+                    key={index}
+                    className="h-7 w-7 lg:h-10 lg:w-10 small_wh rounded-full mb-4"
                     style={{
                       backgroundImage: `url(${item.url})`,
                       backgroundSize: "cover",
@@ -75,10 +95,10 @@ function Footer() {
           <div className="col-span-2 grid grid-cols-2 grid-rows-2">
             {/* MOBILE APP */}
             <div className=" col-span-1  text-white space-y-5 ">
-              <h2 className="text-xl font-semibold text-center">MOBILE APP</h2>
+              <h2 className="text-base lg:text-xl font-semibold text-center">MOBILE APP</h2>
               <div className="flex justify-center space-x-5">
                 <div
-                  className="h-10 w-10 small_wh mb-4 rounded-full"
+                  className="h-7 w-7 lg:h-10 lg:w-10 small_wh mb-4 rounded-full"
                   style={{
                     backgroundImage:
                       "url(https://logos-world.net/wp-content/uploads/2021/02/App-Store-Logo.png)",
@@ -95,7 +115,7 @@ function Footer() {
                   ></a>
                 </div>
                 <div
-                  className="h-10 w-10 small_wh   rounded-full bg-white"
+                  className="h-7 w-7 lg:h-10 lg:w-10 small_wh   rounded-full bg-white"
                   style={{
                     backgroundImage: `url( 'IMG/gg-play.png')`,
                     backgroundSize: "cover",
@@ -115,10 +135,10 @@ function Footer() {
 
             {/*LIÊN HỆ */}
             <div className=" col-span-1 text-white space-y-5 ">
-              <h2 className="text-xl font-semibold text-center">LIÊN HỆ</h2>
+              <h2 className="text-base lg:text-xl font-semibold text-center">LIÊN HỆ</h2>
               <div className="flex justify-center space-x-5">
                 <div
-                  className="h-10 w-10 small_wh  rounded-full mb-4"
+                  className="h-7 w-7 lg:h-10 lg:w-10 small_wh  rounded-full mb-4"
                   style={{
                     backgroundImage: `url( 'IMG/fb_icon.png')`,
                     backgroundSize: "cover",
@@ -134,7 +154,7 @@ function Footer() {
                   ></a>
                 </div>
                 <div
-                  className="h-10 w-10 small_wh   rounded-full bg-white"
+                  className="h-7 w-7 lg:h-10 lg:w-10 small_wh   rounded-full bg-white"
                   style={{
                     backgroundImage: `url( 'IMG/zalo-icon.jfif')`,
                     backgroundSize: "cover",
@@ -153,7 +173,7 @@ function Footer() {
             </div>
 
             {/* IMG */}
-            <div className="flex justify-center items-center col-span-2 w-full">
+            <div className="lg:flex justify-center items-center col-span-2 w-full hidden ">
               <div className="col-span-1 flex items-center">
                 <div className="col-span-4 px-4 md:px-8" colSpan={2}>
                   <p className="text-lg text-white font-mono px-8 py-4 bg-cyan-500 shadow-2xl shadow-cyan-500/50 rounded-lg hover:cursor-pointer">
@@ -162,9 +182,9 @@ function Footer() {
                         <span
                           key={idx}
                           style={{
-                            opacity: idx <= index ? 1 : 0, 
+                            opacity: idx <= index ? 1 : 0,
                             animation: 'fadeIn 1s forwards, move 20s linear infinite',
-                            animationDelay: `${idx * 0.5}s`, 
+                            animationDelay: `${idx * 0.5}s`,
                             whiteSpace: 'nowrap',
                           }}
                         >

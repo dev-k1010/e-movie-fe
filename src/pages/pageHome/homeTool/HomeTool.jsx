@@ -10,6 +10,7 @@ function HomeTool(props) {
   const [phim, setPhim] = useState();
   const [rapChieu, setRapChieu] = useState();
   const [gioChieu, setGioChieu] = useState();
+  
   const fectData = (maPhim) => {
     quanLyRapServices
       .layThongTinLichChieuPhim(maPhim)
@@ -47,17 +48,16 @@ function HomeTool(props) {
   const handelDatVe = () => {
     if (!phim || !rapChieu || !gioChieu) {
       Modal.warning({
-        title: "This is a warning message",
         content: (
           <>
             {!phim && (
               <p className="text-base text-color1"> Vui lòng chọn phim! </p>
             )}
             {!rapChieu && (
-              <p className="text-base text-color1">Vui lòng chọn rap chiếu!</p>
+              <p className="text-base text-color1">Vui lòng chọn rạp chiếu!</p>
             )}
             {!gioChieu && (
-              <p className="text-base text-color1">Vui lòng giờ chiếu chiếu!</p>
+              <p className="text-base text-color1">Vui lòng ngày chiếu!</p>
             )}
           </>
         ),
@@ -74,8 +74,8 @@ function HomeTool(props) {
 
   return (
     <div className="-translate-y-16">
-      <div  style={{ zIndex: 100000 }} className="flex justify-center items-center space-x-3 mx-80 rounded-md bg-white">
-        <Space wrap className="py-5 ">
+      <div style={{ zIndex: 100000 }} className="flex flex-col md:flex-row justify-center items-center space-x-3 mx-20 md:mx-0 lg:mx-80 rounded-md bg-white">
+        <Space wrap className="py-5 flex flex-col md:flex-row">
           <Select
             style={{
               width: 200,
@@ -102,16 +102,19 @@ function HomeTool(props) {
             }
             onChange={handelChonRap}
             options={
-              phim &&
-              phim.map((rap) => ({
-                label: (
-                  <span className="font-semibold text-lg">
-                    {rap.tenHeThongRap}
-                  </span>
-                ),
-                value: rap.maHeThongRap,
-              }))
+              phim
+                ?
+                phim.map((rap) => ({
+                  label: (
+                    <span className="font-semibold text-lg">
+                      {rap.tenHeThongRap}
+                    </span>
+                  ),
+                  value: rap.maHeThongRap,
+                }))
+                : [{ label: <span className="font-semibold text-lg">Vui lòng chọn phim!</span>, value: null }]
             }
+            // disabled={!phim} 
           />
           <Select
             style={{
@@ -125,15 +128,16 @@ function HomeTool(props) {
             }
             onChange={handelChonGioChieu}
             options={
-              rapChieu &&
-              rapChieu.map((rap) => ({
-                label: (
-                  <span className="font-semibold text-lg">
-                    {rap.ngayChieuGioChieu}
-                  </span>
-                ),
-                value: rap.maLichChieu,
-              }))
+              phim && rapChieu ?
+                rapChieu.map((rap) => ({
+                  label: (
+                    <span className="font-semibold text-lg">
+                      {rap.ngayChieuGioChieu}
+                    </span>
+                  ),
+                  value: rap.maLichChieu,
+                }))
+                : [{ label: <span className="font-semibold text-lg">Vui lòng chọn phim và rạp!</span>, value: null }]
             }
           />
         </Space>
@@ -142,7 +146,7 @@ function HomeTool(props) {
           onClick={() => {
             handelDatVe();
           }}
-          className="px-8 py-4 rounded-md bg-color4 font-semibold text-lg "
+          className="px-8 py-4 rounded-md bg-color4 font-semibold text-lg mb-5 md:mb-0"
         >
           Đặt vé
         </button>
