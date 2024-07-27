@@ -1,137 +1,113 @@
-import React, { memo, useEffect, useState } from "react";
+import React, { memo, useEffect, useState, useCallback } from "react";
 import { Pagination } from "antd";
-import { PlayCircleOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
-import ReactPlayer from "react-player";
 import { quanLyPhimServices } from "../../../services/quanLyPhimServices";
-import Carditem from "../../cardItem/Carditem";
+import Carditem from "../../../components/cardItem/Carditem";
+import styled from "styled-components";
+import TrailerPreview from "../../../components/strailerPreview/StrailerPreview";
 
-function ListPhanTrang(props) {
+function ListPhanTrang({ listPhim }) {
   const navigate = useNavigate();
   const [soTrang, setSoTrang] = useState(1);
-  const { listPhim } = props;
-  const [isTrailerOpen, setTrailerOpen] = useState(false);
+  const [isOpen, setOpen] = useState(false);
   const [selectedPhim, setSelectedPhim] = useState(null);
   const [phimPhanTrang, setPhimPhanTrang] = useState([]);
-  const [soPhanTuTrenTrang, setSoPhanTuTrenTrang] = useState(8); // Default for mobile
+  const [soPhanTuTrenTrang, setSoPhanTuTrenTrang] = useState(8);
+
   const tongSoPhim = listPhim ? listPhim.length : 0;
 
-  useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth >= 1024) {
-        setSoPhanTuTrenTrang(8); // 4 columns * 3 rows for lg screens
-      } else if (window.innerWidth >= 768) {
-        setSoPhanTuTrenTrang(9); // 3 columns * 3 rows for md screens
-      } else {
-        setSoPhanTuTrenTrang(8); // 2 columns * 4 rows for smaller screens
+  // Resize handler
+  const handleResize = useCallback(() => {
+    const currentWidth = window.innerWidth;
+    let newSoPhanTuTrenTrang;
+
+    if (currentWidth >= 1024) {
+      newSoPhanTuTrenTrang = 10;
+    } else if (currentWidth >= 768) {
+      newSoPhanTuTrenTrang = 6;
+    } else {
+      newSoPhanTuTrenTrang = 4;
+    }
+
+    // Cập nhật trạng thái chỉ khi giá trị thay đổi
+    setSoPhanTuTrenTrang(prev => {
+      if (prev !== newSoPhanTuTrenTrang) {
+        return newSoPhanTuTrenTrang;
       }
-    };
-
-    window.addEventListener("resize", handleResize);
-    handleResize(); // Set initial value
-
-    return () => window.removeEventListener("resize", handleResize);
+      return prev;
+    });
   }, []);
 
+
   useEffect(() => {
-    quanLyPhimServices
-      .layDanhSachPhimPhanTrang(soTrang, soPhanTuTrenTrang)
-      .then((result) => {
-        const phim = result.data.content;
-        let newPhimPhanTrang = phim.items.slice(); // Copy danh sách phim
-        const realItemCount = newPhimPhanTrang.length;
-        if (realItemCount < soPhanTuTrenTrang) {
-          const virtualItemCount = soPhanTuTrenTrang - realItemCount;
-          for (let i = 0; i < virtualItemCount; i++) {
-            newPhimPhanTrang.push({ isVirtual: true }); // Thêm thuộc tính isVirtual phân biệt
-          }
+    window.addEventListener("resize", handleResize);
+    handleResize();
+    return () => window.removeEventListener("resize", handleResize);
+  }, [handleResize]);
+
+  // Fetch paginated movie list
+  const fetchPhimPhanTrang = useCallback(async () => {
+    try {
+      const result = await quanLyPhimServices.layDanhSachPhimPhanTrang(soTrang, soPhanTuTrenTrang);
+      const phim = result.data.content.items;
+      const realItemCount = phim.length;
+      const newPhimPhanTrang = [...phim];
+
+      if (realItemCount < soPhanTuTrenTrang) {
+        const virtualItemCount = soPhanTuTrenTrang - realItemCount;
+        for (let i = 0; i < virtualItemCount; i++) {
+          newPhimPhanTrang.push({ isVirtual: true, maPhim: `virtual_${i}` });
         }
-        setPhimPhanTrang(newPhimPhanTrang);
-      })
-      .catch((err) => {
-        console.log("🙂 ~ useEffect ~ err:", err);
-      });
+      }
+
+      setPhimPhanTrang(newPhimPhanTrang);
+    } catch (err) {
+      console.error("Error fetching paginated movies:", err);
+    }
   }, [soTrang, soPhanTuTrenTrang]);
 
-  const renderTrailer = (phim) => {
-    setTrailerOpen(true);
+  useEffect(() => {
+    fetchPhimPhanTrang();
+  }, [fetchPhimPhanTrang]);
+
+  const handleOpen = useCallback((phim) => {
+    setOpen(true);
     setSelectedPhim(phim);
-  };
+  }, []);
 
-  const closeTrailer = () => {
-    setTrailerOpen(false);
+  const handleClose = useCallback(() => {
+    setOpen(false);
     setSelectedPhim(null);
-  };
+  }, []);
 
-  const handlePageChange = (page) => {
+  const handlePageChange = useCallback((page) => {
     setSoTrang(page);
-  };
+  }, []);
 
   return (
-    <div className="container">
-      <div className="text-white grid grid-cols-12 justify-between items-center my-5">
-        <div className="h-1 w-full bg-white col-span-4"></div>
-        <span className="text-3xl font-bold col-span-4 text-center">
+    <div className="space-y-9">
+      <div className=" flex justify-start items-center space-x-3">
+        <div className="h-8 w-[5px] bg-color1"></div>
+        <span className="text-2xl font-light text-start text-white" >
           DANH SÁCH PHIM
         </span>
-        <div className="h-1 w-full bg-white col-span-4"></div>
       </div>
       <div className="w-full h-full">
-        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-3">
-          {phimPhanTrang &&
-            phimPhanTrang.map((phim, i) => {
-              if (phim.isVirtual) {
-                return (
-                  <div
-                    key={`virtual_${i}`}
-                    className="p-5 pointer-events-none opacity-0"
-                  >
-                    <div className="shadow-lg shadow-black/70 rounded-md overflow-hidden group">
-                      <div className="relative group">
-                        <img
-                          src={phim.hinhAnh}
-                          alt=""
-                          className="w-full h-[350px]"
-                          loading="lazy"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black opacity-0 duration-500 transition-opacity group-hover:opacity-100 flex items-center justify-center">
-                          <button onClick={() => renderTrailer(phim)}>
-                            <PlayCircleOutlined className="text-7xl text-white" />
-                          </button>
-                        </div>
-                      </div>
-                      <div className="text-xl px-3 font-bold text-center flex justify-start items-center truncate text-white transition duration-500 group-hover:bg-black py-2">
-                        <span className="bg-color1 px-2 py-1 rounded-lg">
-                          C18
-                        </span>
-                        <p className="text-ellipsis overflow-hidden">
-                          {phim.tenPhim}
-                        </p>
-                      </div>
-                      <div className="flex flex-col justify-between">
-                        <button
-                          onClick={() => navigate(`/detail/${phim.maPhim}`)}
-                          className="w-full font-semibold transition duration-500 bg-color4 hover:bg-color4/70 mb-0 text-lg py-3 shadow"
-                        >
-                          Mua vé
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                );
-              }
-              return (
-                <Carditem
-                  key={i}
-                  phim={phim}
-                  navigate={navigate}
-                  renderTrailer={renderTrailer}
-                />
-              );
-            })}
+        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-5 pb-5">
+          {phimPhanTrang.map((phim) => (
+            <Carditem
+              key={phim.maPhim}
+              phim={phim}
+              navigate={navigate}
+              handleOpen={handleOpen}
+              isVirtual={phim.isVirtual}
+            />
+          ))}
         </div>
-        <div className="py-2 bg-white flex items-center justify-center rounded-md mb-10">
-          <Pagination
+        <div className="py-2 flex items-center justify-center rounded-md mb-24">
+          <StyledPagination
+
+            showTitle={false} // ẩn hiệu ứng hover
             current={soTrang}
             total={tongSoPhim}
             pageSize={soPhanTuTrenTrang}
@@ -140,31 +116,93 @@ function ListPhanTrang(props) {
         </div>
       </div>
 
-      {isTrailerOpen && selectedPhim && (
-        <div
-          style={{ zIndex: 1000 }}
-          className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-75 flex items-center justify-center"
-        >
-          <div className="relative w-full max-w-screen-lg">
-            <button
-              onClick={closeTrailer}
-              className="absolute top-0 -right-16 text-white text-xl"
-            >
-              X
-            </button>
-            <ReactPlayer
-              url={
-                selectedPhim ? selectedPhim.trailer : "https://www.example.com"
-              }
-              controls
-              width="100%"
-              height="70vh"
-            />
-          </div>
-        </div>
+      {isOpen && selectedPhim && (
+        <TrailerPreview
+          isOpen={isOpen}
+          selectedPhim={selectedPhim.trailer}
+          handleClose={handleClose}
+        />
       )}
     </div>
   );
 }
 
 export default memo(ListPhanTrang);
+
+
+const StyledPagination = styled(Pagination)`
+
+  .ant-pagination-item {
+    width: 18px;
+    height: 18px;
+    min-width: 0;
+    border-radius: 18px;
+    background-color: #fff;
+    margin: 0px 10px;
+    position: relative; 
+    transition: background-color 0.6s, transform 0.6s;
+    z-index: 10000;
+  }
+
+  .ant-pagination-item a {
+    display:none;
+
+  }
+
+  .ant-pagination-item:not(.ant-pagination-item-active):hover {
+    background-color: white;
+    box-shadow: 0 0 20px rgb(255, 255, 255);
+  }
+
+  .ant-pagination-item-active {
+    width: 18px;
+    height: 18px;
+    min-width: 0;
+    border-radius: 18px;
+    background-color: #d00000; /* Màu nền khi chọn */
+    border: none;
+    position: relative;
+
+  }
+
+  .ant-pagination-item:active:before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 25px; 
+    height: 25px; 
+    background-color: rgba(255, 255, 255, 0.5); 
+    border-radius: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    animation: ping 0.3s forwards;
+    pointer-events: none; 
+    z-index: 1; 
+  }
+
+  .ant-pagination-item.ant-pagination-item-active::before {
+    background-color: rgba(208, 0, 0, 0.7); 
+    animation: ping 0.6s forwards;
+  }
+
+  @keyframes ping {
+    0% {
+      transform: translate(-50%, -50%) scale(1); 
+      opacity: 1;
+    }
+  
+    100% {
+      transform: translate(-50%, -50%) scale(2); 
+      opacity: 0;
+    }
+  }
+
+  .ant-pagination-prev .ant-pagination-item-link,
+  .ant-pagination-next .ant-pagination-item-link {
+    display: hidden;
+  }
+
+`;
+
+
+

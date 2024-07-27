@@ -16,6 +16,7 @@ import Detail from '../pages/pageDetail/Detail'
 import Profile from '../pages/pageProfile/Profile'
 import Home from '../pages/pageHome/Home'
 import Ticket from '../pages/pageTicket/Ticket'
+import Offline from '../pages/pageOffline/Offline'
 
 export default function Routers() {
    return useRoutes([
@@ -23,77 +24,38 @@ export default function Routers() {
          path: '',
          element: <MainLayout />,
          children: [
-            {
-               path: '',
-               element: <Navigate to='Home' />
-            },
-            {
-               path: 'home',
-               element: <Home />
-            },
-            {
-               path: 'detail/:maphim',
-               element: <Detail />
-            },
-            {
-               path: 'ticket/:malichchieu',
-               element: <Ticket />
-            },
-            {
-               path: 'profile',
-               element: <Profile />
-            },
-         ]
+            { path: '', element: <Navigate to='home' /> },
+            { path: 'home', element: <Home /> },
+            { path: 'detail/:maphim', element: <Detail /> },
+            { path: 'ticket/:malichchieu', element: <Ticket /> },
+            { path: 'profile', element: <Profile /> },
+
+         ],
       },
-      
+      {
+         path: '',
+         children: [{ path: 'error404', element: <Offline /> }]
+      },
       {
          path: 'user',
          element: <UserLayout />,
          children: [
-            {
-               path: 'login',
-               element: <Login />
-            },
-            {
-               path: 'register',
-               element: <Register />
-            },                 
-         ]
+            { path: 'login', element: <Login /> },
+            { path: 'register', element: <Register /> },
+         ],
       },
-
       {
          path: 'admin',
          element: <AdminLayout />,
          children: [
-            {
-               path: 'films',
-               element: <QuanLyPhim />
-            },
-            {
-               path: 'films/addnew',
-               element: <ThemPhim />
-            },
-            {
-               path: 'films/edit/:id',
-               element: <SuaPhim />
-            },
-            {
-               path: 'films/showtime/:id',
-               element: <TaoLichChieu />
-            },
-            {
-               path: 'users',
-               element: <QuanLyUsers/>
-            },
-            {
-               path: 'users/themnguoidung',
-               element: <ThemNguoiDung />
-            }, 
-            {
-               path: 'users/suanguoidung/:id',
-               element: <SuaNguoiDung />
-            }, 
-         ]
+            { path: 'films', element: <QuanLyPhim /> },
+            { path: 'films/addnew', element: <ThemPhim /> },
+            { path: 'films/edit/:id', element: <SuaPhim /> },
+            { path: 'films/showtime/:id', element: <TaoLichChieu /> },
+            { path: 'users', element: <QuanLyUsers /> },
+            { path: 'users/themnguoidung', element: <ThemNguoiDung /> },
+            { path: 'users/suanguoidung/:id', element: <SuaNguoiDung /> },
+         ],
       },
-   ])
+   ]);
 }

@@ -5,9 +5,11 @@ import Header from './header/Header'
 
 export default function MainLayout() {
    return (
-      <>
-         <Header/>
-         <Outlet/>
+      < >
+         <Header />
+
+         <Outlet />
+
          <Footer />
       </>
    )

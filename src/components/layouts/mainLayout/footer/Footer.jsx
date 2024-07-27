@@ -3,7 +3,7 @@ import { dataImage } from "./ImageFooter";
 
 function Footer() {
   const anhFooter = dataImage;
-  const text = 'The project was implemented by "KHANG KHÔ KHỐC".';
+  const text = 'Implemented by "KHANG KHÔ KHỐC".';
   const [index, setIndex] = useState(0);
 
   useEffect(() => {
@@ -71,7 +71,7 @@ function Footer() {
                 ))}
               </div>
               <div className="grid md:grid-cols-3 grid-cols-2 justify-items-center md:hidden">
-                {anhFooter.slice(0,8).map((item, index) => (
+                {anhFooter.slice(0, 8).map((item, index) => (
                   <div
                     key={index}
                     className="h-7 w-7 lg:h-10 lg:w-10 small_wh rounded-full mb-4"
@@ -174,12 +174,13 @@ function Footer() {
 
             {/* IMG */}
             <div className="lg:flex justify-center items-center col-span-2 w-full hidden ">
-              <div className="col-span-1 flex items-center">
-                <div className="col-span-4 px-4 md:px-8" colSpan={2}>
-                  <p className="text-lg text-white font-mono px-8 py-4 bg-cyan-500 shadow-2xl shadow-cyan-500/50 rounded-lg hover:cursor-pointer">
+              <div className="col-span-1 flex items-center shadow-lg shadow-color1/50 rounded-lg ">
+                <div className="col-span-4 px-4 " colSpan={2}>
+                  <p className="text-lg text-white font-mono   hover:cursor-pointer">
                     <span style={{ display: 'inline-block', overflow: 'hidden' }}>
                       {text.split('').map((char, idx) => (
                         <span
+                        className=""
                           key={idx}
                           style={{
                             opacity: idx <= index ? 1 : 0,
@@ -195,8 +196,8 @@ function Footer() {
                   </p>
                 </div>
                 <img
-                  src="/icon.png"
-                  className="w-24 mb-3 md:mx-8 lg:ml-0 lg:m-4"
+                  src="/icon.jpg"
+                  className="w-16 mb-3 md:mx-8 lg:ml-0 lg:m-4"
                   alt="icon"
                 />
               </div>

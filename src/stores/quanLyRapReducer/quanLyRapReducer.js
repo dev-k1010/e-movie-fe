@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { quanLyRapServices } from '../../services/quanLyRapServices'
+import { setSpinner } from '../quanLySpinner/quanLySpinnerReducer'
 
 const initialState = {
    thongTinHeThongRap: [], isFetchThongTinHeThongRap: false, errThongTinHeThongRap: undefined,
@@ -62,11 +63,15 @@ export const { reducer: quanLyRapReducer, actions: quanLyRapActions } = createSl
    }
 })
 export const layThongTinHeThongRap = createAsyncThunk('quanLyRap/layThongTinHeThongRap',
-   async (data, { rejectWithValue }) => {
+   async (data, { rejectWithValue, dispatch }) => {
+      dispatch(setSpinner(true))
+
       try {
          const result = await quanLyRapServices.layThongTinHeThongRap()
+         // dispatch(setSpinner(false))
          return result.data.content
       } catch (err) {
+         // dispatch(setSpinner(false))
          return rejectWithValue(err.response)
       }
    }

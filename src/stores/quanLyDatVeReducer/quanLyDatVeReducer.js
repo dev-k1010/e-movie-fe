@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { quanLyDatVeServices } from "../../services/quanLyDatVeServices";
 
+// Trạng thái mặc định 
 const initialState = {
   danhSachPhongVe: {},
   isFetchDanhSachPhongVe: false,
@@ -120,3 +121,4 @@ export const taoLichChieu = createAsyncThunk(
     }
   }
 );
+ 

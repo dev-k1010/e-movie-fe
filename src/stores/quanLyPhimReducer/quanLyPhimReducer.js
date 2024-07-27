@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { quanLyPhimServices } from "../../services/quanLyPhimServices";
+import { setSpinner } from "../quanLySpinner/quanLySpinnerReducer";
 
 const initialState = {
   // Banner
@@ -140,6 +141,7 @@ export const layDanhSachBanner = createAsyncThunk(
     }
   }
 );
+
 export const layDanhSachPhim = createAsyncThunk(
   "quanLyPhim/layDanhSachPhim",
   async (data, { rejectWithValue }) => {

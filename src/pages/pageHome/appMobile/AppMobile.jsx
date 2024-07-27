@@ -6,9 +6,9 @@ import bannerSlider3 from "./dataImgApp/banner-slider3.jpg";
 import bannerSlider4 from "./dataImgApp/banner-slider4.jpg";
 import bannerSlider5 from "./dataImgApp/banner-slider5.jpg";
 import bannerSlider6 from "./dataImgApp/banner-slider6.jpg";
-import { Container } from '../banner/Banner';
-import { Button, Carousel } from 'antd';
+import {Carousel } from 'antd';
 import { moblie } from "./dataImgApp/mobile.jsx"
+import { useNavigate } from 'react-router-dom';
 
 export default function AppMobile() {
 
@@ -34,10 +34,13 @@ export default function AppMobile() {
       );
     });
   };
-
+  const navigate = useNavigate()
+  const handleImageClick = () => {
+    navigate('/error404');
+  };
   return (
 
-    <div className='w-full h-full lg:px-40 pb-5 lg:pb-0' >
+    <div className='w-full h-full  pb-5 lg:pb-0' >
 
       <div className='grid grid-cols-1 lg:grid-cols-2'>
         <div className='p-10 lg:p-20 col-span-1 text-white flex flex-col items-center lg:items-start justify-center space-y-5 lg:space-y-10' >
@@ -52,8 +55,8 @@ export default function AppMobile() {
             đổi quà hấp dẫn.
           </span>
           <button
-
-            className='px-10 py-6 text-black rounded-lg transition duration-500 flex justify-center items-center text-lg lg:text-xl text-center lg:text-start hover:bg-color1/80 bg-color4 border-0'
+            onClick={handleImageClick}
+            className='px-10 py-6 text-black rounded-lg transition duration-500 flex justify-center items-center text-lg lg:text-xl text-center lg:text-start bg-color4 hover:transition hover:duration-500 hover:bg-color4/70 border-0'
           >
             App miễn phí - Tải về ngay!
           </button>

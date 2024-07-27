@@ -1,79 +1,110 @@
 import React, { memo, useState } from "react";
 import Slider from "react-slick";
 import Lottie from "lottie-react";
+import animationPlay from "../../../animation/home/animationPlay.json";
 import styled from "styled-components";
-import animateSrc from "./animationPlayVideo.json";
-import ReactPlayer from "react-player";
+import TrailerPreview from "../../../components/strailerPreview/StrailerPreview";
 
 function Banner(props) {
   const { listBanner } = props;
+  const extendedBannerList = [...listBanner, ...listBanner];
   const [isOpen, setOpen] = useState(false);
+  const [selectedPhim, setSelectedPhim] = useState(null);
+
   const items = [
-    {
-      trailer: "uqJ9u7GSaYM",
-    },
-    {
-      trailer: "kBY2k3G6LsM",
-    },
-    {
-      trailer: "JNZv1SgHv68",
-    },
+    { trailer: "kBY2k3G6LsM&t=4s" },
+    { trailer: "kBY2k3G6LsM&t=4s" },
+    { trailer: "kBY2k3G6LsM&t=4s" },
+    { trailer: "kBY2k3G6LsM&t=4s" },
+    { trailer: "kBY2k3G6LsM&t=4s" },
+    { trailer: "kBY2k3G6LsM&t=4s" },
   ];
+
   const settings = {
-    autoplay: true,
+    className: "center",
+    centerMode: true,
     infinite: true,
-    speed: 500,
+    centerPadding: "280px",
     slidesToShow: 1,
+    autoplay: true,
+    speed: 2000,
+    autoplaySpeed: 4000,
+    rows: 1,
+    cssEase: "ease-in-out",
     slidesToScroll: 1,
+
+    responsive: [
+
+      {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          centerPadding: "90px",
+        },
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          centerPadding: "0",
+        },
+      },
+    ],
   };
+
+  const handleOpen = (index) => {
+    const urtStrailer = `https://www.youtube.com/watch?v=${items[index].trailer}`
+    setOpen(true);
+    setSelectedPhim(urtStrailer);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+    setSelectedPhim(null);
+  };
+
   return (
-    <Container className="Banner">
-      <div>
-        <Slider {...settings}>
-          {listBanner.map((banner, i) => (
-            <div key={i}>
-              <div
-                className="h-screen bg-bottom bg-cover bg-no-repeat flex justify-center items-center group"
-                style={{
-                  backgroundImage: `url(${banner.hinhAnh})`,
-                }}
-              >
-                {!isOpen ? (
-                  <button className="w-48 h-28" onClick={() => setOpen(true)}>
-                    <Lottie animationData={animateSrc} loop={true} />
-                  </button>
-                ) : (
-                  <div className=" w-full h-full flex justify-center items-center invisible group-hover:visible bg-black/75">
-                    <div className="w-3/5 h-3/5  relative">
-                      <div className="w-full ">
-                        <ReactPlayer
-                          url={`https://www.youtube.com/watch?v=${items[i].trailer}`}
-                          controls
-                          width="100%"
-                          height="70vh"
-                        />
-                      </div>
-                      <button
-                        onClick={() => setOpen(false)}
-                        className="absolute -top-5 -right-5 text-2xl text-white"
-                      >
-                        X
-                      </button>
-                    </div>
-                  </div>
-                )}
-              </div>
+    <Container className="Banner bg-gradient-to- from-black to-white/5 ">
+      <Slider {...settings} >
+        {extendedBannerList.map((banner, i) => (
+          <div
+            key={i}
+            className="relative flex justify-center items-center w-full h-[250px] lg:h-[370px]"
+          >
+            <img
+              src={`${banner.hinhAnh}`}
+              loading="lazy"
+              className="absolute inset-0 w-full h-full lg:px-9 "
+              style={{ zIndex: 1 }}
+            />
+            <div className="flex justify-center items-center w-full h-full">
+              {!isOpen && (
+                <button
+                  className="w-36 h-28 flex justify-center items-center"
+                  onClick={() => handleOpen(i)}
+                  style={{ zIndex: 2 }}
+                >
+                  <Lottie animationData={animationPlay} loop={true} />
+                </button>
+              )}
             </div>
-          ))}
-        </Slider>
-      </div>
+          </div>
+        ))}
+      </Slider>
+
+      {isOpen && <TrailerPreview isOpen={isOpen} selectedPhim={selectedPhim} handleClose={handleClose} />}
     </Container>
+
+
   );
 }
 
 export default memo(Banner);
 
-export const Container = styled.div`
+
+const Container = styled.div`
   &.Banner {
     .slick-prev {
       left: 10px;

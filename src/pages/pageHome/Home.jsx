@@ -24,7 +24,6 @@ export default function Home() {
   );
 
   useEffect(() => {
-    // window.scrollTo(0, 0);
     dispatch(layDanhSachBanner());
     dispatch(layDanhSachPhim());
     dispatch(layThongTinLichChieuHeThongRap());
@@ -34,27 +33,34 @@ export default function Home() {
     <div
       style={{
         backgroundImage: `url( 'IMG/bg-1.jpg')`,
-      }}
-    >
-      <Banner listBanner={listBanner} />
-      <HomeTool listPhim={listPhim} />
-      <div id="lichChieuPhim">
-        <MovieList listPhim={listPhim} />
-      </div>
+      }}>
+      <div
+        className="pt-[110px] bg-gradient-to-b from-black to-white/5"
 
-      <div id="danhSachPhim">
-        <ListPhanTrang listPhim={listPhim} />
-      </div>
-
-      <div id="rapChieu">
-        <RapList lichChieuHeThongRap={lichChieuHeThongRap} />
-      </div>
-
-      <div id="tinTuc">
-        <News />
-      </div>
-      <div id="appMobile">
-        < AppMobile/>
+      >
+        <div className="">
+          <Banner listBanner={listBanner} />
+        </div>
+        <div className="px-5 md:px-16 lg:px-28 space-y-12">
+          <div className="shadow-lg shadow-color1 lg:-translate-y-[33px]">
+            <HomeTool listPhim={listPhim} />
+          </div>
+          <div id="lichChieuPhim">
+            <MovieList listPhim={listPhim} />
+          </div>
+          <div id="danhSachPhim">
+            <ListPhanTrang listPhim={listPhim} />
+          </div>
+          <div id="rapChieu">
+            <RapList lichChieuHeThongRap={lichChieuHeThongRap} />
+          </div>
+          <div id="tinTuc">
+            <News />
+          </div>
+          <div id="appMobile" >
+            < AppMobile />
+          </div>
+        </div>
       </div>
     </div>
   );

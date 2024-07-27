@@ -4,16 +4,21 @@ import { quanLyDatVeReducer } from "./quanLyDatVeReducer/quanLyDatVeReducer";
 import { quanLyNguoiDungReducer } from "./quanLyNguoiDungReducer/quanLyNguoiDungReducer";
 import { quanLyPhimReducer } from "./quanLyPhimReducer/quanLyPhimReducer";
 import { quanLyRapReducer } from "./quanLyRapReducer/quanLyRapReducer";
+import quanLySpinnerReducer from "./quanLySpinner/quanLySpinnerReducer";
+import spinnerMiddleware from "../middleware/spinnerMiddleware/spinnerMiddleware";
+
 
 const rootReducer = combineReducers({
    quanLyPhimReducer,
    quanLyRapReducer,
    quanLyNguoiDungReducer,
-   quanLyDatVeReducer
+   quanLyDatVeReducer,
+   quanLySpinnerReducer
 })
 
 export const store = configureStore({
    reducer: rootReducer,
-   middleware: [thunk],
-   devTools: true
-})
+   middleware: (getDefaultMiddleware) =>
+      getDefaultMiddleware().concat(thunk, spinnerMiddleware),
+   devTools: true,
+});

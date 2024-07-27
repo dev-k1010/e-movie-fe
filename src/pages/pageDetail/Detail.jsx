@@ -81,7 +81,7 @@ export default function PhimDetail() {
                   </span>
                 </p>
                 {lichChieuPhim.heThongRapChieu &&
-                lichChieuPhim.heThongRapChieu.length > 0 ? (
+                  lichChieuPhim.heThongRapChieu.length > 0 ? (
                   <p className="text-lime-500 font-semibold ">
                     Thời lượng:{" "}
                     <span className="text-white font-normal ">
@@ -133,7 +133,7 @@ export default function PhimDetail() {
             </div>
           </div>
           {/* Tabs */}
-          <div className="bg-white">
+          <div className="bg-white ">
             <Tabs
               tabPosition="top"
               centered
@@ -185,8 +185,8 @@ export default function PhimDetail() {
                                             onClick={() => {
                                               localStorage.getItem(UserLogin)
                                                 ? navigate(
-                                                    `/ticket/${lichChieu.maLichChieu}`
-                                                  )
+                                                  `/ticket/${lichChieu.maLichChieu}`
+                                                )
                                                 : navigate("/user/login");
                                             }}
                                             key={i}
@@ -226,11 +226,11 @@ export default function PhimDetail() {
                   key: "2",
                   children: (
                     <div className="px-10 pb-10">
-                    <div className="bg-slate-300 rounded-md p-10">
-                    <span className="text-xl leading-relaxed">
-                      {lichChieuPhim.moTa}
-                    </span>
-                    </div>
+                      <div className="bg-gray-100 rounded-md p-10">
+                        <span className="text-xl leading-relaxed">
+                          {lichChieuPhim.moTa}
+                        </span>
+                      </div>
                     </div>
                   ),
                 },

@@ -1,29 +1,26 @@
-
 import { Tabs } from "antd";
 import TabPane from "antd/es/tabs/TabPane";
 import React, { memo, useState } from "react";
-import ReactPlayer from "react-player";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Slider from "react-slick";
 import styled from "styled-components";
-import Carditem from "../../cardItem/Carditem";
+import Carditem from "../../../components/cardItem/Carditem";
+import TrailerPreview from "../../../components/strailerPreview/StrailerPreview";
 
 function MovieList(props) {
-  const [search, setSearch] = useSearchParams({
-    phimdangchieu: true,
-  });
+
   const navigate = useNavigate();
   const { listPhim } = props;
-  const [isTrailerOpen, setTrailerOpen] = useState(false);
+  const [isOpen, setOpen] = useState(false);
   const [selectedPhim, setSelectedPhim] = useState(null);
+  const [activeKey, setActiveKey] = useState("2");
   const settings = {
     className: "center ",
     infinite: true,
     centerPadding: "2px",
-    slidesToShow: 4,
+    slidesToShow: 5,
     slidesToScroll: 1,
-    autoplay: true,
-    speed: 2000,
+    speed: 1500,
     autoplaySpeed: 2000,
     rows: 1,
     cssEase: "ease-in-out",
@@ -46,144 +43,155 @@ function MovieList(props) {
       },
     ],
   };
-  const renderTrailer = (phim) => {
-    setTrailerOpen(true);
+  const handleOpen = (phim) => {
+    setOpen(true);
     setSelectedPhim(phim);
   };
-  const closeTrailer = () => {
-    setTrailerOpen(false);
+  const handleClose = () => {
+    setOpen(false);
     setSelectedPhim(null);
   };
+  const handleOnChange = (key) => {
+    if (key !== 1) {
+      setActiveKey(key)
+    }
+
+  }
+
   const renderMovieSlider = (movies, filterFunc) => {
     const filteredMovies = [...movies].reverse().filter(filterFunc);
+    console.log("🙂 ~ renderMovieSlider ~ filteredMovies:", filteredMovies)
     let customSettings = { ...settings };
 
     if (filteredMovies.length < 4) {
       customSettings = {
         ...settings,
         slidesToShow: 1,
-        className: "center px-[450px]", // Thêm className mới ở đây
+        className: "center px-[450px]",
       };
     }
     return (
-      <Slider {...customSettings}>
+      <StyledSlider {...customSettings}>
         {filteredMovies.map((phim, i) => (
-          <>
+          <div className="px-3">
             <Carditem
               key={i}
               phim={phim}
               navigate={navigate}
-              renderTrailer={renderTrailer}
+              handleOpen={handleOpen}
             />
-          </>
+          </div>
         ))}
-      </Slider>
+      </StyledSlider>
     );
   };
-  const createButton = (label, value, isActive) => (
-    <button
-      onClick={() => setSearch({ phimdangchieu: value })}
-      className={`text-lg transition duration-300 p-2 font-semibold rounded-lg shadow mr-2 hover:bg-white-500 ${
-        isActive ? "bg-color3 text-white" : " text-white"
-      }`}
-    >
-      {label}
-    </button>
-  );
+
   const itemSlider = [
     {
       key: "1",
-      label: createButton(
-        "Đang chiếu",
-        true,
-        search.get("phimdangchieu") === "true"
+      label: (
+        <div className="flex justify-start items-center space-x-3">
+          <div className="h-8 w-[5px] bg-color1"></div>
+          <p
+            className="text-lg md:text-2xl transition duration-300 font-light rounded-lg shadow hover:bg-white-500 cursor-text text-white "
+          >
+            PHIM
+          </p>
+        </div>
+      ),
+      children: null,
+      disabled: true,
+    }
+    ,
+    {
+      key: "2",
+      label: (
+        <button
+          className={`text-lg md:text-md transition duration-500 p-2  rounded-lg shadow hover:bg-white-500  ${activeKey === "2" ? "text-color1" : "text-white"
+            }`}
+        >
+          Đang chiếu
+        </button>
       ),
       children: renderMovieSlider(listPhim, (phim) => phim.dangChieu === true),
     },
     {
-      key: "2",
-      label: createButton(
-        "Sắp chiếu",
-        false,
-        search.get("phimdangchieu") === "false"
+      key: "3",
+      label: (
+        <button
+          className={`text-lg md:text-md transition duration-500 p-2  rounded-lg shadow hover:bg-white-500 ${activeKey === "3" ? "text-color1" : "text-white"
+            }`}
+        >
+          Sắp chiếu
+        </button>
       ),
-      children: renderMovieSlider(listPhim, (phim) => phim.dangChieu === true),
+      children: renderMovieSlider(listPhim, (phim) => phim.sapChieu === true),
     },
   ];
   return (
-    <Container className="MovieList container pb-10 pt-5 overflow-hidden">
-      <div className="text-white grid grid-cols-12 justify-between items-center my-5">
-        <div className="h-1 w-full bg-white col-span-4 "></div>
-        <span className="text-3xl font-bold col-span-4 text-center">
-          LỊCH CHIẾU
-        </span>
-        <div className="h-1 w-full bg-white col-span-4"></div>
-      </div>
-      <Tabs defaultActiveKey="1" destroyInactiveTabPane={true}>
+    <div className=" overflow-hidden ">
+      <StyleTabs
+        activeKey={activeKey}
+        onChange={handleOnChange}
+        destroyInactiveTabPane={true}
+        defaultActiveKey="2"
+      >
         {itemSlider.map((item) => (
           <TabPane
-            tab={<span className=" text-black text-xs">{item.label}</span>}
+            tab={item.label}
             key={item.key}
+            disabled={item.disabled}
           >
             {item.children}
           </TabPane>
         ))}
-      </Tabs>
-      {isTrailerOpen && selectedPhim && (
-        <div
-          style={{ zIndex: 1000 }}
-          className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-75 flex items-center justify-center "
-        >
-          <div className="relative w-full max-w-screen-lg">
-            <button
-              onClick={closeTrailer}
-              className="absolute top-0 -right-16  text-white text-xl"
-            >
-              X
-            </button>
-            <ReactPlayer
-              url={
-                selectedPhim ? selectedPhim.trailer : "https://www.example.com"
-              }
-              controls
-              width="100%"
-              height="70vh"
-            />
-          </div>
-        </div>
+      </StyleTabs>
+      {isOpen && selectedPhim && (
+        <TrailerPreview
+          isOpen={isOpen}
+          selectedPhim={selectedPhim.trailer}
+          handleClose={handleClose}
+        />
       )}
-    </Container>
+    </div>
   );
 }
 export default memo(MovieList);
-
-const Container = styled.div`
-  &.MovieList {
-    .slick-prev {
-      width: initial;
-      height: initial;
-      left: 20px;
-      top: 50%;
-      transform: translateY(-50%);
-      bottom: auto;
-      z-index: 1;
-      &::before {
+const StyledSlider = styled(Slider)`
+  .slick-prev, 
+  .slick-next {
+     top: -50px;
+     left: auto;
+     z-index: 1;
+     &::before {
         color: white;
         font-size: 30px;
       }
-    }
-    .slick-next {
-      width: initial;
-      height: initial;
-      right: 20px;
-      top: 50%;
-      transform: translateY(-50%);
-      bottom: auto;
-      z-index: 1;
-      &::before {
-        color: white;
-        font-size: 30px;
+        @media (max-width: 768px) {
+        left: 10px; 
+        top: 50%;
+        transform: translateY(50%);
       }
-    }
   }
+  .slick-prev {
+     right: 70px;
+    }
+
+  .slick-next {
+      right: 20px;
+      }
 `;
+
+const StyleTabs = styled(Tabs)`
+
+    .ant-tabs-ink-bar {
+      width: 70px !important;
+      background: none !important;
+    }
+    
+    .ant-tabs-nav::before {
+     border-bottom: none !important;
+    }
+
+
+  `

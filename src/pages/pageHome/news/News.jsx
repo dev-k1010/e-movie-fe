@@ -1,7 +1,8 @@
 import { Tabs } from "antd";
 import TabPane from "antd/es/tabs/TabPane";
 import axios from "axios";
-import React, { memo, useEffect, useState } from "react";
+import React, { memo, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Button } from "react-scroll";
 
 function News() {
@@ -9,10 +10,12 @@ function News() {
   const [newsReviewMore, setNewsReviewMore] = useState(null);
   const [newsKhuyenMaiMore, setNewsKhuyenMaiMore] = useState(null);
   const [value, setValue] = useState(0);
-  console.log("🙂 ~ News ~ value:", value)
   const [seeMore, setSeeMore] = useState({ 0: false, 1: false, 2: false });
-  console.log("🙂 ~ News ~ seeMore:", seeMore)
+  const navigate = useNavigate()
 
+  const handleImageClick = () => {
+    navigate('/error404');
+  };
   const handleChange = (newValue) => {
     setValue(newValue);
   };
@@ -35,9 +38,9 @@ function News() {
         <div className=" overflow-hidden">
           <div className="grid grid-cols-2 gap-5 ">
             {/* item0 */}
-            <div>
+            <div onClick={handleImageClick}>
               <div>
-                <a target="_blank" href={newsArr[0].url} rel="noreferrer">
+                <a target="_blank" rel="noreferrer">
                   <img
                     alt="poster"
                     src={newsArr[0].img}
@@ -48,7 +51,6 @@ function News() {
               </div>
               <a
                 target="_blank"
-                href={newsArr[0].url}
                 rel="noreferrer"
                 className="text-base lg:text-xl text-color4 font-semibold hover:text-color1"
               >
@@ -59,9 +61,9 @@ function News() {
               </p>
             </div>
             {/* item1 */}
-            <div>
-              <div>
-                <a target="_blank" href={newsArr[1].url} rel="noreferrer">
+            <div onClick={handleImageClick}>
+              <div >
+                <a target="_blank" rel="noreferrer">
                   <img
                     alt="poster"
                     src={newsArr[1].img}
@@ -72,7 +74,7 @@ function News() {
               </div>
               <a
                 target="_blank"
-                href={newsArr[1].url}
+
                 rel="noreferrer"
                 className="text-base lg:text-xl text-color4 font-semibold hover:text-color1"
               >
@@ -89,9 +91,9 @@ function News() {
           <div className="col-span-6">
             <div className="grid grid-cols-2 gap-5">
               {/* item2 */}
-              <div>
+              <div onClick={handleImageClick}>
                 <div>
-                  <a target="_blank" href={newsArr[2].url} rel="noreferrer">
+                  <a target="_blank" rel="noreferrer">
                     <img
                       alt="poster"
                       src={newsArr[2].img}
@@ -102,7 +104,7 @@ function News() {
                 </div>
                 <a
                   target="_blank"
-                  href={newsArr[2].url}
+
                   rel="noreferrer"
                   className="text-base lg:text-xl text-color4 font-semibold hover:text-color1"
                 >
@@ -113,9 +115,9 @@ function News() {
                 </p>
               </div>
               {/* item3 */}
-              <div>
+              <div onClick={handleImageClick}>
                 <div>
-                  <a target="_blank" href={newsArr[3].url} rel="noreferrer">
+                  <a target="_blank" rel="noreferrer">
                     <img
                       alt="poster"
                       src={newsArr[3].img}
@@ -126,7 +128,7 @@ function News() {
                 </div>
                 <a
                   target="_blank"
-                  href={newsArr[3].url}
+
                   rel="noreferrer"
                   className="text-base lg:text-xl text-color4 font-semibold hover:text-color1"
                 >
@@ -140,9 +142,9 @@ function News() {
           </div>
           <div className="col-span-4 grid grid-cols-1 gap-3">
             {/* item4 */}
-            <div className="flex space-x-5">
+            <div className="flex space-x-5 " onClick={handleImageClick}>
               <div>
-                <a target="_blank" href={newsArr[4].url} rel="noreferrer">
+                <a target="_blank" rel="noreferrer">
                   <img
                     alt="poster"
                     src={newsArr[4].img}
@@ -153,7 +155,7 @@ function News() {
               </div>
               <a
                 target="_blank"
-                href={newsArr[4].url}
+
                 rel="noreferrer"
                 className="text-sm lg:text-lg text-color4 font-semibold hover:text-color1"
               >
@@ -161,9 +163,9 @@ function News() {
               </a>
             </div>
             {/* item5 */}
-            <div className="flex space-x-5">
+            <div className="flex space-x-5" onClick={handleImageClick}>
               <div>
-                <a target="_blank" href={newsArr[5].url} rel="noreferrer">
+                <a target="_blank" rel="noreferrer">
                   <img
                     alt="poster"
                     src={newsArr[5].img}
@@ -174,7 +176,7 @@ function News() {
               </div>
               <a
                 target="_blank"
-                href={newsArr[5].url}
+
                 rel="noreferrer"
                 className="text-sm lg:text-lg text-color4 font-semibold hover:text-color1"
               >
@@ -182,9 +184,9 @@ function News() {
               </a>
             </div>
             {/* item6 */}
-            <div className="flex space-x-5">
+            <div className="flex space-x-5" onClick={handleImageClick}>
               <div>
-                <a target="_blank" href={newsArr[6].url} rel="noreferrer">
+                <a target="_blank" rel="noreferrer">
                   <img
                     alt="poster"
                     src={newsArr[6].img}
@@ -195,7 +197,7 @@ function News() {
               </div>
               <a
                 target="_blank"
-                href={newsArr[6].url}
+
                 rel="noreferrer"
                 className="text-sm lg:text-lg text-color4 font-semibold hover:text-color1"
               >
@@ -203,9 +205,9 @@ function News() {
               </a>
             </div>
             {/* item7 */}
-            <div className="flex space-x-5">
+            <div className="flex space-x-5" onClick={handleImageClick}>
               <div>
-                <a target="_blank" href={newsArr[7].url} rel="noreferrer">
+                <a target="_blank" rel="noreferrer">
                   <img
                     alt="poster"
                     src={newsArr[7].img}
@@ -216,7 +218,7 @@ function News() {
               </div>
               <a
                 target="_blank"
-                href={newsArr[7].url}
+
                 rel="noreferrer"
                 className="text-sm lg:text-lg text-color4 font-semibold hover:text-color1"
               >
@@ -306,17 +308,15 @@ function News() {
   ];
 
   return (
-    <div className="py-10">
+    <div className="py-10 ">
       <Tabs
         defaultActiveKey="0"
         centered
         destroyInactiveTabPane={true}
-        className="px-7 md:px-5"
         onChange={handleChange}
       >
         {itemsButton.map((item) => (
           <TabPane
-            className=" md:px-32"
             tab={<span className="text-black text-xs">{item.label}</span>}
             key={item.key}
           >
@@ -327,7 +327,7 @@ function News() {
       <div className="flex flex-col justify-center items-center mt-5">
         <Button
           onClick={seeMore[value] ? onClickSeeLess : onClickSeeMore}
-          className="px-4 py-2 bg-color4 rounded-md"
+          className="px-4 py-2 text-white bg-color1 hover:transition hover:duration-500 hover:bg-color1/70 rounded-md"
           variant="outlined"
         >
           {seeMore[value] ? "RÚT GỌN" : "XEM THÊM"}

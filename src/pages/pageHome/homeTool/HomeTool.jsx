@@ -3,86 +3,75 @@ import React, { memo, useState } from "react";
 import { quanLyRapServices } from "../../../services/quanLyRapServices";
 import { useNavigate } from "react-router-dom";
 import { UserLogin } from "../../../constants/api";
+import styled from "styled-components";
 
 function HomeTool(props) {
   const { listPhim } = props;
   const navigate = useNavigate();
-  const [phim, setPhim] = useState();
-  const [rapChieu, setRapChieu] = useState();
-  const [gioChieu, setGioChieu] = useState();
-  
-  const fectData = (maPhim) => {
-    quanLyRapServices
-      .layThongTinLichChieuPhim(maPhim)
-      .then((result) => {
-        const phim = result.data.content;
-        setPhim(phim.heThongRapChieu);
-      })
-      .catch((err) => {
-        console.log(
-          "🙂 ~ quanLyRapServices.layThongTinLichChieuPhim ~ err:",
-          err.data
-        );
-      });
-  };
-  const handleChonPhim = (maPhim) => {
-    fectData(maPhim);
-  };
-  const handelChonRap = (maRap) => {
-    const gioChieuTheoRap = phim
-      .filter((rap) => rap.maHeThongRap === maRap)
-      .map((rap) =>
-        rap.cumRapChieu.map((lichChieu) => lichChieu.lichChieuPhim)
-      );
+  const [arrCumRap, setArrCumRap] = useState();
+  const [arrLichChieu, setArrLichChieu] = useState();
+  const [rapDaChon, setRapDaChon] = useState();
+  const [suatDaChon, setSuatDaChon] = useState();
 
-    const array_lon = gioChieuTheoRap[0].reduce(
-      (acc, curr) => acc.concat(curr),
-      []
-    );
 
-    setRapChieu(array_lon);
-  };
-  const handelChonGioChieu = (maRap) => {
-    setGioChieu(maRap);
-  };
-  const handelDatVe = () => {
-    if (!phim || !rapChieu || !gioChieu) {
-      Modal.warning({
-        content: (
-          <>
-            {!phim && (
-              <p className="text-base text-color1"> Vui lòng chọn phim! </p>
-            )}
-            {!rapChieu && (
-              <p className="text-base text-color1">Vui lòng chọn rạp chiếu!</p>
-            )}
-            {!gioChieu && (
-              <p className="text-base text-color1">Vui lòng ngày chiếu!</p>
-            )}
-          </>
-        ),
-        okButtonProps: {
-          className: "bg-color3 text-white",
-        },
-      });
-    } else {
-      localStorage.getItem(UserLogin)
-        ? navigate(`/ticket/${gioChieu}`)
-        : navigate("/user/login");
+  /**
+   * Gọi API lấy danh sách cụm rạp chiếu   
+   * @param {string} maPhim - Mã của phim
+   * @returns {Array} - Mảng cụm rạp chiếu phim
+   * *
+   */
+  const handleChonPhim = async (maPhim) => {
+    try {
+      const result = await quanLyRapServices.layThongTinLichChieuPhim(maPhim);
+      const phim = result.data.content;
+      setArrCumRap(phim.heThongRapChieu);
+      setArrLichChieu([]);
+      setRapDaChon(null);
+      setSuatDaChon(null);
+    } catch (error) {
+      console.log(error.data);
     }
   };
 
+  /**
+   * Lọc và lấy danh sách lịch chiếu phim 
+   * @param {string} maRap - Mã của hệ thống cần lọc
+   * @returns {Array} - Mảng chứa lịch chiếu phim
+   */
+  const handleChonRap = (maRap) => {
+    const suatChieuTheoRap = arrCumRap
+      .filter((rap) => rap.maHeThongRap === maRap)
+      .flatMap((rap) => rap.cumRapChieu.flatMap((lichChieu) => lichChieu.lichChieuPhim));
+
+    setRapDaChon(arrCumRap.find((rap) => rap.maHeThongRap === maRap));
+    setSuatDaChon(null);
+    setArrLichChieu(suatChieuTheoRap);
+  };
+
+  /**
+   * Cập nhật lại trạng thái người dùng chọn giờ chiếu phim
+   * @param {Date} suatChieu -  Thời gian chiếu phim
+   */
+  const handleChonSuatChieu = (suatChieu) => {
+    setSuatDaChon(arrLichChieu.find((item) => item.maLichChieu === suatChieu));
+  };
+
+  const handelDatVe = () => {
+
+    localStorage.getItem(UserLogin)
+      ? navigate(`/ticket/${suatDaChon.maLichChieu}`)
+      : navigate("/user/login");
+
+  };
+
   return (
-    <div className="-translate-y-16">
-      <div style={{ zIndex: 100000 }} className="flex flex-col md:flex-row justify-center items-center space-x-3 mx-20 md:mx-0 lg:mx-80 rounded-md bg-white">
-        <Space wrap className="py-5 flex flex-col md:flex-row">
-          <Select
-            style={{
-              width: 200,
-              height: 50,
-            }}
+      <div className="flex flex-col md:flex-row justify-center items-center rounded-md bg-white">
+        <Space wrap className="py-2 flex flex-col md:flex-row text-black font-semibold text-lg mr-2">
+          {/* Phim */}
+          <StyledSelect
+            className=" w-[300px] md:w-[150px] lg:w-[370px] h-[50px]"
             placeholder={
-              <span className="text-black font-semibold text-lg">Phim</span>
+              <span className="text-black font-semibold text-lg">Chọn phim</span>
             }
             onChange={handleChonPhim}
             options={listPhim.map((phim) => ({
@@ -92,66 +81,79 @@ function HomeTool(props) {
               value: phim.maPhim,
             }))}
           />
-          <Select
-            style={{
-              width: 200,
-              height: 50,
-            }}
-            placeholder={
-              <span className="text-black font-semibold text-lg">Rạp</span>
-            }
-            onChange={handelChonRap}
+          {/* Rạp */}
+          <StyledSelect
+            className="w-[300px] md:w-[150px] lg:w-[370px] h-[50px]"
+            placeholder={<span className="text-black font-semibold text-lg">Chọn rạp</span>}
+            value={rapDaChon ? rapDaChon.maHeThongRap : undefined}
+            onChange={handleChonRap}
             options={
-              phim
-                ?
-                phim.map((rap) => ({
-                  label: (
-                    <span className="font-semibold text-lg">
-                      {rap.tenHeThongRap}
-                    </span>
-                  ),
+              arrCumRap && arrCumRap.length > 0
+                ? arrCumRap.map((rap) => ({
+                  label: <span className="font-semibold text-lg">{rap.tenHeThongRap}</span>,
                   value: rap.maHeThongRap,
                 }))
-                : [{ label: <span className="font-semibold text-lg">Vui lòng chọn phim!</span>, value: null }]
+                : []
             }
-            // disabled={!phim} 
+            disabled={!arrCumRap || arrCumRap.length === 0}
           />
-          <Select
-            style={{
-              width: 200,
-              height: 50,
-            }}
+          {/* Giờ chiếu */}
+          <StyledSelect
+            className=" w-[300px] md:w-[150px] lg:w-[370px] h-[50px]"
             placeholder={
               <span className="text-black font-semibold text-lg">
-                Ngày chiếu
+                Chọn suất
               </span>
             }
-            onChange={handelChonGioChieu}
+            value={suatDaChon ? { label: <span className="font-semibold text-lg">{suatDaChon.ngayChieuGioChieu}</span>, value: suatDaChon.maLichChieu } : undefined}
+            onChange={handleChonSuatChieu}
             options={
-              phim && rapChieu ?
-                rapChieu.map((rap) => ({
-                  label: (
-                    <span className="font-semibold text-lg">
-                      {rap.ngayChieuGioChieu}
-                    </span>
-                  ),
+              arrCumRap && arrLichChieu ?
+                arrLichChieu.map((rap) => ({
+                  label: <span className="font-semibold text-lg">{rap.ngayChieuGioChieu}</span>
+                  ,
                   value: rap.maLichChieu,
                 }))
-                : [{ label: <span className="font-semibold text-lg">Vui lòng chọn phim và rạp!</span>, value: null }]
+                : []
             }
+            disabled={!rapDaChon || rapDaChon.length === 0}
           />
         </Space>
         <button
           style={{ zIndex: 100 }}
           onClick={() => {
-            handelDatVe();
+            if (suatDaChon) {
+
+              handelDatVe();
+
+            }
           }}
-          className="px-8 py-4 rounded-md bg-color4 font-semibold text-lg mb-5 md:mb-0"
+          className={`w-[200px] md:w-[150px] h-[50px] rounded-md bg-color1 text-white font-semibold text-lg mb-5 md:mb-0 ${!suatDaChon ? 'opacity-70 cursor-not-allowed ' : 'hover:transition hover:duration-500 hover:bg-color1/70'}`}
         >
-          Đặt vé
+          Đặt vé nhanh
         </button>
       </div>
-    </div>
+    
   );
 }
 export default memo(HomeTool);
+
+const StyledSelect = styled(Select)
+  `
+  .ant-select-selector  {
+    border: none !important ;
+    background-color: inherit !important;
+    box-shadow: none !important;
+  }
+    &:hover .ant-select-selector {
+        border: none !important;
+    }
+
+    &.ant-select-focused .ant-select-selector,
+    .ant-select-selector:focus,
+    .ant-select-selector:active {
+        border: none !important;
+    }
+  
+ 
+  `
