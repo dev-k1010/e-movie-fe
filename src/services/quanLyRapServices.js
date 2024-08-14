@@ -1,4 +1,4 @@
-import { api, MaNhom } from "../constants/api"
+import { api, MaNhom } from "../config/api"
 
 export const quanLyRapServices = {
    layThongTinHeThongRap: () => {

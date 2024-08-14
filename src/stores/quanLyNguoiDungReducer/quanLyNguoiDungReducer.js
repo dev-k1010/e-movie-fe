@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import { AccessToken, UserLogin } from '../../constants/api';
+import { AccessToken, UserLogin } from '../../config/api';
 import { quanLyNguoiDungServices } from '../../services/quanLyNguoiDungServices';
 
 const initialState = {

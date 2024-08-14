@@ -1,9 +1,8 @@
   import { Tabs } from "antd";
-
   import moment from "moment";
   import React, { memo, useState } from "react";
   import { useNavigate } from "react-router-dom";
-  import { UserLogin } from "../../../constants/api";
+  import { UserLogin } from "../../../config/api";
   import styled from "styled-components";
 
   function RapList(props) {

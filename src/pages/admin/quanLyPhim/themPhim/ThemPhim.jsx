@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form';
 import moment from 'moment';
-import { MaNhom } from '../../../../constants/api';
+import { MaNhom } from '../../../../config/api';
 import { useDispatch, useSelector } from 'react-redux';
 import { quanLyPhimActions, themPhimUploadHinh } from '../../../../stores/quanLyPhimReducer/quanLyPhimReducer';
 import { Switch } from 'antd';
@@ -18,9 +18,9 @@ export default function ThemPhim(props) {
    const [urlHinhAnh, setUrlHinhAnh] = useState()
    const { themPhim, errThemPhim } = useSelector(state => state.quanLyPhimReducer)
 
-   useEffect(()=>{
-      dispatch(quanLyPhimActions.themPhim())   
-   },[])
+   useEffect(() => {
+      dispatch(quanLyPhimActions.themPhim())
+   }, [])
 
    const handleSubmitFrom = handleSubmit(data => {
       data.ngayKhoiChieu = moment(data.ngayKhoiChieu).format('DD/MM/YYYY')
@@ -41,9 +41,9 @@ export default function ThemPhim(props) {
          formData.append('File', data.hinhAnh, data.hinhAnh.name)
       }
 
-      dispatch(themPhimUploadHinh(formData))     
+      dispatch(themPhimUploadHinh(formData))
    })
-   
+
    return (
       <div className='ThemPhim p-3'>
          <p className='font-bold text-xl mb-3'>Thêm mới phim</p>

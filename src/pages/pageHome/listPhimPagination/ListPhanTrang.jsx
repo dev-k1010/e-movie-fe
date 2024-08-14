@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useState, useCallback } from "react";
+import React, { memo, useEffect, useState, useCallback, useRef } from "react";
 import { Pagination } from "antd";
 import { useNavigate } from "react-router-dom";
 import { quanLyPhimServices } from "../../../services/quanLyPhimServices";
@@ -7,12 +7,25 @@ import styled from "styled-components";
 import TrailerPreview from "../../../components/strailerPreview/StrailerPreview";
 
 function ListPhanTrang({ listPhim }) {
+  // Sử dụng useRef để lưu thời gian bắt đầu
+  const startTime = useRef(Date.now());
+
+  // Đo thời gian render sau khi component đã hoàn tất việc render
+  useEffect(() => {
+    const endTime = Date.now();
+    console.log(`ListPhanTrang đã render xong trong ${endTime - startTime.current} ms`);
+  }, []);
+
+
+
   const navigate = useNavigate();
   const [soTrang, setSoTrang] = useState(1);
   const [isOpen, setOpen] = useState(false);
   const [selectedPhim, setSelectedPhim] = useState(null);
   const [phimPhanTrang, setPhimPhanTrang] = useState([]);
-  const [soPhanTuTrenTrang, setSoPhanTuTrenTrang] = useState(8);
+  const [soPhanTuTrenTrang, setSoPhanTuTrenTrang] = useState(10);
+
+
 
   const tongSoPhim = listPhim ? listPhim.length : 0;
 
@@ -85,7 +98,7 @@ function ListPhanTrang({ listPhim }) {
   }, []);
 
   return (
-    <div className="space-y-9">
+    <div >
       <div className=" flex justify-start items-center space-x-3">
         <div className="h-8 w-[5px] bg-color1"></div>
         <span className="text-2xl font-light text-start text-white" >
@@ -96,8 +109,7 @@ function ListPhanTrang({ listPhim }) {
         <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-5 pb-5">
           {phimPhanTrang.map((phim) => (
             <Carditem
-              key={phim.maPhim}
-              phim={phim}
+              movie={phim}
               navigate={navigate}
               handleOpen={handleOpen}
               isVirtual={phim.isVirtual}
@@ -106,8 +118,7 @@ function ListPhanTrang({ listPhim }) {
         </div>
         <div className="py-2 flex items-center justify-center rounded-md mb-24">
           <StyledPagination
-
-            showTitle={false} // ẩn hiệu ứng hover
+            showTitle={false} // ẩn tiêu đề phụ
             current={soTrang}
             total={tongSoPhim}
             pageSize={soPhanTuTrenTrang}
@@ -141,7 +152,7 @@ const StyledPagination = styled(Pagination)`
     margin: 0px 10px;
     position: relative; 
     transition: background-color 0.6s, transform 0.6s;
-    z-index: 10000;
+    z-index: 0;
   }
 
   .ant-pagination-item a {

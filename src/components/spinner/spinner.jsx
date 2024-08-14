@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import spinner_amination from "./spinner_amination.json";
 
 export default function Spinner() {
+  // test code plitting
   const isLoading = useSelector((state) => state.quanLySpinnerReducer.spinner);
 
   return isLoading ? (

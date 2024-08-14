@@ -1,0 +1,79 @@
+import React, { memo, useCallback, useMemo, useState } from "react";
+import TrailerPreview from "../../../components/strailerPreview/StrailerPreview";
+import FadeIn from "../../../components/fadeIn/FadeIn";
+import { banner } from "../../../components/settingSlider/settingSlider";
+import { SliderBanner } from "./style/style";
+import LottieAnimation from "../../../components/lottieAnimation/LottieAnimation";
+import useURLChange from "../../../hooks/use_url_change/useURLChange";
+import useTrailerPreview from "../../../hooks/use_trailerpreview/useTrailerPreview";
+
+
+
+// Dữ liệu tĩnh về các trailer, có thể được lưu trữ ở nơi khác nếu cần
+const items = [
+  { trailer: "kBY2k3G6LsM&t=4s" },
+  { trailer: "kBY2k3G6LsM&t=4s" },
+  { trailer: "kBY2k3G6LsM&t=4s" },
+];
+
+/**
+ * Hook để tính toán lớp CSS cho hình ảnh, dựa trên trạng thái `isVisible`.
+ * 
+ * - `isVisible` quyết định lớp CSS nào sẽ được áp dụng: phóng to hoặc không.
+ * - Chỉ tính toán lại lớp CSS khi `isVisible` thay đổi.
+ * 
+ * @param {boolean} isVisible - Trạng thái hiển thị của phần tử.
+ * @returns {string} - Chuỗi lớp CSS được tính toán.
+ */
+const useImageClass = (isVisible) => useMemo(() => (
+  `transition-transform duration-1000 ease-in-out ${isVisible ? 'scale-[1.15]' : 'scale-100'} flex justify-center items-center w-full h-full`
+), [isVisible]);
+
+
+
+function Banner({ listBanner }) {
+  /**
+   * Sử dụng hook use_url_change để lấy giá trị isVisible
+   */
+  const isVisible = useURLChange();
+  const { isOpen, selectedPhim, handleOpen, handleClose } = useTrailerPreview();
+
+  // Tính toán lớp CSS cho hình ảnh
+  const imageClass = useImageClass(isVisible);
+
+  return (
+    <>
+      <div className="relative z-0">
+        <SliderBanner {...banner}>
+          {listBanner.map((banner, i) => (
+            <div key={banner.maBanner} className=" w-full h-[250px] lg:h-[450px]">
+              <div
+                style={{
+                  backgroundImage: `url(${banner.hinhAnh})`,
+                  backgroundSize: "cover",
+                  backgroundPosition: "top",
+                  backgroundRepeat: "no-repeat",
+                }}
+                className={imageClass}
+              >
+                {!isOpen && (
+                  <button
+                    className="w-36 h-28 flex justify-center items-center"
+                    onClick={() => handleOpen(`https://www.youtube.com/watch?v=${items[i].trailer}`)}
+                  >
+                    <LottieAnimation nameAnimation="buttonYoutube" />
+                  </button>
+                )}
+              </div>
+            </div>
+          ))}
+        </SliderBanner>
+        {/* Hiệu ứng FadeIn */}
+        <FadeIn />
+      </div>
+      {isOpen && <TrailerPreview isOpen={isOpen} selectedPhim={selectedPhim} handleClose={handleClose} />}
+    </>
+  );
+}
+
+export default memo(Banner);

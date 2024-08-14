@@ -1,7 +1,7 @@
 import React from 'react'
 import { useDispatch } from 'react-redux';
 import { NavLink, Outlet, useNavigate } from 'react-router-dom'
-import { UserLogin } from '../../../constants/api';
+import { UserLogin } from '../../../config/api';
 import { quanLyDatVeActions } from '../../../stores/quanLyDatVeReducer/quanLyDatVeReducer';
 import { quanLyNguoiDungActions } from '../../../stores/quanLyNguoiDungReducer/quanLyNguoiDungReducer';
 
@@ -16,7 +16,7 @@ export default function AdminLayout() {
          <div className='flex bg-gray-300'>
             <div className='w-40 bg-slate-800 h-screen'>
                <div className='p-3'>
-                  <NavLink to='/home'><img src="https://cdn.icon-icons.com/icons2/3380/PNG/512/film_youtube_video_movie_social_media_multimedia_icon_212509.png" alt="" className='w-20' /></NavLink>                  
+                  <NavLink to='/home'><img src="https://cdn.icon-icons.com/icons2/3380/PNG/512/film_youtube_video_movie_social_media_multimedia_icon_212509.png" alt="" className='w-20' /></NavLink>
                </div>
                <div className='mt-5 space-y-2'>
                   <NavLink style={active} to='films' className='block px-3 py-1 text-white text-base font-semibold hover:text-white hover:bg-gray-300'>Quản lý phim</NavLink>

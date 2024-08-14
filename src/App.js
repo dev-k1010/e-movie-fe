@@ -9,8 +9,8 @@ import Spinner from "./components/spinner/spinner";
 function App() {
   return (
     <Router>
-      {/* <SpinnerControl /> */}
-      {/* <Spinner /> */}
+      <SpinnerControl />
+      <Spinner />
       <Routers />
     </Router>
   );

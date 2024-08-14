@@ -3,8 +3,9 @@ import { setSpinner } from "../../stores/quanLySpinner/quanLySpinnerReducer";
 const spinnerMiddleware = ({ dispatch }) => {
     let pendingActionsCount = 0;
     let timeoutId = null;
-
     return (next) => (action) => {
+        console.log(action.type.endsWith('/pending'))
+
         if (action.type.endsWith('/pending')) {
             if (pendingActionsCount === 0) {
                 clearTimeout(timeoutId);
@@ -13,7 +14,7 @@ const spinnerMiddleware = ({ dispatch }) => {
                 }, 3000); // Thêm một chút thời gian trễ
             }
             pendingActionsCount++;
-            
+
         }
 
         const handleComplete = () => {

@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { MaNhom } from "../../constants/api";
+import { MaNhom } from "../../config/api";
 import {
   dangKyNguoiDung,
   quanLyNguoiDungActions,

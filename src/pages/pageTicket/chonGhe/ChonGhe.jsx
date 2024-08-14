@@ -3,19 +3,19 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { datVe, layDanhSachPhongVe, quanLyDatVeActions } from "../../../stores/quanLyDatVeReducer/quanLyDatVeReducer";
 import { Modal, Result } from "antd";
-import Lottie from "lottie-react";
-import monkeyanimation from "../../../animation/ticket/monkeyamination.json";
-import anhdaden from "../../../animation/ticket/anhdaden.json";
-import animateSrcSuccess from "../../../animation/ticket/successamination.json";
 import io from "socket.io-client";
 import { WarningOutlined } from "@ant-design/icons";
+import LottieAnimation from "../../../components/lottieAnimation/LottieAnimation";
+
 
 
 const showModal = (title, content) => {
     Modal.error({
         content: (
             <div className="relative flex flex-col justify-center items-center space-y-3">
-                <Lottie animationData={monkeyanimation} loop={true} className="w-60" />
+                <LottieAnimation nameAnimation="anhdaden" classCss="w-60" />
+
+
                 <p className="text-center text-color1 text-2xl font-semibold">{title}</p>
                 <div className="flex flex-col justify-center items-center">{content}</div>
             </div>
@@ -299,7 +299,9 @@ export default function ChonGhe() {
                                         <span className="text-white">Đặt vé thành công </span>
                                     </div>
                                 }
-                                icon={<Lottie animationData={animateSrcSuccess} loop={true} />}
+                                icon={
+                                    <LottieAnimation nameAnimation="success" />
+                                }
                             />
                         ) : null}
                         {errKetQuaDatVe ? (
@@ -313,7 +315,9 @@ export default function ChonGhe() {
                                         </span>
                                     </div>
                                 }
-                                icon={<Lottie animationData={anhdaden} loop={true} />}
+                                icon={
+                                    <LottieAnimation nameAnimation="anhdaden" />
+                                }
                             />
                         ) : null}
                         <button

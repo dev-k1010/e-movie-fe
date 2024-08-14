@@ -1,4 +1,5 @@
-import { api } from "../constants/api"
+import { api } from "../config/api"
+
 
 export const quanLyDatVeServices = {
    layDanhSachPhongVe: (maLichChieu) => {

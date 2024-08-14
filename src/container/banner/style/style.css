@@ -1,0 +1,52 @@
+/* SliderBanner.css */
+.Banner .slick-prev {
+    left: 10px;
+    z-index: 1;
+    width: initial;
+    height: initial;
+  }
+  
+  .Banner .slick-prev::before {
+    font-size: 35px;
+  }
+  
+  .Banner .slick-next {
+    right: 10px;
+    width: initial;
+    height: initial;
+  }
+  
+  .Banner .slick-next::before {
+    font-size: 35px;
+  }
+  
+  .Banner .slick-dots {
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    width: auto;
+  }
+  
+  .Banner .slick-dots button::before {
+    color: white;
+    font-size: 15px;
+  }
+  
+  .Banner .slick-active button::before {
+    opacity: 1;
+  }
+  
+  .Banner .slick-slide {
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+  
+  /* Media Query */
+  @media (max-width: 767px) { /* Bạn có thể thay đổi kích thước màn hình này tùy theo nhu cầu */
+    .Banner .slick-slide {
+      padding-left: 0;
+      padding-right: 0;
+    }
+  }
+  

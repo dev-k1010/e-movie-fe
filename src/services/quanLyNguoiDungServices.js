@@ -1,4 +1,4 @@
-import { api } from "../constants/api"
+import { api } from "../config/api"
 
 export const quanLyNguoiDungServices = {
    dangNhap: (taiKhoan) => {

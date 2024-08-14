@@ -54,11 +54,7 @@ function Footer() {
                 {anhFooter.map((item, index) => (
                   <div
                     key={index}
-                    className="h-7 w-7 lg:h-10 lg:w-10 small_wh rounded-full mb-4"
-                    style={{
-                      backgroundImage: `url(${item.url})`,
-                      backgroundSize: "cover",
-                    }}
+                    className="h-7 w-7 lg:h-10 lg:w-10 small_wh rounded-full mb-4 overflow-hidden"
                   >
                     <a
                       href={item.href}
@@ -66,19 +62,18 @@ function Footer() {
                       style={{
                         color: "#9e9e9e",
                       }}
-                    ></a>
+                    >
+                      <img src={item.url} alt="" loading="lazy" />
+                    </a>
                   </div>
                 ))}
               </div>
+              {/* Mobile */}
               <div className="grid md:grid-cols-3 grid-cols-2 justify-items-center md:hidden">
                 {anhFooter.slice(0, 8).map((item, index) => (
                   <div
                     key={index}
-                    className="h-7 w-7 lg:h-10 lg:w-10 small_wh rounded-full mb-4"
-                    style={{
-                      backgroundImage: `url(${item.url})`,
-                      backgroundSize: "cover",
-                    }}
+                    className="h-7 w-7 lg:h-10 lg:w-10 small_wh rounded-full mb-4 overflow-hidden"
                   >
                     <a
                       href={item.href}
@@ -86,7 +81,9 @@ function Footer() {
                       style={{
                         color: "#9e9e9e",
                       }}
-                    ></a>
+                    >
+                      <img src={item.url} alt="" loading="lazy" />
+                    </a>
                   </div>
                 ))}
               </div>
@@ -98,13 +95,13 @@ function Footer() {
               <h2 className="text-base lg:text-xl font-semibold text-center">MOBILE APP</h2>
               <div className="flex justify-center space-x-5">
                 <div
-                  className="h-7 w-7 lg:h-10 lg:w-10 small_wh mb-4 rounded-full"
-                  style={{
-                    backgroundImage:
-                      "url(https://logos-world.net/wp-content/uploads/2021/02/App-Store-Logo.png)",
-                    backgroundSize: "cover",
-                    backgroundPosition: " center center ",
-                  }}
+                  className="h-7 w-7 lg:h-10 lg:w-10 small_wh mb-4 rounded-full overflow-hidden"
+                // style={{
+                //   backgroundImage:
+                //     "url(https://logos-world.net/wp-content/uploads/2021/02/App-Store-Logo.png)",
+                //   backgroundSize: "cover",
+                //   backgroundPosition: " center center ",
+                // }}
                 >
                   <a
                     href="https://www.apple.com/vn/app-store/"
@@ -112,15 +109,17 @@ function Footer() {
                     style={{
                       color: "#9e9e9e",
                     }}
-                  ></a>
+                  >
+                    <img src="https://logos-world.net/wp-content/uploads/2021/02/App-Store-Logo.png" alt="Icon" loading="lazy" className="w-full h-full object-cover object-center" />
+                  </a>
                 </div>
                 <div
-                  className="h-7 w-7 lg:h-10 lg:w-10 small_wh   rounded-full bg-white"
-                  style={{
-                    backgroundImage: `url( 'IMG/gg-play.png')`,
-                    backgroundSize: "cover",
-                    backgroundPosition: " 2px center",
-                  }}
+                  className="h-7 w-7 lg:h-10 lg:w-10 small_wh   rounded-full bg-white overflow-hidden"
+                // style={{
+                //   backgroundImage: `url( 'IMG/gg-play.png')`,
+                //   backgroundSize: "cover",
+                //   backgroundPosition: " 2px center",
+                // }}
                 >
                   <a
                     href="https://play.google.com/"
@@ -128,7 +127,9 @@ function Footer() {
                     style={{
                       color: "#9e9e9e",
                     }}
-                  ></a>
+                  >
+                    <img src="IMG/gg-play.png" alt="Icon" loading="lazy" className="w-full h-full object-cover object-center" />
+                  </a>
                 </div>
               </div>
             </div>
@@ -138,12 +139,12 @@ function Footer() {
               <h2 className="text-base lg:text-xl font-semibold text-center">LIÊN HỆ</h2>
               <div className="flex justify-center space-x-5">
                 <div
-                  className="h-7 w-7 lg:h-10 lg:w-10 small_wh  rounded-full mb-4"
-                  style={{
-                    backgroundImage: `url( 'IMG/fb_icon.png')`,
-                    backgroundSize: "cover",
-                    backgroundPosition: " 0 0",
-                  }}
+                  className="h-7 w-7 lg:h-10 lg:w-10 small_wh  rounded-full mb-4 overflow-hidden"
+                // style={{
+                //   backgroundImage: `url( 'IMG/fb_icon.png')`,
+                //   backgroundSize: "cover",
+                //   backgroundPosition: " 0 0",
+                // }}
                 >
                   <a
                     href="https://www.facebook.com"
@@ -151,15 +152,17 @@ function Footer() {
                     style={{
                       color: "#9e9e9e",
                     }}
-                  ></a>
+                  >
+                    <img src="IMG/fb_icon.png" alt="Icon" loading="lazy" className="w-full h-full object-cover object-center" />
+                  </a>
                 </div>
                 <div
-                  className="h-7 w-7 lg:h-10 lg:w-10 small_wh   rounded-full bg-white"
-                  style={{
-                    backgroundImage: `url( 'IMG/zalo-icon.jfif')`,
-                    backgroundSize: "cover",
-                    backgroundPosition: " 0 0",
-                  }}
+                  className="h-7 w-7 lg:h-10 lg:w-10 small_wh   rounded-full bg-white overflow-hidden"
+                // style={{
+                //   backgroundImage: `url( 'IMG/zalo-icon.jfif')`,
+                //   backgroundSize: "cover",
+                //   backgroundPosition: " 0 0",
+                // }}
                 >
                   <a
                     href="https://zalo.me/pc"
@@ -167,7 +170,9 @@ function Footer() {
                     style={{
                       color: "#9e9e9e",
                     }}
-                  ></a>
+                  >
+                    <img src="IMG/zalo-icon.jfif" alt="Icon" loading="lazy" className="w-full h-full object-cover object-center" />
+                  </a>
                 </div>
               </div>
             </div>
@@ -180,7 +185,7 @@ function Footer() {
                     <span style={{ display: 'inline-block', overflow: 'hidden' }}>
                       {text.split('').map((char, idx) => (
                         <span
-                        className=""
+                          className=""
                           key={idx}
                           style={{
                             opacity: idx <= index ? 1 : 0,

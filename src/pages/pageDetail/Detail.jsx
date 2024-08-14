@@ -8,7 +8,7 @@ import { AiFillPlaySquare } from "react-icons/ai";
 import { buildStyles, CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import styled from "styled-components";
-import { UserLogin } from "../../constants/api";
+import { UserLogin } from "../../config/api";
 import ReactPlayer from "react-player";
 
 export default function PhimDetail() {
@@ -51,7 +51,7 @@ export default function PhimDetail() {
         className="lg:p-64 pb-5 backdrop-blur-[12px]"
         style={{ backgroundColor: "#00000087" }}
       >
-        <div className="container text-white">
+        <div className="container text-white ">
           <div className="py-3 grid sm:grid-cols-2 md:grid-cols-5 ">
             {/* IMG */}
             <div className="md:col-span-1">
