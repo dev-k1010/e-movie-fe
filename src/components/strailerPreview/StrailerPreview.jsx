@@ -1,14 +1,17 @@
 import React from 'react';
 import ReactPlayer from 'react-player';
+import { useTrailerContext } from '../../context/TrailerContext';
 
-const TrailerPreview = ({ isOpen, selectedPhim, handleClose }) => {
+const TrailerPreview = () => {
 
-    if (!isOpen || !selectedPhim) return null;
+    const { isOpen, urlTrailer, handleClose } = useTrailerContext();
+
+    if (!isOpen || !urlTrailer) return null;
 
     return (
         <div
-            style={{ zIndex: 10000000 }}
-            className=" fixed top-0 left-0 w-full h-full bg-black bg-opacity-75 flex items-center justify-center"
+            style={{ zIndex: 60 }}
+            className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-75 flex items-center justify-center"
         >
             <div className="relative w-full max-w-screen-lg mx-4 md:mx-8 lg:mx-16 space-y-3">
                 <button
@@ -18,7 +21,7 @@ const TrailerPreview = ({ isOpen, selectedPhim, handleClose }) => {
                     Đóng
                 </button>
                 <ReactPlayer
-                    url={selectedPhim}
+                    url={urlTrailer}
                     controls
                     width="100%"
                     height="70vh"

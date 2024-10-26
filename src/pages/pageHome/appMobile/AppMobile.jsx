@@ -6,7 +6,7 @@ import bannerSlider3 from "./dataImgApp/banner-slider3.jpg";
 import bannerSlider4 from "./dataImgApp/banner-slider4.jpg";
 import bannerSlider5 from "./dataImgApp/banner-slider5.jpg";
 import bannerSlider6 from "./dataImgApp/banner-slider6.jpg";
-import {Carousel } from 'antd';
+import { Carousel } from 'antd';
 import { moblie } from "./dataImgApp/mobile.jsx"
 import { useNavigate } from 'react-router-dom';
 
@@ -40,16 +40,26 @@ export default function AppMobile() {
   };
   return (
 
-    <div className='w-full h-full  pb-5 lg:pb-0' >
+    <div className='w-full h-full  pb-5 lg:pb-0'
+      style={{
+        backgroundImage: `url('IMG/bg-1.jpg')`,
+        backgroundRepeat: "repeat",
+
+      }}
+    >
 
       <div className='grid grid-cols-1 lg:grid-cols-2'>
-        <div className='p-10 lg:p-20 col-span-1 text-white flex flex-col items-center lg:items-start justify-center space-y-5 lg:space-y-10' >
-          <span className='text-3xl lg:text-4xl text-center font-bold lg:text-start' >
-            Ứng dụng tiện lợi dành cho
-          </span>
-          <span className='text-3xl lg:text-4xl text-center font-bold '>
+        <div className='p-10 lg:pl-44 lg:py-20 col-span-1 text-white flex flex-col items-center lg:items-start justify-center space-y-5 lg:space-y-10' >
+          <p
+            style={{
+              lineHeight: "4rem"
+            }}
+            className='text-3xl lg:text-4xl text-center font-bold lg:text-start leading-loose' >
+            Ứng dụng tiện lợi dành cho người yêu điện ảnh
+          </p>
+          {/* <span className='text-3xl lg:text-4xl text-center font-bold '>
             người yêu điện ảnh
-          </span>
+          </span> */}
           <span className='text-lg lg:text-xl text-center lg:text-start font-medium'>
             Không chỉ đặt vé, bạn còn có thể bình luận phim, chấm điểm rạp và
             đổi quà hấp dẫn.

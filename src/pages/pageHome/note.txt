@@ -1,0 +1,123 @@
+useEffect(() => {
+    const cursor = document.getElementById('custom-cursor');
+    let cursorX = 0;
+    let cursorY = 0;
+    let mouseX = 0;
+    let mouseY = 0;
+    const speed = 0.2; // Điều chỉnh tốc độ theo đuổi
+
+    const handleMouseMove = (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+    };
+
+    const handleMouseEnter = () => {
+      cursor.style.opacity = '1'; // Hiển thị chấm tròn khi chuột quay lại
+    };
+
+    const handleMouseLeave = () => {
+      cursor.style.opacity = '0'; // Ẩn chấm tròn khi chuột ra khỏi khung hình
+    };
+
+    const animateCursor = () => {
+      cursorX += (mouseX - cursorX) * speed;
+      cursorY += (mouseY - cursorY) * speed;
+      cursor.style.left = `${cursorX}px`;
+      cursor.style.top = `${cursorY}px`;
+
+      requestAnimationFrame(animateCursor);
+    };
+
+    // Di chuyển mục tiêu theo hướng của chuột khi hover
+    const handleHoverMove = (e) => {
+      const hoverTarget = e.target;
+      const rect = hoverTarget.getBoundingClientRect();
+      const targetX = (e.clientX - rect.left - rect.width / 2) * 0.2; // Tỷ lệ di chuyển
+      const targetY = (e.clientY - rect.top - rect.height / 2) * 0.2; // Tỷ lệ di chuyển
+
+      hoverTarget.style.transform = `translate(${targetX}px, ${targetY}px)`; // Di chuyển mục tiêu theo chuột
+    };
+
+    // Khi hover vào phần tử được chọn, chấm tròn sẽ phóng to và mục tiêu sẽ di chuyển theo chuột
+    const handleHoverEnter = (e) => {
+      const targetRect = e.target.getBoundingClientRect(); // Lấy vị trí của phần tử
+      const targetCenterX = targetRect.left + targetRect.width / 2; // Lấy vị trí giữa theo chiều ngang
+      const targetCenterY = targetRect.top + targetRect.height / 2; // Lấy vị trí giữa theo chiều dọc
+
+      cursor.style.transform = 'scale(10)'; // Phóng to con trỏ
+      cursor.style.left = `${targetCenterX}px`; // Di chuyển vào giữa phần tử
+      cursor.style.top = `${targetCenterY}px`; // Di chuyển vào giữa phần tử
+      cursor.style.zIndex = '1'; // Đặt con trỏ dưới phần tử mục tiêu, nhưng trên những phần tử khác
+      e.target.style.zIndex = '2'; // Đảm bảo phần tử được hover có z-index cao hơn con trỏ
+
+      document.addEventListener('mousemove', handleHoverMove); // Thêm sự kiện mousemove khi hover
+    };
+
+    const handleHoverLeave = (e) => {
+      cursor.style.transform = 'scale(1)'; // Thu nhỏ lại khi rời khỏi hover
+      cursor.style.zIndex = '9999'; // Đặt con trỏ trở lại trên cùng khi không hover
+      e.target.style.zIndex = 'auto'; // Trả lại z-index mặc định cho phần tử sau khi hover
+
+      document.removeEventListener('mousemove', handleHoverMove); // Loại bỏ sự kiện mousemove khi rời khỏi hover
+      e.target.style.transform = 'translate(0, 0)'; // Trả lại vị trí ban đầu của phần tử khi không hover
+    };
+
+    document.addEventListener('mousemove', handleMouseMove);
+    document.addEventListener('mouseenter', handleMouseEnter);
+    document.addEventListener('mouseleave', handleMouseLeave);
+
+    const hoverElements = document.querySelectorAll('.hover-target');
+    hoverElements.forEach((el) => {
+      el.addEventListener('mouseenter', handleHoverEnter);
+      el.addEventListener('mouseleave', handleHoverLeave);
+    });
+
+    requestAnimationFrame(animateCursor);
+
+    // Cleanup event listeners khi component unmount
+    return () => {
+      document.removeEventListener('mousemove', handleMouseMove);
+      document.removeEventListener('mouseenter', handleMouseEnter);
+      document.removeEventListener('mouseleave', handleMouseLeave);
+      hoverElements.forEach((el) => {
+        el.removeEventListener('mouseenter', handleHoverEnter);
+        el.removeEventListener('mouseleave', handleHoverLeave);
+      });
+    };
+  }, []);
+
+Đặt thẻ để có hiệu ứng
+  {/* <div
+        id="custom-cursor"
+        style={{
+          width: '10px',
+          height: '10px',
+          backgroundColor: 'white',
+          borderRadius: '50%',
+          position: 'fixed',
+          pointerEvents: 'none',
+          zIndex: '9999',
+          opacity: '1', 
+          transition: 'opacity 0.3s ease, transform 0.3s ease',
+        }}
+      ></div> */}
+
+
+
+Coponent có thể dùng lại
+
+
+{/* <div className="shadow-lg shadow-color1 lg:-translate-y-[33px] rounded-md overflow-hidden">
+          <HomeTool listPhim={listPhim} />
+        </div> */}
+
+{/* <div className='relative bg-[#252525] p-5 w-full h-[9vh] flex justify-center items-center'>
+          <div className="w-full h-full flex justify-center items-center space-x-3">
+            <span className="w-[3vh] h-[3vh] rounded-full bg-color1 flex justify-center items-center">
+              <ExclamationOutlined className="text-xl" />
+            </span>
+            <span className="text-color1 text-xl font-extrabold">
+              CHÚ Ý: VUI LÒNG KIỂM TRA THÔNG TIN TRƯỚC KHI THANH TOÁN
+            </span>
+          </div>
+        </div> */}

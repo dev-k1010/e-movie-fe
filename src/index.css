@@ -5,3 +5,54 @@
 body {
   font-family: "Roboto";
 }
+
+
+
+.hover-target {
+  position: relative; /* Tạo stacking context để phần tử này có thể nằm trên con trỏ */
+  z-index: 0; /* Đặt giá trị z-index ban đầu */
+  transition: transform 0.3s ease; /* Làm mượt chuyển động khi hover */
+}
+
+.hover-target:hover {
+  z-index: 1; /* Đảm bảo phần tử mục tiêu hover có z-index cao hơn con trỏ */
+}
+
+.other-elements {
+  z-index: -1; /* Các phần tử khác có thể có z-index thấp hơn để bị che bởi con trỏ phóng to */
+}
+
+
+
+
+
+
+
+/* Áp dụng cho toàn bộ trang */
+/* html {
+  scrollbar-width: none; Ẩn thanh cuộn cho Firefox
+  -ms-overflow-style: none; Ẩn thanh cuộn cho IE và Edge
+}
+
+body::-webkit-scrollbar {
+  display: none; Ẩn thanh cuộn cho các trình duyệt WebKit
+} */
+
+*::-webkit-scrollbar {
+  width: 10px; /* Độ rộng của scrollbar */
+}
+
+*::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1); /* Màu nền của scrollbar */
+  border-radius: 10px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.4); /* Màu của thumb (phần cuộn) */
+  border-radius: 10px;
+  border: 2px solid transparent; /* Đường viền của thumb để tạo khoảng cách */
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(255, 255, 255, 0.6); /* Màu khi hover vào thumb */
+}

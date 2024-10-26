@@ -4,7 +4,8 @@ import { Link } from 'react-scroll';
 
 const MenuDesktop = ({ handleClick, menuItems }) => (
     <ul className="flex items-center justify-start space-x-6 ">
-        {menuItems.map((menuItem, index) => (
+        {menuItems.map((menuItem, index) => (<>
+            
             <li key={index}>
                 <Link
                     onClick={handleClick}
@@ -18,7 +19,7 @@ const MenuDesktop = ({ handleClick, menuItems }) => (
                 >
                     {menuItem.label}
                 </Link>
-            </li>
+            </li></>
         ))}
     </ul>
 );

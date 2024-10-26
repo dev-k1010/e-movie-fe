@@ -4,7 +4,7 @@ const spinnerMiddleware = ({ dispatch }) => {
     let pendingActionsCount = 0;
     let timeoutId = null;
     return (next) => (action) => {
-        console.log(action.type.endsWith('/pending'))
+        // console.log(action.type.endsWith('/pending'))
 
         if (action.type.endsWith('/pending')) {
             if (pendingActionsCount === 0) {

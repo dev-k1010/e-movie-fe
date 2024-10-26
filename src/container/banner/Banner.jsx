@@ -1,49 +1,80 @@
 import React, { memo, useCallback, useMemo } from "react";
 import Slider from "react-slick";
-import TrailerPreview from "../../components/strailerPreview/StrailerPreview";
-import FadeIn from "../../components/fadeIn/FadeIn";
-import LottieAnimation from "../../components/lottieAnimation/LottieAnimation";
 import useURLChange from "../../hooks/use_url_change/useURLChange";
-import useTrailerPreview from "../../hooks/use_trailerpreview/useTrailerPreview";
-import { bannerSettings } from "../../constants/settingSlider/pageHome";
 import "../banner/style/style.css";
+import { bannerSettings } from "../../constants/settingSlider/settingSlider";
+import { PlayCircleOutlined } from "@ant-design/icons";
+import { useSliderContext } from "../../context/SliderContext";
+import FadeIn from "../../components/fadeIn/FadeIn";
+import { useTrailerContext } from "../../context/TrailerContext";
 
-// Dữ liệu tĩnh về các trailer, có thể được lưu trữ ở nơi khác nếu cần
+
+
 const trailerItems = [
+  { trailer: "kBY2k3G6LsM&t=4s" },
+  { trailer: "kBY2k3G6LsM&t=4s" },
+  { trailer: "kBY2k3G6LsM&t=4s" },
   { trailer: "kBY2k3G6LsM&t=4s" },
   { trailer: "kBY2k3G6LsM&t=4s" },
   { trailer: "kBY2k3G6LsM&t=4s" },
 ];
 
-/**
- * Hook để tính toán lớp CSS cho hình ảnh, dựa trên trạng thái `isVisible`.
- * 
- * - `isVisible` quyết định lớp CSS nào sẽ được áp dụng: phóng to hoặc không.
- * - Chỉ tính toán lại lớp CSS khi `isVisible` thay đổi.
- * 
- * @param {boolean} isVisible - Trạng thái hiển thị của phần tử.
- * @returns {string} - Chuỗi lớp CSS được tính toán.
- */
+const listBanner = [
+  {
+    hinhAnh: "https://movienew.cybersoft.edu.vn/hinhanh/ban-tay-diet-quy.png",
+    maBanner: 1,
+    maPhim: 1282,
+    tenPhim: "Bàn Tay Diệt Quỷ",
+  },
+  {
+
+    hinhAnh: "https://movienew.cybersoft.edu.vn/hinhanh/lat-mat-48h.png",
+    maBanner: 2,
+    maPhim: 1283,
+    tenPhim: "Lặt Mặt 48h"
+  },
+  {
+    hinhAnh: "https://movienew.cybersoft.edu.vn/hinhanh/cuoc-chien-sinh-tu.png",
+    maBanner: 3,
+    maPhim: 1284,
+    tenPhim: "Cuộc Chiến Sinh Tử"
+  },
+  {
+    hinhAnh: "https://movienew.cybersoft.edu.vn/hinhanh/ban-tay-diet-quy.png",
+    maBanner: 4,
+    maPhim: 1282,
+    tenPhim: "Bàn Tay Diệt Quỷ"
+  },
+  {
+
+    hinhAnh: "https://movienew.cybersoft.edu.vn/hinhanh/lat-mat-48h.png",
+    maBanner: 5,
+    maPhim: 1283,
+    tenPhim: "Lặt Mặt 48h"
+  },
+  {
+    hinhAnh: "https://movienew.cybersoft.edu.vn/hinhanh/cuoc-chien-sinh-tu.png",
+    maBanner: 6,
+    maPhim: 1284,
+    tenPhim: "Cuộc Chiến Sinh Tử"
+  }
+]
+
+
 const useImageClass = (isVisible) =>
   useMemo(() => (
-    `w-full h-full lg:px-9 transition-transform duration-700 ease-in-out ${isVisible ? 'scale-[1.0685]' : 'scale-100'} flex justify-center items-center`
+    `transition-transform duration-700 ease-in-out ${isVisible ? 'scale-[1.1]' : 'scale-[1]'}`
   ), [isVisible]);
 
-/**
- * Component Banner hiển thị các hình ảnh và trailer preview.
- * 
- * @param {Array} listBanner - Danh sách các banner để hiển thị.
- * @returns {JSX.Element}
- */
-function Banner({ listBanner }) {
-  // Hook để kiểm tra sự thay đổi của URL
+
+// function Banner({ listBanner }) {
+function Banner() {
+
   const isVisible = useURLChange();
-
-  // Hook để quản lý trạng thái mở/đóng của Trailer Preview
-  const { isOpen, selectedPhim, handleOpen, handleClose } = useTrailerPreview();
-
-  // Tính toán lớp CSS cho hình ảnh dựa trên trạng thái isVisible
+  const { handleOpen } = useTrailerContext();
   const imageClass = useImageClass(isVisible);
+
+ 
 
   /**
    * Hàm render từng item của slider.
@@ -53,43 +84,128 @@ function Banner({ listBanner }) {
    * @returns {JSX.Element} - Phần tử JSX đại diện cho một banner.
    */
   const renderBannerItem = useCallback((banner, index) => (
-    <div key={banner.maBanner} className="w-full h-[250px] lg:h-[450px]">
+
+    <div className=" w-full h-[250px] lg:h-[75vh]">
       <div
+        key={banner.maBanner}
+        className="w-full h-full flex justify-center items-center"
         style={{
-          backgroundImage: `url(${banner.hinhAnh})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
+          backgroundImage: `url(${banner.hinhAnh})`, // Sử dụng backgroundImage
           backgroundRepeat: "no-repeat",
+          backgroundSize: "cover", // Đảm bảo ảnh bao phủ toàn bộ div
+          backgroundPosition: "center", // Đặt ảnh ở giữa
         }}
-        className={imageClass}
       >
-        {!isOpen && (
+        {/* Nút bấm */}
+    
+        <div className=" banner-button flex flex-col justify-center items-center overflow-hidden space-y-[3vh]"
+          style={{ zIndex: 1 }}
+
+        >
+          <div className=' w-[20vh] h-[3vh] grid grid-cols-12 items-end justify-center relative '>
+            {/* Đường kẻ ngang trái */}
+            <span className="col-span-5 w-full flex justify-end items-center">
+              <span className="border border-white w-[50%] "></span>
+            </span>
+            {/* Hình thoi trái */}
+            <span className="col-span-1 relative flex items-center justify-center w-full aspect-square">
+              <span className="border-2 border-white w-[80.7%] h-[80.7%] transform translate-y-1/2 rotate-45"></span>
+            </span>
+            {/* Đường kẻ giữa */}
+            <span className="border col-span-1 border-white h-full absolute top-0 left-1/2 transform -translate-x-1/2  bg-black bottom-0"></span>
+            {/* Hình thoi phải */}
+            <span className="col-span-1 relative flex items-center justify-center w-full aspect-square">
+              <span className="border-2 border-white w-[80.7%] h-[80.7%] transform translate-y-1/2 rotate-45"></span>
+            </span>
+            {/* Đường kẻ ngang phải */}
+            <span className="col-span-5 w-full flex justify-start items-center">
+              <span className="border border-white w-[50%] "></span>
+            </span>
+          </div>
+          <span className="space-y-5 group">
+            <h1
+              className="text-white text-4xl font-sans font-normal">{banner.tenPhim}</h1>
+            <div className="bg-color1 h-[0.5px] w-full transition duration-500 scale-x-0 group-hover:scale-x-100 block "></div>
+          </span>
           <button
-            className="w-36 h-28 flex justify-center items-center"
-            onClick={() => handleOpen(`https://www.youtube.com/watch?v=${trailerItems[index].trailer}`)}
+            className="w-[15vh] flex justify-center items-center transition duration-300  bg-color1 hover:bg-[#921616] rounded-md py-2 space-x-2 text-white"
+            onClick={() =>
+              handleOpen(`https://www.youtube.com/watch?v=${trailerItems[index].trailer}`)
+            }
           >
-            <LottieAnimation nameAnimation="buttonYoutube" />
+            <PlayCircleOutlined className="text-2xl " />
+            <h1
+              className=" text-lg font-sans font-normal">Trailer</h1>
           </button>
-        )}
+          <div className='w-[20vh] h-[3vh] grid grid-cols-12  relative items-start justify-center'>
+            {/* Đường kẻ ngang trái */}
+            <span className="col-span-5 w-full flex justify-end items-center">
+              <span className="border border-white w-[50%]"></span>
+            </span>
+            {/* Hình thoi trái */}
+            <span className="col-span-1 relative flex items-center justify-center w-full aspect-square">
+              <span className="border-2 border-white w-[80.7%] h-[80.7%] transform -translate-y-1/2 rotate-45"></span>
+            </span>
+            {/* Đường kẻ giữa */}
+            <span className="border col-span-1 border-white h-full absolute top-0 left-1/2 transform -translate-x-1/2 bg-black"></span>
+            {/* Hình thoi phải */}
+            <span className="col-span-1 relative flex items-center justify-center w-full aspect-square">
+              <span className="border-2 border-white w-[80.7%] h-[80.7%] transform -translate-y-1/2 rotate-45"></span>
+            </span>
+            {/* Đường kẻ ngang phải */}
+            <span className="col-span-5 w-full flex justify-start items-center">
+              <span className="border border-white w-[50%] "></span>
+            </span>
+          </div>
+        </div>
       </div>
     </div>
-  ), [imageClass, isOpen, handleOpen]);
+
+  ), [imageClass, handleOpen]);
+
+
+  const { currentSlider, setCurrentSlider } = useSliderContext();
+  const handleAfterChange = (current) => {
+    setCurrentSlider(current);
+  };
+  const settings = bannerSettings(currentSlider, handleAfterChange)
 
   return (
     <>
-      <div className="relative z-0 Banner">
-        {/* Sử dụng Slider component từ react-slick để hiển thị danh sách banner */}
-        <Slider {...bannerSettings}>
-          {listBanner.map(renderBannerItem)}
-        </Slider>
-        {/* Hiệu ứng FadeIn */}
+      <div
+        style={{
+          backgroundImage: `url("/IMG/bg-29.jpg")`,
+          backgroundRepeat: "no-repeat",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+        className="Banner relative z-0 overflow-hidden py-16 px-28">
+        <div
+          className="absolute inset-0"
+          style={{
+            background: `
+              linear-gradient(to bottom, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0) 20%),
+              linear-gradient(to top, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0) 20%),
+              linear-gradient(to right, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0) 20%),
+              linear-gradient(to left, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0) 20%)
+            `,
+          }}
+        ></div>
+       
+
         <FadeIn />
+
+        <Slider {...settings}>
+
+          {listBanner.map(renderBannerItem)}
+
+        </Slider>
+
       </div>
-      {/* Hiển thị TrailerPreview khi isOpen là true */}
-      {isOpen && <TrailerPreview isOpen={isOpen} selectedPhim={selectedPhim} handleClose={handleClose} />}
+
+
     </>
   );
 }
 
-// Sử dụng memo để tránh render lại không cần thiết khi props không thay đổi
 export default memo(Banner);

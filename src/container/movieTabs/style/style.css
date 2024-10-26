@@ -1,31 +1,4 @@
-.MovieTabs .slick-prev, 
-.MovieTabs .slick-next {
-  top: -50px;
-  left: auto;
-  z-index: 1;
-}
 
-.MovieTabs .slick-prev::before, 
-.MovieTabs .slick-next::before {
-  color: white;
-  font-size: 30px;
-}
-@media (max-width: 768px) {
-  .MovieTabs .slick-prev, 
-  .MovieTabs .slick-next {
-    left: 10px; 
-    top: 50%;
-    transform: translateY(50%);
-  }
-}
-
-.MovieTabs .slick-prev {
-  right: 70px;
-}
-
-.MovieTabs .slick-next {
-  right: 20px;
-}
 
 
 .tabs .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
@@ -34,16 +7,15 @@
 /* Styles for tab buttons on hover and focus, but not when active */
 .tabs .ant-tabs-tab:not(.ant-tabs-tab-active):hover .ant-tabs-tab-btn,
 .tabs .ant-tabs-tab:not(.ant-tabs-tab-active):focus .ant-tabs-tab-btn {
-  color: #c3c3c3; /* Màu xanh khi hover hoặc focus nhưng không active */
+  color: #c3c3c3; 
 }
 .tabs .ant-tabs-tab-btn {
   color: #fff;
 }
 .tabs .ant-tabs-ink-bar {
-  width: 70px !important;
-  background: none !important;
+  background: none;
 }
 
-.tabs .ant-tabs-nav::before {
+/* .tabs .ant-tabs-nav::before {
  border-bottom: none !important;
-}
+} */

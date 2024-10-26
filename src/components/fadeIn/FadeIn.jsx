@@ -11,19 +11,18 @@ const FadeIn = () => {
                 setShow(true);
             } else {
                 // Để fade-out trước khi ẩn
-                await new Promise(resolve => setTimeout(resolve, 900)); // Thời gian fade-out
+                await new Promise(resolve => setTimeout(resolve, 1000)); // Thời gian fade-out
                 setShow(false);
             }
         };
-
         handleShow();
     }, [isVisible]);
 
     return (
         <div
-            className={`absolute inset-0  backdrop-blur-md transition-opacity duration-500 ${show ? 'opacity-100' : 'opacity-0'}`}
+            className={`absolute w-full h-full inset-0 backdrop-blur-md transition-opacity duration-500 ${show ? 'opacity-100' : 'opacity-0'}`}
             style={{
-                zIndex: 1,
+                zIndex: 100,
                 pointerEvents: 'none',
             }}
         />

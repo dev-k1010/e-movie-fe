@@ -1,0 +1,14 @@
+/* SliderBanner.css */
+  
+  .mySwiper .swiper-slide {
+    
+    transition: transform 0.8s ease-in-out,opacity 0.8s ease-in-out;
+    opacity: 0.6;
+  }
+  
+  .mySwiper .swiper-slide-active {
+    transition: transform 0.8s ease-in-out, opacity 0.8s ease-in-out;
+    opacity: 1;
+  }
+  
+  

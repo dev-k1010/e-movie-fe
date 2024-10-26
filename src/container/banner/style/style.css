@@ -1,52 +1,43 @@
 /* SliderBanner.css */
-.Banner .slick-prev {
-    left: 10px;
-    z-index: 1;
-    width: initial;
-    height: initial;
-  }
-  
-  .Banner .slick-prev::before {
-    font-size: 35px;
-  }
-  
-  .Banner .slick-next {
-    right: 10px;
-    width: initial;
-    height: initial;
-  }
-  
-  .Banner .slick-next::before {
-    font-size: 35px;
-  }
-  
-  .Banner .slick-dots {
-    bottom: 10px;
-    left: 50%;
-    transform: translateX(-50%);
-    text-align: center;
-    width: auto;
-  }
-  
-  .Banner .slick-dots button::before {
-    color: white;
-    font-size: 15px;
-  }
-  
+
   .Banner .slick-active button::before {
     opacity: 1;
   }
   
-  .Banner .slick-slide {
-    padding-left: 30px;
-    padding-right: 30px;
+  .Banner .slick-center {
+   
+    transform: scale(1.15) ;
+    transition: transform 1.5s ease-in-out, opacity 1.5s ease-in-out;
+ 
+  }
+  .Banner .slick-center::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.2); /* Lớp phủ mờ màu đen */
+    transition: background 1.5s ease-in-out; /* Hiệu ứng chuyển đổi cho lớp phủ */
+    z-index: 1; /* Đảm bảo lớp phủ nằm trên slide */
+  }
+
+  .Banner .slick-slide:not(.slick-center) {
+    position: relative; /* Để cho pseudo-element nằm trên slide */
+    transform: scale(0.8);
+    transition: transform 1.5s ease-in-out;
   }
   
-  /* Media Query */
-  @media (max-width: 767px) { /* Bạn có thể thay đổi kích thước màn hình này tùy theo nhu cầu */
-    .Banner .slick-slide {
-      padding-left: 0;
-      padding-right: 0;
-    }
+  .Banner .slick-slide:not(.slick-center)::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7); /* Lớp phủ mờ màu đen */
+    transition: background 1.5s ease-in-out; /* Hiệu ứng chuyển đổi cho lớp phủ */
+    z-index: 1; /* Đảm bảo lớp phủ nằm trên slide */
   }
+  
   
