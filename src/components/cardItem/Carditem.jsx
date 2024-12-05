@@ -75,7 +75,7 @@ const CenterButtonGroup = ({ handleOpen, movie }) => (
 );
 
 
-const CardItem = ({ movie, isVirtual }) => {
+export default function CardItem({ movie, isVirtual }) {
 
   const { handleOpen } = useTrailerContext();
 
@@ -123,5 +123,3 @@ const CardItem = ({ movie, isVirtual }) => {
     </div>
   );
 };
-
-export default CardItem;
