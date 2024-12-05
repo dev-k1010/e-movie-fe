@@ -3,7 +3,8 @@ import { Pagination } from "antd";
 import { useNavigate } from "react-router-dom";
 import { quanLyPhimServices } from "../../services/quanLyPhimServices";
 import styled from "styled-components";
-import CardItem from "../../components/cardItem/CardItem";
+// import CardItem from "../../components/cardItem/CardItem";
+import CardFilm from "../../components/cardFilm/CardFilm";
 
 
 function MoviesPagination({ listPhim }) {
@@ -74,10 +75,12 @@ function MoviesPagination({ listPhim }) {
 
     const createCardItems = useCallback(() => {
         return phimPhanTrang.map((movie) => (
-            <CardItem
-                movie={movie}
-                isVirtual={movie.isVirtual}
-            />
+            <CardFilm movie={movie}
+                isVirtual={movie.isVirtual} />
+            // <CardItem
+            //     movie={movie}
+            //     isVirtual={movie.isVirtual}
+            // />
         ))
     }, [navigate, phimPhanTrang]);
 
