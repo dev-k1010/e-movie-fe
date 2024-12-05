@@ -40,13 +40,7 @@ export default function AppMobile() {
   };
   return (
 
-    <div className='w-full h-full  pb-5 lg:pb-0'
-      style={{
-        backgroundImage: `url('IMG/bg-1.jpg')`,
-        backgroundRepeat: "repeat",
-
-      }}
-    >
+    <div className='w-full h-full pb-5 lg:pb-0'>
 
       <div className='grid grid-cols-1 lg:grid-cols-2'>
         <div className='p-10 lg:pl-44 lg:py-20 col-span-1 text-white flex flex-col items-center lg:items-start justify-center space-y-5 lg:space-y-10' >

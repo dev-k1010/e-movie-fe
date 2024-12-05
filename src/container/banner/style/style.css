@@ -6,7 +6,7 @@
   
   .Banner .slick-center {
    
-    transform: scale(1.15) ;
+    transform: scale(1.05) ;
     transition: transform 1.5s ease-in-out, opacity 1.5s ease-in-out;
  
   }
@@ -24,7 +24,7 @@
 
   .Banner .slick-slide:not(.slick-center) {
     position: relative; /* Để cho pseudo-element nằm trên slide */
-    transform: scale(0.8);
+    transform: scale(0.85);
     transition: transform 1.5s ease-in-out;
   }
   
@@ -35,7 +35,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0, 0, 0, 0.7); /* Lớp phủ mờ màu đen */
+    background: rgba(0, 0, 0, 0.5); /* Lớp phủ mờ màu đen */
     transition: background 1.5s ease-in-out; /* Hiệu ứng chuyển đổi cho lớp phủ */
     z-index: 1; /* Đảm bảo lớp phủ nằm trên slide */
   }

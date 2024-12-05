@@ -1,13 +1,59 @@
 /* CSS cho item */
-.item {
-    opacity: 0; /* Bắt đầu với opacity bằng 0 */
-    transform: translateY(-50px); /* Bắt đầu ở vị trí trên */
-    animation: dropDown 0.5s ease forwards; /* Áp dụng animation dropDown */
-    animation-delay: calc(var(--i) * 0.2s); /* Đặt độ trễ cho từng item */
+
+  .rap-list .ant-tabs-nav-operations {
+    display: none !important; /* Tắt hoàn toàn các nút điều hướng */
+}
+
+  /* Tab active */
+  .rap-list .ant-tabs-tab.ant-tabs-tab-active {
+    background-color: #252525 !important; /* Đổi màu nền của tab active */
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Hiệu ứng chuyển màu nền và phóng to */
+
+    .item p {
+      color: #d00000 !important; /* Đổi màu chữ của tab active */
+      transition: color 0.3s ease; /* Hiệu ứng chuyển màu chữ */
+    }
   }
-  
-  /* Định nghĩa keyframes cho hiệu ứng drop */
-  @keyframes dropDown {
+
+  /* Tab không active */
+  .rap-list .ant-tabs-tab {
+    .item p {
+      color: #cdcdcd !important; /* Màu chữ mặc định cho tab không active */
+      transition: color 0.3s ease; /* Hiệu ứng chuyển màu chữ */
+    }
+    transition: transform 0.3s ease; /* Hiệu ứng phóng to cho tab không active */
+  }
+
+  /* Hover trên tab không active */
+  .rap-list .ant-tabs-tab:not(.ant-tabs-tab-active):hover {
+    background-color: #33333335 !important; /* Đổi màu nền khi hover */
+    transform: scale3d(0.95, 0.95, 1); /* Phóng to tab một chút khi hover */
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Hiệu ứng chuyển màu và phóng to */
+
+    .item p {
+      color: #aaaaaa !important; /* Đổi màu chữ khi hover */
+      transition: color 0.3s ease; /* Hiệu ứng chuyển màu chữ */
+    }
+  }
+
+  .rap-list .ant-tabs-nav {
+    border-right: 1px solid #252525 !important; /* Loại bỏ mọi viền của thanh điều hướng */
+  }
+
+  .rap-list .ant-tabs-tab {
+    border: none !important; /* Loại bỏ mọi viền của từng tab */
+  }
+
+  .rap-list .ant-tabs-content-holder {
+    border: none !important; /* Loại bỏ mọi viền bao quanh nội dung */
+  }
+
+  .rap-list .ant-tabs-ink-bar {
+    display: none !important; /* Tắt hẳn thanh underline nếu có */
+  }
+
+/* Định nghĩa keyframes cho hiệu ứng drop */
+@keyframes dropDown {
     0% {
       opacity: 0; /* Bắt đầu với opacity bằng 0 */
       transform: translateY(-50px); /* Bắt đầu từ vị trí trên */
@@ -18,41 +64,19 @@
     }
   }
 
-
-
-
-  
-:root {
-    --colPrimario: black; /* Màu nền khi hover */
-    --bgColor: white; /* Màu nền ban đầu của nút */
-   
-    --transitionDuration: 0.4s; /* Thời gian chuyển đổi */
-  }
-  
-
-
-  .ant-tabs-tab {
-    position: relative; /* Để tạo vị trí cho phần tử ảo */
-    overflow: hidden; /* Để ẩn các phần tử vượt ra ngoài */
+.item {
+    opacity: 0; /* Bắt đầu với opacity bằng 0 */
+    transform: translateY(-50px); /* Bắt đầu ở vị trí trên */
+    animation: dropDown 0.5s ease forwards; /* Áp dụng animation dropDown */
+    animation-delay: calc(var(--i) * 0.2s); /* Đặt độ trễ cho từng item */
   }
 
-
-.ant-tabs-tab::before {
-    content: ""; /* Phần tử nền */
-    position: absolute; /* Đặt nó ở vị trí tuyệt đối */
-    top: 100%; /* Bắt đầu từ dưới */
-    left: 0;
-    right: 0;
-    height: 100%; /* Chiều cao bằng chiều cao của nút */
-    background: #2b2b2b52; /* Màu nền khi hover */
-    transition: top var(--transitionDuration) ease; /* Hiệu ứng chuyển đổi cho chuyển động */
-    z-index: -1; /* Đặt trên cùng để che phủ nền trắng */
   
-}
-.ant-tabs-tab:hover:not(.ant-tabs-tab-active)::before {
-    top: 0; /* Đẩy từ dưới lên và phủ kín logo */
-}
 
+
+
+
+  
 
 
 
@@ -60,50 +84,52 @@
 
 
 :root {
-    --colPrimario: #131313; /* Màu nền khi hover */
-    --bgColor: #252525; /* Màu nền ban đầu của nút */
     --transitionDuration: 0.4s; /* Thời gian chuyển đổi */
-}
-
-/* Container để căn giữa nút */
-.button-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 10vh; /* Chiều cao toàn bộ màn hình */
 }
 
 /* Nút chính */
-.discover-button {
-    position: relative; /* Để tạo vị trí cho phần tử ảo */
-    background: var(--bgColor); /* Nền nút ban đầu */
-    border: none; /* Không có đường viền */
-    color: black; /* Màu chữ */
-    cursor: pointer; /* Con trỏ chuột */
-    overflow: hidden; /* Để ẩn các phần tử vượt ra ngoài */
-    transition: color var(--transitionDuration) ease, transform var(--transitionDuration) ease; /* Hiệu ứng chuyển đổi màu chữ và kích thước */
+.rap-list .discover-button {
+  width: 100%;
+  height: 36px;
+  position: relative; /* Để tạo vị trí cho phần tử ảo */
+  background: #18181879; /* Nền nút ban đầu */
+  cursor: pointer; /* Con trỏ chuột */
+  overflow: hidden; /* Để ẩn các phần tử vượt ra ngoài */
+  transition: color var(--transitionDuration) ease, transform var(--transitionDuration) ease; /* Hiệu ứng chuyển đổi màu chữ và kích thước */
 }
 
-/* Phần tử ảo tạo hiệu ứng nền */
-.bg-transition {
-    content: ""; /* Phần tử nền */
-    position: absolute; /* Đặt nó ở vị trí tuyệt đối */
-    top: 100%; /* Bắt đầu từ trên cùng bên ngoài nút */
-    left: 0;
-    right: 0;
-    height: 100%; /* Chiều cao bằng chiều cao của nút */
-    background: var(--colPrimario); /* Màu nền khi hover */
-    transition: top var(--transitionDuration) ease; /* Hiệu ứng chuyển đổi cho chuyển động */
-    z-index: -1; /* Đặt dưới cùng để không che phủ nội dung */
+/* Văn bản mặc định */
+.rap-list .text-default {
+  position: relative;
+  z-index: 2;
+  opacity: 1;
+  transition: opacity var(--transitionDuration) ease, transform var(--transitionDuration) ease; /* Added opacity transition */
 }
 
-/* Hiệu ứng khi hover */
-.discover-button:hover .bg-transition {
-    top: 0; /* Đẩy từ trên xuống và phủ kín nút */
+/* Văn bản khi hover */
+.rap-list .text-hover {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--textColorHover);
+  background-color: #d00000;
+  opacity: 0; /* Initially hidden */
+  transform: translateY(100%);
+  transition: opacity var(--transitionDuration) ease, transform var(--transitionDuration) ease; /* Added opacity transition */
 }
 
-/* Hiệu ứng thay đổi kích thước khi hover */
-.discover-button:hover {
-    color: transparent; /* Làm chữ chính của nút mờ đi để chỉ thấy chữ trong nền đen */
-    transform: scale(0.95); /* Thu nhỏ nút một chút */
+/* Hiệu ứng hover */
+.rap-list .discover-button:hover .text-default {
+  opacity: 0; /* Fades out */
+  transform: translateY(-200%);
+}
+
+.rap-list .discover-button:hover .text-hover {
+  opacity: 1; /* Fades in */
+  transform: translateY(0) scale(1);
 }

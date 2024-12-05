@@ -1,0 +1,27 @@
+/* SliderBanner.css */
+  
+  .mySwiper .swiper-slide-active {
+    transition: transform 0.8s ease-in-out, opacity 0.8s ease-in-out;
+    opacity: 1;
+  }
+
+  .swiper-pagination-bullet{
+    border: none;
+    border-radius: 0px;
+    transform: rotate(45deg);
+    margin-top: 0.3rem !important;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+    
+  }
+  
+  .swiper-pagination-bullet-active {
+    
+    background :#d00000;
+    transform: rotate(45deg) scale(1);
+  }
+
+  .swiper-pagination-bullet:not(.swiper-pagination-bullet-active) {
+    background:rgba(0, 0, 0, 0.285);
+    opacity: 1;
+    transform: rotate(45deg) scale(0.75);
+  }

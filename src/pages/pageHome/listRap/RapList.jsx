@@ -10,6 +10,7 @@ import BorderedContainer from "../../../components/ui/BorderedContainer";
 import BorderContent from "../../../components/ui/BorderContent";
 
 import "../listRap/style/style.css";
+import BorderWrapper from "../../../components/ui/BorderWrapper";
 
 function RapList(props) {
   const navigate = useNavigate();
@@ -36,31 +37,46 @@ function RapList(props) {
     }
   };
 
-  const titleContent = (title) => (
-    <div className="w-full flex flex-col justify-center items-center space-y-2">
-      <p className="text-white text-xl font-normal uppercase">{title}</p>
-      <div className="w-full h-full grid grid-cols-17 gap-2 justify-center items-center">
-        <span className="col-span-8 w-full h-[1px] flex justify-end items-center">
-          <div className="w-full h-full bg-[#555555] "></div>
-        </span>
-        <span className="col-span-1 w-full h-full flex justify-center items-center">
-          <span className="border border-white w-[20%] aspect-square rotate-45 scale-[0.5] bg-[#555555]"></span>
-        </span>
-        <span className="col-span-8 w-full h-[1px] flex justify-start items-center">
-          <div className="w-full h-full bg-[#555555] "></div>
-        </span>
+  const lineDemo = () => (
+    <div className="w-full h-full grid grid-cols-17 gap-3 justify-center items-center">
+
+      <div className="col-span-8 w-full h-[0.5px] flex justify-end items-center ">
+        <div className="w-[50%] h-full bg-[#555555] "></div>
       </div>
+
+      <span className="col-span-1 w-full h-full flex justify-center items-center">
+        <span className="w-5 aspect-square scale-[0.5] grid grid-cols-2 grid-rows-2 gap-1 rotate-45 ">
+
+          <span className="bg-[#555555]  w-full h-full"></span>
+          <span className="bg-[#555555]  w-full h-full"></span>
+          <span className="bg-[#555555]  w-full h-full"></span>
+          <span className="bg-[#555555]  w-full h-full"></span>
+        </span>
+      </span>
+
+      <span className="col-span-8 w-full h-[0.5px] flex justify-start items-center">
+        <div className="w-[50%] h-full bg-[#555555] "></div>
+      </span>
     </div>
   )
 
+  const titleContent = (title) => (
+    <div className="w-full flex flex-col justify-center items-center space-y-1">
+      <p className="text-[#cdcdcd] text-lg font-serif font-medium uppercase">{title}</p>
+      {lineDemo()}
+    </div>
+  )
+
+
+
   return (
 
-    <div className="hidden md:block lg:block">
+    <div className="hidden md:block lg:block rap-list">
       <div className=" shadow-md w-full">
-        <StyledTabs
+        <Tabs
 
           tabPosition={position}
-          style={{ height: '500px' }}
+          style={{ height: '490px' }}
 
           activeKey={activeKeyParent} // Sử dụng activeKey cho tab cha
           onChange={handleParentTabChange} // Xử lý thay đổi tab cha
@@ -78,9 +94,9 @@ function RapList(props) {
               </div>
             ),
             children: (
-              <StyledTabs
+              <Tabs
                 tabPosition={position}
-                style={{ height: '500px' }}
+                style={{ height: '490px' }}
 
                 activeKey={activeKeyChild} // Sử dụng activeKey cho tab con
                 onChange={handleChildTabChange} // Xử lý thay đổi tab con
@@ -98,7 +114,7 @@ function RapList(props) {
                           className="w-14"
                           loading="lazy"
                         />
-                        <p className="whitespace-normal m-0 text-color1 text-left">
+                        <p className="whitespace-normal m-0 text-[#dddddd] text-left">
                           {cumRap.diaChi}
                         </p>
                       </div>
@@ -106,94 +122,101 @@ function RapList(props) {
 
                   ),
                   children: (
-                    <div className="overflow-y-auto h-[500px] bg-black space-y-5 p-5" >
+
+                    <div className="overflow-y-auto h-[490px]" >
 
                       {cumRap.danhSachPhim.map((phim, i) => (
-                        <div className="item" style={{ '--i': i + 1 }} key={i}>
-
-                          <div className="px-3 py-2 space-y-5 bg-[#131313]">
-                            <BorderContent>
-                              <div className=" p-3">
-
-                                <div className="relative  overflow-hidden">
-
-                                  <div
-                                    className="absolute inset-0 bg-cover bg-center"
-                                    style={{
-                                      backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${phim.hinhAnh})`,
-                                    }}
-                                  />
-
-                                  <div
-                                    className="absolute inset-0 backdrop-blur-sm"
-                                    style={{
-                                      zIndex: 1, // Đảm bảo lớp phủ nằm trên nền
-                                    }}
-                                  ></div>
-
-                                  <div className="relative z-10 flex p-5">
-                                    <img
-                                      src={phim.hinhAnh}
-                                      alt={phim.tenPhim}
-                                      loading="lazy"
-                                      className="h-36 w-24"
-                                      style={{
-                                        boxShadow: "0px 4px 8px rgba(0, 0, 0, 1)",
-                                      }}
-                                    />
-
-                                    <div className=" flex-1 pl-5 space-y-5">
-
-                                      {titleContent(phim.tenPhim)}
+                        <div className="item pr-3 pb-3 bg-[#131313] group" style={{ '--i': i + 1 }} key={i}>
 
 
-
-                                      <div className="space-y-5 overflow-y-auto w-full h-[200px] pr-2">
-                                        <div className="grid grid-cols-3 gap-2">
-                                          {phim.lstLichChieuTheoPhim.slice(0, 12).map((lichChieu, i) => (
-                                            <div className="">
-                                              <button
-                                                key={i}
-                                                onClick={() => {
-                                                  localStorage.getItem(UserLogin)
-                                                    ? navigate(`/ticket/${lichChieu.maLichChieu}`)
-                                                    : navigate("/user/login");
-                                                }}
-                                                style={{
-                                                  boxShadow: "0px 4px 2px rgba(0, 0, 0, 0.4)",
-                                                }}
-                                                className="w-full text-start p-2 rounded-md font-sans font-medium transition duration-300 bg-[#252525] flex justify-center items-center text-xs discover-button "
-                                              >
+                          {/* <BorderContent> */}
 
 
-                                                <span className="text-gray-50 ">
-                                                  {moment(lichChieu.ngayChieuGioChieu).format("DD-MM-YYYY")} -
-                                                </span>
-                                                <span className="text-color1 ">
-                                                  {moment(lichChieu.ngayChieuGioChieu).format("hh:mm")}
-                                                </span>
+                          <div className="relative">
 
-                                                <span className="bg-transition"></span>
-                                              </button>
-                                            </div>
-                                          ))}
-                                        </div>
-                                      </div>
+                            <div
+                              className="absolute inset-0 bg-cover bg-center "
+                            />
 
+                            <div
+                              className="absolute h-full w-full backdrop-blur"
+                              style={{
+                                top: 0,
+                                right: 0,
+                                bottom: 0,
+                                left: 0,
+                                zIndex: 1, // Đảm bảo lớp phủ nằm trên nền
+                              }}
+                            ></div>
+
+                            {/* Nội dung */}
+                            <div className="relative z-10 p-5 grid grid-rows-8 transition duration-300 ease-in  group-hover:bg-[#252525] border border-[#252525]">
+                              <div className="row-span-2">
+                                {titleContent(phim.tenPhim)}
+                              </div>
+
+                              <div className="flex row-span-6 h-[180px]">
+                                <img
+                                  src={phim.hinhAnh}
+                                  alt={phim.tenPhim}
+                                  loading="lazy"
+                                  className="w-32 rounded-md"
+                                  style={{
+                                    boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.5)",
+                                  }}
+                                />
+                                <div className="flex-1">
+                                  <div className="overflow-y-auto w-full h-full px-3 pb-1">
+                                    <div className="grid grid-cols-3 gap-[10px]">
+                                      {phim.lstLichChieuTheoPhim.slice(0, 12).map((lichChieu, i) => (
+
+
+
+                                        <button
+                                          key={i}
+                                          onClick={() => {
+                                            localStorage.getItem(UserLogin)
+                                              ? navigate(`/ticket/${lichChieu.maLichChieu}`)
+                                              : navigate("/user/login");
+                                          }}
+                                          style={{
+                                            boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.5)",
+                                          }}
+                                          className="w-full h-9 rounded-md text-xs font-sans font-medium flex justify-center items-center discover-button "
+                                        >
+                                          <div className="text-default space-x-2">
+                                            <span className="text-[#cdcdcd] ">
+                                              {moment(lichChieu.ngayChieuGioChieu).format("DD-MM-YYYY")}</span>
+                                            <span className="text-color1 ">
+                                              {moment(lichChieu.ngayChieuGioChieu).format("hh:mm")}
+                                            </span>
+                                          </div>
+                                          <div className="text-hover space-x-2">
+                                            <span className="text-[#cdcdcd]">
+                                              {moment(lichChieu.ngayChieuGioChieu).format("DD-MM-YYYY")}</span>
+                                            <span className="text-color4">
+                                              {moment(lichChieu.ngayChieuGioChieu).format("hh:mm")}
+                                            </span>
+                                          </div>
+                                        </button>
+
+                                      ))}
                                     </div>
-
                                   </div>
                                 </div>
-
                               </div>
-                            </BorderContent>
+                            </div>
                           </div>
 
+
+                          {/* </BorderContent> */}
                         </div>
 
-                      ))}
 
-                    </div>
+                      ))
+                      }
+                    </div >
+
                   ),
                 }))}
               />
@@ -206,19 +229,3 @@ function RapList(props) {
   );
 }
 export default memo(RapList);
-const StyledTabs = styled(Tabs)`
-
-    .ant-tabs-tab-active {
-      background-color: #252525 !important; /* Đổi màu nền của tab active */
-    }
-
-    .ant-tabs-ink-bar {
-      width: 0px !important;
-      background: #9ca3af !important; /* Đổi màu của thanh underline (thanh di chuyển dưới tab) */
-    }
-
-   .ant-tabs-nav::before {
-      border-bottom: 1px #131313 solid !important;
-    } 
-
-  `;

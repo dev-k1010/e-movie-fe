@@ -1,0 +1,77 @@
+.button-container {
+    position: relative;
+    width: 120px;
+    height: 40px;
+    border-radius: 120px;
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #fff;
+    background-color: #d00000;
+    overflow: hidden;
+    cursor: pointer;
+    padding: 0px 20px 0px 0px; /* Đảm bảo padding là 0 ban đầu */
+    transition: padding 0.7s ease, color 0.7s ease, border-color 0.7s ease; /* Thời gian chuyển đổi nhanh hơn */
+    display: flex;
+    align-items: center; /* Căn giữa dọc nội dung trong lop-phu */
+    justify-content: center; /* Căn giữa ngang nội dung trong lop-phu */
+  }
+
+  .button-overlay {
+    position: relative;
+    background: none;
+    width: 100%; /* Chiều rộng ban đầu */
+    height: 100%; /* Chiều cao ban đầu */
+    transition: width 0.7s ease, height 0.7s ease, background 0.7s ease, border-radius 0.7s ease, padding-right 0.7s ease, justify-content 0.7s ease; /* Mượt mà hơn */
+    
+
+  }
+
+
+  .arrow {
+    position: absolute;
+    transform: translate(-50%, -50%); /* Căn giữa chính xác */
+    top: 50%;
+    right: 0px;
+    display: flex;
+    align-items: center; /* Căn giữa dọc nội dung trong lop-phu */
+    justify-content: center; /* Căn giữa ngang nội dung trong lop-phu */
+    transition: transform 2s ease;
+  }
+  
+.text {
+    font-size: 12px;
+    font-weight: bold;
+    margin-right: 2px;
+}
+
+.button-container:hover .arrow {
+  transform: translate(-50%, -50%); /* Dịch chuyển mũi tên vào giữa khi hover */
+}
+  
+  .button-container:hover {
+    padding: 5px 5px 5px 85px; /* Padding khi hover */
+    transition: padding 0.7s ease; /* Chuyển đổi padding nhanh hơn */
+  }
+  
+  .button-container:hover .button-overlay    {
+    background: rgba(0, 0, 0, 0.1); /* Thay đổi màu nền khi hover */
+    
+  }
+
+
+  .button-container .button-label {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 120px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Căn giữa tuyệt đối */
+    z-index: 1; /* Đảm bảo nó nằm trên phần tử khác */
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding-left: 25px;
+    transition: transform 0.7s ease; /* Mượt mà hơn khi chuyển đổi */
+  }

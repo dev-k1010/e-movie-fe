@@ -1,92 +1,127 @@
 import React, { memo } from "react";
-import { TagOutlined } from "@ant-design/icons";
-import styled from "styled-components";
+import { ArrowRightOutlined, PauseCircleOutlined, PlayCircleOutlined, StarFilled, YoutubeOutlined } from "@ant-design/icons";
 import FadeIn from "../fadeIn/FadeIn";
-import LottieAnimation from "../lottieAnimation/LottieAnimation";
+import ButtonTicket from "../buttonItem/buttonTicket/ButtonTicket";
+import "../cardItem/style.css"
+import { useTrailerContext } from "../../context/TrailerContext";
+import ReactPlayer from "react-player";
+
+// Hiệu ứng hover
+const getHoverEffectClasses = "opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+
+// Hàm giúp xác định lớp căn chỉnh cho `Label` dựa trên vị trí
+const getAlignmentClass = (position) => {
+  return position.includes('left') ? 'items-start border-l' : 'items-end border-r';
+};
+
+// Hàm xác định vị trí của border dựa trên vị trí
+const getBorderPosition = (position) => {
+  return {
+    position: "absolute",
+    width: "40px",
+    height: "0px",
+    borderTop: "1px solid white",
+    [position.includes('top') ? 'top' : 'bottom']: 0,
+    [position.includes('left') ? 'left' : 'right']: 0,
+  };
+};
+
+const Label = ({ position, content }) => {
+  // Lấy lớp căn chỉnh và vị trí border từ các hàm helper
+  const alignmentClass = getAlignmentClass(position);
+  const borderPosition = getBorderPosition(position);
+
+  return (
+    <span className={`absolute ${position} w-[80px] h-[40px] p-3 flex flex-col ${alignmentClass} font-sans font-normal text-sm text-white ${getHoverEffectClasses}`}>
+      <div style={borderPosition}></div>
+      {content}
+    </span>
+  );
+};
+
+const HoverOverlay = () => (
+  <span className={`absolute top-0 left-0 w-[110%] h-full bg-black/20 backdrop-blur-md ${getHoverEffectClasses}`}></span>
+);
 
 
-const CardItem = ({ movie, navigate, handleOpen, isVirtual }) => {
 
-  const imageCard = () => (
+const CenterButtonGroup = ({ handleOpen, movie }) => (
+  <span className={`absolute inset-0 flex flex-col items-center justify-center ${getHoverEffectClasses} space-y-5 button-card`}>
 
-    <div className="relative rounded-md overflow-hidden group">
-      {/* Hiệu ứng FadeIn */}
+    <button
+      className="w-[120px] h-[40px] text-sm font-sans font-normal transition duration-300 rounded-full space-x-3 text-white border hover:border-[#131313] hover:bg-[#131313]"
+      onClick={(e) => {
+        e.stopPropagation();
+        handleOpen(
+          <div className="w-full h-full px-56 py-16">
+
+            <ReactPlayer
+              url={movie.trailer}
+              controls
+              width="100%"
+              height="100%"
+            />
+          </div>
+        );
+      }}
+    >
+      <span>Trailer</span>
+      <PlayCircleOutlined className="text-lg" />
+    </button>
+
+    <ButtonTicket urlPath={`/detail/${movie.maPhim}`} />
+
+  </span>
+);
+
+
+const CardItem = ({ movie, isVirtual }) => {
+
+  const { handleOpen } = useTrailerContext();
+
+
+  const cardTopDemo = (
+    <div
+      className="relative group w-full h-full overflow-hidden rounded-md flex flex-col justify-center items-center "
+    >
+      <div className="absolute inset-0 overflow-hidden rounded-md border border-transparent"><img src={movie.hinhAnh} alt="" className=" w-full h-full object-cover object-center origin-center transition duration-300 group-hover:scale-105" loading="lazy" /></div>
+
       <FadeIn />
 
-      {/* Hình ảnh */}
-      <img
-        src={movie.hinhAnh}
-        alt={movie.tenPhim}
-        loading="lazy"
-        className="w-full h-[18vw] object-cover rounded-md text-white "
-      />
+      <HoverOverlay />
 
-      {/* Lớp phủ */}
-      <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-
-      {/* Nút mở trailer */}
-      <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-        <button
-          className="w-24 h-16 flex items-center justify-center bg-transparent"
-          onClick={(e) => {
-            e.stopPropagation();
-            handleOpen(movie.trailer);
-          }}
-        >
-          <LottieAnimation nameAnimation="buttonYoutube" />
-        </button>
-      </div>
-    </div>
-
-
-  );
-
-  const footerCard = () => (
-    <div className="group-hover:hidden h-[3vw] mb-0">
-      <div className="text-md space-x-2 flex items-start justify-start h-full mb-0">
-        <span className="text-start text-white font-light overflow-hidden text-ellipsis line-clamp-[2]">
-          {movie.tenPhim}
-        </span>
-      </div>
+      <Label position="top-3 left-3" content="180p" />
+      <Label position="top-3 right-3"
+        content={
+          <span className="flex space-x-1">
+            <span>5.0</span> <StarFilled />
+          </span>
+        } />
+      <Label position="bottom-3 left-3" content="VN" />
+      <Label position="bottom-3 right-3" content="ALL" />
+      <CenterButtonGroup handleOpen={handleOpen} movie={movie} />
     </div>
   );
 
-  const ticketButton = () => (
+  const cardBottom = (
+    <span className="h-[3vw] w-full flex items-center justify-center">
+      <span className="text-md text-center text-white font-light overflow-hidden text-ellipsis line-clamp-1">
+        {movie.tenPhim}
+      </span>
+    </span>
+  );
+
+
+  return (
     <div
-      onClick={() => navigate(`/detail/${movie.maPhim}`)}
-      className="hidden group-hover:flex h-[3vw] w-full font-semibold  bg-color1 hover:transition hover:duration-500 hover:bg-color1/70 text-lg py-3 shadow text-white space-x-5 border-dashed border-y-[3px] justify-center items-center "
+      // onClick={() => navigate(`/detail/${movie.maPhim}`)}
+      className={`w-[14vw] h-[23vw] flex flex-col justify-center items-center ${isVirtual ? "invisible" : ""}`}
     >
-      <TagOutlined />
-      <span>Mua vé</span>
+      {cardTopDemo}
+      {cardBottom}
+
     </div>
-  )
-
-  return (<>
-
-    <div
-      onClick={() => navigate(`/detail/${movie.maPhim}`)}
-      className=" overflow-hidden p-1 pb-2 group space-y-1"
-    >
-
-      {!isVirtual ? (
-        <>
-          {imageCard()}
-          {footerCard()}
-          {ticketButton()}
-        </>
-      ) : (
-        <div className="invisible space-y-1">
-          {imageCard()}
-          {footerCard()}
-          {ticketButton()}
-        </div>
-      )}
-    </div>
-  </>
   );
 };
 
 export default memo(CardItem);
-
-
-

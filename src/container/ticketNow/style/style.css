@@ -1,0 +1,10 @@
+.ant-select-item-option-selected {
+    background-color: #444 !important; /* Màu nền của item đã chọn */
+    color: white !important; /* Màu chữ của item đã chọn */
+}
+
+/* Thay đổi màu nền khi hover */
+.ant-select-item-option:hover {
+    background-color: #333; /* Màu nền khi hover */
+    color: white; /* Màu chữ khi hover */
+}

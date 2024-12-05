@@ -6,7 +6,6 @@ import styled from "styled-components";
 
 import LazyLoad from "../../components/lazyLoad/LazyLoad";
 import CardItem from "../../components/cardItem/CardItem";
-import { useTrailerContext } from "../../context/TrailerContext";
 
 
 // const CardItem = React.lazy(() => import("../../components/cardItem/CardItem"));
@@ -19,7 +18,6 @@ function MoviesPagination({ listPhim }) {
     const [phimPhanTrang, setPhimPhanTrang] = useState([]);
     const [soPhanTuTrenTrang, setSoPhanTuTrenTrang] = useState(10);
     const tongSoPhim = listPhim ? listPhim.length : 0;
-    const { handleOpen} = useTrailerContext();
 
 
     // Resize handler
@@ -81,36 +79,29 @@ function MoviesPagination({ listPhim }) {
 
     const createCardItems = useCallback(() => {
         return phimPhanTrang.map((movie) => (
-            <CardItem 
-            movie={movie} 
-            navigate={navigate} 
-            handleOpen={handleOpen}
-            isVirtual={movie.isVirtual}
+            <CardItem
+                movie={movie}
+                isVirtual={movie.isVirtual}
             />
         ))
-    }, [navigate, handleOpen, phimPhanTrang]);
+    }, [navigate, phimPhanTrang]);
 
     return (
-        <div >
-            {/* <Suspense
-                fallback={<div style={{ width: '100%', height: '100%' }}>Loading...</div>}
-            > */}
-            {/* <LazyLoad isLoading={true} /> */}
-            <div className="w-full h-full">
-                <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5">
-                    {createCardItems()}
-                </div>
-                <div className="py-2 flex items-center justify-center rounded-md">
-                    <StyledPagination
-                        showTitle={false} // ẩn tiêu đề phụ
-                        current={soTrang}
-                        total={tongSoPhim}
-                        pageSize={soPhanTuTrenTrang}
-                        onChange={handlePageChange}
-                    />
-                </div>
-                {/* </Suspense> */}
+
+        <div className="w-full h-full">
+            <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-y-5  justify-center items-center">
+                {createCardItems()}
             </div>
+            <div className="py-3 flex items-center justify-center rounded-md">
+                <StyledPagination
+                    showTitle={false} // ẩn tiêu đề phụ
+                    current={soTrang}
+                    total={tongSoPhim}
+                    pageSize={soPhanTuTrenTrang}
+                    onChange={handlePageChange}
+                />
+            </div>
+            {/* </Suspense> */}
         </div>
     );
 }
@@ -187,7 +178,7 @@ const StyledPagination = styled(Pagination)`
 
   .ant-pagination-prev .ant-pagination-item-link,
   .ant-pagination-next .ant-pagination-item-link {
-    display: hidden;
+    display: none;
   }
 
 `;

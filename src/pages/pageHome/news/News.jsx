@@ -1,338 +1,133 @@
 import { Tabs } from "antd";
-import TabPane from "antd/es/tabs/TabPane";
 import axios from "axios";
-import React, { memo, useState } from "react";
+import React, { memo, useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Button } from "react-scroll";
+import "../news/style/style.css";
+import { ArrowRightOutlined, LikeFilled, MessageOutlined } from "@ant-design/icons";
+import { newsTabsItems } from "../../../constants/itemTabs/itemTabs";
 
 function News() {
-  const [newsDienAnhMore, setNewsDienAnhMore] = useState(null);
-  const [newsReviewMore, setNewsReviewMore] = useState(null);
-  const [newsKhuyenMaiMore, setNewsKhuyenMaiMore] = useState(null);
-  const [value, setValue] = useState(0);
-  const [seeMore, setSeeMore] = useState({ 0: false, 1: false, 2: false });
-  const navigate = useNavigate()
+  const [newsData, setNewsData] = useState(null); // Lưu dữ liệu chung cho từng tab
+  const [activeTab, setActiveTab] = useState(1); // Lưu tab đang được chọn
+  const navigate = useNavigate();
 
   const handleImageClick = () => {
-    navigate('/error404');
-  };
-  const handleChange = (newValue) => {
-    setValue(newValue);
+    navigate("/error404");
   };
 
-  const callAxios = (url, setState, tabKey) => {
-    return axios({
-      url,
-      method: "GET",
-    })
-      .then((result) => {
-        setState(result.data);
-        setSeeMore((prev) => ({ ...prev, [tabKey]: true }));
-      })
-      .catch((error) => console.log(error));
-  };
-
-  const renderNews = (newsArr) => {
-    return (
-      <div className="space-y-5">
-        <div className=" overflow-hidden">
-          <div className="grid grid-cols-2 gap-5 ">
-            {/* item0 */}
-            <div onClick={handleImageClick}>
-              <div>
-                <a target="_blank" rel="noreferrer">
-                  <img
-                    alt="poster"
-                    src={newsArr[0].img}
-                    className="w-full h-full rounded-md"
-                    loading="lazy"
-                  />
-                </a>
-              </div>
-              <a
-                target="_blank"
-                rel="noreferrer"
-                className="text-base lg:text-xl text-color4 font-semibold hover:text-color1"
-              >
-                <p>{newsArr[0].title}</p>
-              </a>
-              <p className="text-start line-clamp-3 text-white">
-                {newsArr[0].text}
-              </p>
-            </div>
-            {/* item1 */}
-            <div onClick={handleImageClick}>
-              <div >
-                <a target="_blank" rel="noreferrer">
-                  <img
-                    alt="poster"
-                    src={newsArr[1].img}
-                    className="w-full h-full rounded-md"
-                    loading="lazy"
-                  />
-                </a>
-              </div>
-              <a
-                target="_blank"
-
-                rel="noreferrer"
-                className="text-base lg:text-xl text-color4 font-semibold hover:text-color1"
-              >
-                <p>{newsArr[1].title}</p>
-              </a>
-              <p className="text-start line-clamp-3 text-white">
-                {newsArr[1].text}
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <div className=" grid grid-cols-10 gap-5 ">
-          <div className="col-span-6">
-            <div className="grid grid-cols-2 gap-5">
-              {/* item2 */}
-              <div onClick={handleImageClick}>
-                <div>
-                  <a target="_blank" rel="noreferrer">
-                    <img
-                      alt="poster"
-                      src={newsArr[2].img}
-                      className="w-full h-full rounded-md"
-                      loading="lazy"
-                    />
-                  </a>
-                </div>
-                <a
-                  target="_blank"
-
-                  rel="noreferrer"
-                  className="text-base lg:text-xl text-color4 font-semibold hover:text-color1"
-                >
-                  <p>{newsArr[2].title}</p>
-                </a>
-                <p className="text-start line-clamp-3 text-white">
-                  {newsArr[2].text}
-                </p>
-              </div>
-              {/* item3 */}
-              <div onClick={handleImageClick}>
-                <div>
-                  <a target="_blank" rel="noreferrer">
-                    <img
-                      alt="poster"
-                      src={newsArr[3].img}
-                      className="w-full h-full rounded-md"
-                      loading="lazy"
-                    />
-                  </a>
-                </div>
-                <a
-                  target="_blank"
-
-                  rel="noreferrer"
-                  className="text-base lg:text-xl text-color4 font-semibold hover:text-color1"
-                >
-                  <p>{newsArr[3].title}</p>
-                </a>
-                <p className="text-start line-clamp-3 text-white">
-                  {newsArr[3].text}
-                </p>
-              </div>
-            </div>
-          </div>
-          <div className="col-span-4 grid grid-cols-1 gap-3">
-            {/* item4 */}
-            <div className="flex space-x-5 " onClick={handleImageClick}>
-              <div>
-                <a target="_blank" rel="noreferrer">
-                  <img
-                    alt="poster"
-                    src={newsArr[4].img}
-                    className="rounded-md w-20"
-                    loading="lazy"
-                  />
-                </a>
-              </div>
-              <a
-                target="_blank"
-
-                rel="noreferrer"
-                className="text-sm lg:text-lg text-color4 font-semibold hover:text-color1"
-              >
-                <p>{newsArr[4].title}</p>
-              </a>
-            </div>
-            {/* item5 */}
-            <div className="flex space-x-5" onClick={handleImageClick}>
-              <div>
-                <a target="_blank" rel="noreferrer">
-                  <img
-                    alt="poster"
-                    src={newsArr[5].img}
-                    className="rounded-md w-20"
-                    loading="lazy"
-                  />
-                </a>
-              </div>
-              <a
-                target="_blank"
-
-                rel="noreferrer"
-                className="text-sm lg:text-lg text-color4 font-semibold hover:text-color1"
-              >
-                <p>{newsArr[5].title}</p>
-              </a>
-            </div>
-            {/* item6 */}
-            <div className="flex space-x-5" onClick={handleImageClick}>
-              <div>
-                <a target="_blank" rel="noreferrer">
-                  <img
-                    alt="poster"
-                    src={newsArr[6].img}
-                    className="rounded-md w-20"
-                    loading="lazy"
-                  />
-                </a>
-              </div>
-              <a
-                target="_blank"
-
-                rel="noreferrer"
-                className="text-sm lg:text-lg text-color4 font-semibold hover:text-color1"
-              >
-                <p>{newsArr[6].title}</p>
-              </a>
-            </div>
-            {/* item7 */}
-            <div className="flex space-x-5" onClick={handleImageClick}>
-              <div>
-                <a target="_blank" rel="noreferrer">
-                  <img
-                    alt="poster"
-                    src={newsArr[7].img}
-                    className="rounded-md w-24"
-                    loading="lazy"
-                  />
-                </a>
-              </div>
-              <a
-                target="_blank"
-
-                rel="noreferrer"
-                className="text-sm lg:text-lg text-color4 font-semibold hover:text-color1"
-              >
-                <p>{newsArr[7].title}</p>
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  };
-
-  const onClickSeeMore = () => {
-    const actions = {
-      0: {
-        url: `https://60b9f19280400f00177b744b.mockapi.io/ArticlesDienAnh02`,
-        setMore: setNewsDienAnhMore,
-        more: newsDienAnhMore,
-      },
-      1: {
-        url: `https://60babc8f42e1d0001761ff84.mockapi.io/ArticlesReview02`,
-        setMore: setNewsReviewMore,
-        more: newsReviewMore,
-      },
-      2: {
-        url: `https://60babc8f42e1d0001761ff84.mockapi.io/ArticlesKhuyenMai02`,
-        setMore: setNewsKhuyenMaiMore,
-        more: newsKhuyenMaiMore,
-      },
+  // Hàm gọi API dựa trên tab key
+  const fetchNewsData = (tabKey) => {
+    const urls = {
+      "1": "https://60b9f19280400f00177b744b.mockapi.io/ArticlesDienAnh02",
+      "2": "https://60babc8f42e1d0001761ff84.mockapi.io/ArticlesReview02",
     };
 
-    const action = actions[value];
+    const url = urls[tabKey];
+    if (url) {
+      axios
+        .get(url)
+        .then((result) => {
+          console.log("🙂 ~ fetchNewsData ~ result:", result)
+          return setNewsData(result.data)
 
-    if (action) {
-      if (!action.more) {
-        callAxios(action.url, action.setMore, value);
-      } else {
-        setSeeMore((prev) => ({ ...prev, [value]: true }));
-      }
+        })
+        .catch((error) => console.error(error));
     }
   };
 
-  const onClickSeeLess = () => {
-    setSeeMore((prev) => ({ ...prev, [value]: false }));
+  // Gọi dữ liệu khi tab được thay đổi
+  useEffect(() => {
+    fetchNewsData(activeTab);
+  }, [activeTab]);
+
+  const buttonLike = () => {
+    return <button className="w-24 h-9 transition duration-300 flex justify-center items-center bg-blue-500 hover:bg-blue-600 rounded-md text-white space-x-1">
+      <LikeFilled className="text-sm" />
+      <span className="text-sm">Thích</span>
+    </button>
+  }
+  const buttonComment = () => {
+    return <button className="w-24 h-9 transition duration-300 flex justify-center items-center bg-[#252525] hover:bg-[#131313] rounded-md text-white space-x-1">
+      <MessageOutlined className="text-md" />
+    </button>
+  }
+
+  const renderNews = (newsArr) => {
+    if (!newsArr || newsArr.length === 0) {
+      return <p className="text-white">Không có dữ liệu hiển thị.</p>;
+    }
+
+    return (
+
+      <div className="h-[400px] flex space-x-3">
+
+        {newsArr.slice(0, 4).map((item) => (
+          <div className="h-full w-[25%] group news-container rounded-lg overflow-hidden hover:cursor-pointer">
+
+            <div class="card relative w-full h-full overflow-hidden rounded-lg transition-transform duration-500 ease-in-out group-hover:scale-95">
+
+
+              <img src={item.img} alt="Card Image" class="absolute w-full h-full z-0 object-cover transition-transform duration-500 ease-in-out group-hover:scale-[1.0531]" />
+
+
+              <div className="absolute w-full h-full bottom-0 z-10 grid grid-cols-7 bg-black/10">
+
+                <div className="col-span-6 w-full h-full space-y-3 p-3 flex flex-col justify-end">
+                  <div
+                    className="font-serif text-lg font-semibold text-white line-clamp-3 "
+                  >
+                    {item.title}
+                  </div>
+                  <div className="w-full flex justify-start items-center space-x-3">
+                    {buttonLike()}
+                    {buttonComment()}
+                  </div>
+                </div>
+
+                <div className="col-span-1 relative">
+                  <div className="w-full h-full flex items-end justify-center absolute bottom-5">
+                    <ArrowRightOutlined className="news-arrow text-xl text-white" />
+                  </div>
+
+                </div>
+
+              </div>
+
+            </div>
+          </div>
+
+        ))}
+
+      </div>
+
+    );
   };
 
-  const itemsButton = [
-    {
-      key: "0",
-      label: (
-        <button className="text-lg lg:text-2xl transition duration-300 font-semibold rounded-lg shadow mr-2 hover:bg-white-500 text-white ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 hover:text-color1 ">
-          Điện ảnh 24H
-        </button>
-      ),
-      children: (
-        <>
-          {seeMore[0] && newsDienAnhMore && renderNews(newsDienAnhMore)}
-        </>
-      ),
-    },
-    {
-      key: "1",
-      label: (
-        <button className="text-lg lg:text-2xl transition duration-300 font-semibold rounded-lg shadow mr-2 hover:bg-white-500 text-white ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 hover:text-color1 ">
-          Review
-        </button>
-      ),
-      children: (
-        <>
-          {seeMore[1] && newsDienAnhMore && renderNews(newsDienAnhMore)}
-        </>
-      ),
-    },
-    {
-      key: "2",
-      label: (
-        <button className="text-lg lg:text-2xl transition duration-300 font-semibold rounded-lg shadow mr-2 hover:bg-white-500 text-white ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 hover:text-color1 ">
-          Khuyến mãi
-        </button>
-      ),
-      children: (
-        <>
-          {seeMore[2] && newsDienAnhMore && renderNews(newsDienAnhMore)}
-        </>
-      ),
-    },
-  ];
+  const items = useMemo(() => newsTabsItems.map(tab => ({
+    ...tab,
+    children: tab.key === activeTab ? renderNews(newsData) : null,
+  })), [activeTab, renderNews]);
+
 
   return (
-    <div className="py-10 ">
+    <div className="news flex flex-col justify-center items-center w-full h-full relative">
+
       <Tabs
-        defaultActiveKey="0"
-        centered
-        destroyInactiveTabPane={true}
-        onChange={handleChange}
-      >
-        {itemsButton.map((item) => (
-          <TabPane
-            tab={<span className="text-black text-xs">{item.label}</span>}
-            key={item.key}
-          >
-            {item.children}
-          </TabPane>
-        ))}
-      </Tabs>
-      <div className="flex flex-col justify-center items-center mt-5">
-        <Button
-          onClick={seeMore[value] ? onClickSeeLess : onClickSeeMore}
-          className="px-4 py-2 text-white bg-color1 hover:transition hover:duration-500 hover:bg-color1/70 rounded-md"
-          variant="outlined"
-        >
-          {seeMore[value] ? "RÚT GỌN" : "XEM THÊM"}
-        </Button>
-      </div>
+        className="tabs w-full h-full z-0"
+        defaultActiveKey={1}
+        items={items} // Sử dụng thuộc tính items để truyền cấu hình
+        onChange={(key) => setActiveTab(key)} // Xử lý sự kiện chuyển tab
+        destroyInactiveTabPane
+      />
+
+      <button className="absolute w-28 h-14 right-5 bottom-40 flex flex-col justify-center items-center group space-y-1">
+        <span className="flex justify-center items-center space-x-3 transition duration-300 text-white font-serif font-normal text-lg">
+          <span>Xem tất cả</span>
+          <ArrowRightOutlined className="text-lg" />
+        </span>
+        <div className="bg-color1 h-[0.5px] w-full transition duration-500 scale-x-0 group-hover:scale-x-100 block "></div>
+      </button>
+
     </div>
   );
 }

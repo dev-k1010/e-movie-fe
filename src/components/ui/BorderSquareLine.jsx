@@ -1,5 +1,7 @@
 import React, { forwardRef, useLayoutEffect, useRef, useState } from 'react';
 
+
+
 export default function BorderSquareLine({ children }) {
     const [sideLength, setSideLength] = useState(0);
     const squareRef = useRef(null);
@@ -20,13 +22,13 @@ export default function BorderSquareLine({ children }) {
 
 
                 <div ref={squareRef} className="w-10 aspect-square flex justify-center items-center">
-                    <div className="aspect-square w-[25%] rotate-45 border border-white"></div>
+                    <div className="aspect-square w-[25%] rotate-45 border border-[#555555]"></div>
                 </div>
 
-                <span className="w-full h-[1px] flex justify-center items-center bg-[#252525]"></span>
+                <span className="w-full h-[0.5px] flex justify-center items-center bg-[#252525]"></span>
 
                 <div className="w-10 aspect-square flex justify-center items-center">
-                    <div className="aspect-square w-[25%] rotate-45 border border-white"></div>
+                    <div className="aspect-square w-[25%] rotate-45 border border-[#555555]"></div>
                 </div>
 
 
@@ -60,11 +62,11 @@ export default function BorderSquareLine({ children }) {
             <div className="flex items-center">
 
                 <div className="w-10 aspect-square flex justify-center items-center">
-                    <div className="aspect-square w-[25%] rotate-45 border border-white"></div>
+                    <div className="aspect-square w-[25%] rotate-45 border border-[#555555]"></div>
                 </div>
                 <span className="w-full h-[1px] flex justify-center items-center bg-[#252525]"></span>
                 <div className="w-10 aspect-square flex justify-center items-center">
-                    <div className="aspect-square w-[25%] rotate-45 border border-white"></div>
+                    <div className="aspect-square w-[25%] rotate-45 border border-[#555555]"></div>
                 </div>
 
             </div>

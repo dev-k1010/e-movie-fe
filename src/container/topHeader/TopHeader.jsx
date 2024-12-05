@@ -2,51 +2,66 @@ import React from 'react'
 import ButtonLogo from '../../components/buttonItem/ButtonLogo'
 import ButtonHeader from '../../components/buttonItem/ButtonHeader'
 import "../topHeader/style/style.css";
+import { useTrailerContext } from '../../context/TrailerContext';
+import { useSelector } from 'react-redux';
+import TitleComponent from '../../components/ui/TitleComponent';
+import PatternedContentBox from '../../components/ui/PatternedContentBox';
+import TicketNow from '../ticketNow/TicketNow';
+import TicketSearch from '../ticketSearch/TicketSearch';
 
 export default function TopHeader() {
+    const { listPhim } = useSelector((state) => state.quanLyPhimReducer);
+    const { handleOpen } = useTrailerContext();
+
+    const contentTicketBook = () => (
+        <div
+            className="home-page h-full w-full flex justify-center items-center"
+        >
+            <div className='w-[800px] h-[600px] bg-[#131313] flex flex-col justify-center items-center p-5' onClick={(e) => e.stopPropagation()}>
+                <PatternedContentBox>
+                    <div className='w-full h-full space-y-16'>
+                        {TitleComponent("Đặt vé")}
+                        <TicketNow listPhim={listPhim} />
+                    </div>
+                </PatternedContentBox>
+            </div>
+        </div >
+    )
+
+    const contentTicketSearch = () => (
+        <div
+            className="home-page h-full w-full flex justify-center items-center"
+        >
+            <div className='w-[800px] h-[600px] bg-[#131313] flex flex-col justify-center items-center p-5' onClick={(e) => e.stopPropagation()}>
+                <PatternedContentBox>
+                    <div className='w-full h-full space-y-16'>
+                        {TitleComponent("Tìm kiếm")}
+                        <TicketSearch listPhim={listPhim} />
+                    </div>
+                </PatternedContentBox>
+            </div>
+        </div >
+    )
+
+
     return (
-        <div className="Top-header h-[12vh] w-full overflow-hidden bg-black grid grid-cols-17">
+        <div className="Top-header w-full bg-black flex justify-center items-center px-24">
 
-            {/* Button Booking */}
-            <span className="header-2 col-span-4 grid grid-cols-12 ">
+            <ButtonHeader contentButton={<div className='text-center font-serif font-normal text-sm transition-all duration-300 w-full h-full text-[#cdcdcd] hover:text-white' >Tìm kiếm</div>}
+                handleOpen={handleOpen}
+                content={contentTicketSearch()}
+            />
 
-                <span className="col-span-2 header-2-2"></span>
-                <span className="col-span-1 header-2-3"></span>
-                <span className="overflow-hidden col-span-8">
-                    <span className="header-2-4 w-full h-full flex justify-center items-center">
+            <ButtonLogo />
 
-                        <ButtonHeader contentButton={"Đặt vé"} />
+            <ButtonHeader contentButton={
+                <div className='text-center font-serif font-normal text-sm transition-all duration-300 w-full h-full text-[#cdcdcd] hover:text-white'
+                >Đặt vé</div>
+            }
+                handleOpen={handleOpen}
+                content={contentTicketBook()}
+            />
 
-                    </span>
-                </span>
-                <span className="col-span-1 "></span>
-            </span>
-
-            <span className="header-3 col-span-1 "></span>
-            <span className="header-4 col-span-1 "></span>
-            <span className="header-5 col-span-1 "></span>
-
-            <span className="header-6 col-span-3">
-                <ButtonLogo />
-            </span>
-
-            <span className="header-7 col-span-1 "></span>
-            <span className="header-8 col-span-1 "></span>
-            <span className="header-9 col-span-1 "></span>
-
-            {/* Button Search */}
-            <span className="header-10 col-span-4 grid grid-cols-12 ">
-                <span className="col-span-1 "></span>
-                <span className="overflow-hidden col-span-8 ">
-                    <span className=" header-10-4 w-full h-full flex justify-center items-center">
-
-                        <ButtonHeader contentButton={"Tìm kiếm"} />
-
-                    </span>
-                </span>
-                <span className="col-span-1 header-10-3 "></span>
-                <span className="col-span-2"></span>
-            </span>
 
         </div>
     )

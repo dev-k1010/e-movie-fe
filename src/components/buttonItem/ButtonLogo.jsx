@@ -1,5 +1,6 @@
 import React from 'react'
 import { NavLink, useLocation, useNavigate } from 'react-router-dom'
+import BorderedContainer from '../ui/BorderedContainer';
 
 export default function ButtonLogo() {
   const location = useLocation();
@@ -19,17 +20,21 @@ export default function ButtonLogo() {
   return (
     <NavLink to="/home" onClick={handleClick} className="w-full h-full justify-center items-center flex overflow-hidden">
       <div className="flex flex-col justify-center items-center relative group ">
-        <img
-          src="/logo.jpg"
-          alt="Logo"
-          className="w-[6vw] h-[3vw] object-contain"
-        />
-        <img
-          src="/light-red.png"
-          alt="Logo"
-          className="w-full h-[1.5vw] object-contain "
-        />
-        <div className="absolute inset-0  bg-gradient-to-t bg-black/20 opacity-0 group-hover:opacity-100 transition duration-300 w-full h-full"></div>
+        <BorderedContainer>
+          <div className='px-8 flex flex-col justify-center items-center'>
+            <img
+              src="/logo.jpg"
+              alt="Logo"
+              className="w-[8vw] h-[2.5vw] object-contain"
+            />
+            {/* <img
+              src="/light-red-1.png"
+              alt="Logo"
+              className="w-[10vw] h-[1vw] object-contain "
+            /> */}
+          </div>
+        </BorderedContainer>
+
       </div>
     </NavLink>
   )

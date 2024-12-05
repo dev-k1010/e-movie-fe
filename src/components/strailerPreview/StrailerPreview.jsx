@@ -1,32 +1,45 @@
-import React from 'react';
-import ReactPlayer from 'react-player';
+import React, { useEffect } from 'react';
 import { useTrailerContext } from '../../context/TrailerContext';
 
 const TrailerPreview = () => {
+    const { isOpen, content, handleClose } = useTrailerContext();
 
-    const { isOpen, urlTrailer, handleClose } = useTrailerContext();
+    useEffect(() => {
+        // Hàm ngừng cuộn
+        const disableScroll = (e) => {
+            if (isOpen && !e.target.closest('.modal-content')) {
+                e.preventDefault(); // Ngừng cuộn trên trang chính
+            }
+        };
 
-    if (!isOpen || !urlTrailer) return null;
+        // Nếu modal mở, ngừng cuộn trang chính
+        if (isOpen) {
+            document.addEventListener("wheel", disableScroll, { passive: false });
+            document.addEventListener("touchmove", disableScroll, { passive: false });
+        } else {
+            document.removeEventListener("wheel", disableScroll);
+            document.removeEventListener("touchmove", disableScroll);
+        }
+
+        return () => {
+            document.removeEventListener("wheel", disableScroll);
+            document.removeEventListener("touchmove", disableScroll);
+        };
+    }, [isOpen]);
+
+    // Nếu modal không mở, không render gì
+    if (!isOpen) return null;
 
     return (
         <div
-            style={{ zIndex: 60 }}
+            onClick={handleClose}
             className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-75 flex items-center justify-center"
+            style={{ zIndex: 60 }}
         >
-            <div className="relative w-full max-w-screen-lg mx-4 md:mx-8 lg:mx-16 space-y-3">
-                <button
-                    onClick={handleClose}
-                    className="absolute -top-4 right-0 text-white text-xl md:-top-6"
-                >
-                    Đóng
-                </button>
-                <ReactPlayer
-                    url={urlTrailer}
-                    controls
-                    width="100%"
-                    height="70vh"
-                />
-            </div>
+            {/* Modal Content */}
+
+            {content}
+
         </div>
     );
 };

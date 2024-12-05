@@ -42,3 +42,431 @@ ThemeContext.js
   / App.js                # Component gốc của ứng dụng
     / index.js              # Entry point của ứng dụng
       / serviceWorker.js      # Service worker để cache và offline capabilities
+
+
+; 
+
+
+ const cardTop = (
+    <div className="relative rounded-md overflow-hidden group ">
+      <FadeIn />
+      <img
+        src={movie.hinhAnh}
+        alt={movie.tenPhim}
+        loading="lazy"
+        className="w-full h-[20vw] object-cover rounded-md text-white transition duration-300 group-hover:scale-105"
+      />
+
+
+      <span className="absolute inset-0 bg-black/20 backdrop-blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
+
+      <span className="absolute top-3 left-3 w-20 h-10 p-3 border-l flex flex-col items-start font-sans font-normal text-sm text-white transition-opacity duration-300 opacity-0 group-hover:opacity-100">
+        <div
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            width: "40px",  // Độ dài mong muốn của border top
+            height: "0px",
+            borderTop: "1px solid white", // Độ dày và màu sắc của border top
+          }}
+        ></div>
+        180p
+      </span>
+
+      <span className="absolute top-3 right-3 w-20 h-10 border-r  flex flex-col items-end p-3 font-sans font-normal text-sm text-white transition-opacity duration-300 opacity-0 group-hover:opacity-100 ">
+        <div
+          style={{
+            position: "absolute",
+            top: 0,
+            right: 0,
+            width: "40px",  // Độ dài mong muốn của border top
+            height: "0px",
+            borderTop: "1px solid white", // Độ dày và màu sắc của border top
+          }}
+        ></div>
+        <span className="flex space-x-1">
+          <span>5.0</span> <StarFilled />
+        </span>
+      </span>
+
+      <span className="absolute bottom-3 left-3 w-20 h-10 border-l flex flex-col items-start p-3 font-sans font-normal text-sm text-white transition-opacity duration-300 opacity-0 group-hover:opacity-100 ">
+        <div
+          style={{
+            position: "absolute",
+            bottom: 0,
+            left: 0,
+            width: "40px",  // Độ dài mong muốn của border top
+            height: "0px",
+            borderTop: "1px solid white", // Độ dày và màu sắc của border top
+          }}
+        ></div>
+        VN
+      </span>
+
+      <span className="absolute bottom-3 right-3 w-20 h-10 border-r flex flex-col items-end p-3 font-sans font-normal text-sm text-white transition-opacity duration-300 opacity-0 group-hover:opacity-100 ">
+        <div
+          style={{
+            position: "absolute",
+            bottom: 0,
+            right: 0,
+            width: "32px",  // Độ dài mong muốn của border top
+            height: "0px",
+            borderTop: "1px solid white", // Độ dày và màu sắc của border top
+          }}
+        ></div>
+        ALL
+      </span>
+
+
+      <span className="absolute inset-0 flex flex-col items-center justify-center opacity-100 group-hover:opacity-100 transition-opacity duration-300 space-y-5">
+        <button
+          className="w-28 h-10 text-sm font-sans font-normal flex justify-center items-center transition duration-300 rounded-full space-x-3 text-white border hover:border-[#131313] hover:bg-[#131313]"
+          onClick={(e) => {
+            e.stopPropagation();
+            handleOpen(movie.trailer);
+          }}
+        >
+          <span>Trailer</span>
+          <PlayCircleOutlined className="text-lg" />
+        </button>
+        {/* <button
+          onClick={() => navigate(`/detail/${movie.maPhim}`)}
+          className="relative w-28 h-10 text-sm font-sans font-normal rounded-full overflow-hidden transition duration-300 text-white bg-color1 flex justify-center items-center space-x-3 hover:text-[#970000]"
+        >
+          <span className="relative z-10">Mua vé</span>
+          <ArrowRightOutlined className="relative z-10 text-md" />
+
+        
+          <span
+            className="absolute top-0 left-0 w-full h-full bg-black/20 transition-all duration-500 ease-in-out transform -translate-x-full hover:translate-x-52 hover:w-8 hover:h-8 hover:rounded-full"
+            style={{
+              zIndex: 1,
+            }}
+          ></span>
+        </button> */}
+
+
+        <button
+          // onClick={() => navigate(`/detail/${movie.maPhim}`)}
+          class="button flex justify-center items-center bg-color1">
+
+          <div className=' text-ellipsis line-clamp-1 button-text ' >Mua vé</div>
+
+
+          <div className='lop-phu w-full h-full  rounded-full '>
+
+            <div class="arrow ">
+
+              <ArrowRightOutlined className="text" />
+
+            </div>
+
+          </div>
+        </button>
+
+      </span>
+    </div>
+  );
+
+
+
+
+
+
+  <div className="space-y-5">
+    <div className="overflow-hidden">
+      <div className="grid grid-cols-2 gap-5">
+        {/* item0 */}
+        <div onClick={handleImageClick} className="space-y-5">
+          <div>
+            <a target="_blank" rel="noreferrer">
+            <div className="space-y-5">
+            <div className="overflow-hidden">
+              <div className="grid grid-cols-2 gap-5">
+                {/* item0 */}
+                <div onClick={handleImageClick} className="space-y-5">
+                  <div>
+                    <a target="_blank" rel="noreferrer">
+                      <img
+                        alt="poster"
+                        src={newsArr[0]?.img}
+                        className="w-full h-full rounded-md"
+                        loading="lazy"
+                      />
+                    </a>
+                  </div>
+                  <div className="space-y-2">
+                    <a
+                      target="_blank"
+                      rel="noreferrer"
+                      className="font-serif text-base lg:text-xl text-white font-semibold hover:text-white/80"
+                    >
+                      <p>{newsArr[0]?.title}</p>
+                    </a>
+                    {/* <p className="text-start text-md font-sans line-clamp-3 text-white">
+                      {newsArr[0]?.text}
+                    </p> */}
+                  </div>
+                </div>
+                {/* item1 */}
+                <div onClick={handleImageClick} className="space-y-5">
+                  <div>
+                    <a target="_blank" rel="noreferrer">
+                      <img
+                        alt="poster"
+                        src={newsArr[1]?.img}
+                        className="w-full h-full rounded-md"
+                        loading="lazy"
+                      />
+                    </a>
+                  </div>
+                  <div className="space-y-2">
+                    <a
+                      target="_blank"
+                      rel="noreferrer"
+                      className="font-serif text-base lg:text-xl text-white font-semibold hover:text-white/80"
+                    >
+                      <p>{newsArr[1]?.title}</p>
+                    </a>
+                    {/* <p className="text-start text-md font-sans line-clamp-3 text-white">
+                      {newsArr[1]?.text}
+                    </p> */}
+                  </div>
+                </div>
+              </div>
+            </div>
+    
+            <div className="grid grid-cols-10 gap-5">
+              <div className="col-span-7">
+                <div className="grid grid-cols-2 gap-5">
+                  {newsArr.slice(2, 4).map((item, index) => (
+                    <div key={index} onClick={handleImageClick} className="space-y-5 h-full">
+                      <div className="w-full h-full">
+                        <a target="_blank" rel="noreferrer">
+                          <img
+                            alt="poster"
+                            src={item.img}
+                            className="w-full h-full rounded-md"
+                            loading="lazy"
+                          />
+                        </a>
+                      </div>
+                      <div className="space-y-2">
+                        <a
+                          target="_blank"
+                          rel="noreferrer"
+                          className="font-serif text-base lg:text-xl text-white font-semibold hover:text-white/80"
+                        >
+                          <p>{item.title}</p>
+                        </a>
+                        {/* <p className="text-start text-md font-sans line-clamp-3 text-white">
+                          {item.text}
+                        </p> */}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <div className="col-span-3 grid grid-cols-1 gap-3">
+                {newsArr.slice(4, 8).map((item, index) => (
+                  <div key={index} className="flex space-x-5" onClick={handleImageClick}>
+                    <div>
+                      <a target="_blank" rel="noreferrer">
+                        <img
+                          alt="poster"
+                          src={item.img}
+                          className="rounded-md w-20"
+                          loading="lazy"
+                        />
+                      </a>
+                    </div>
+                    <a
+                      target="_blank"
+                      rel="noreferrer"
+                      className="text-sm lg:text-lg font-serif font-medium text-white hover:text-white/70"
+                    >
+                      <p>{item.title}</p>
+                    </a>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+            </a>
+          </div>
+          <div className="space-y-2">
+            <a
+              target="_blank"
+              rel="noreferrer"
+              className="font-serif text-base lg:text-xl text-white font-semibold hover:text-white/80"
+            >
+              <p>{newsArr[0]?.title}</p>
+            </a>
+            {/* <p className="text-start text-md font-sans line-clamp-3 text-white">
+              {newsArr[0]?.text}
+            </p> */}
+          </div>
+        </div>
+        {/* item1 */}
+        <div onClick={handleImageClick} className="space-y-5">
+          <div>
+            <a target="_blank" rel="noreferrer">
+              <img
+                alt="poster"
+                src={newsArr[1]?.img}
+                className="w-full h-full rounded-md"
+                loading="lazy"
+              />
+            </a>
+          </div>
+          <div className="space-y-2">
+            <a
+              target="_blank"
+              rel="noreferrer"
+              className="font-serif text-base lg:text-xl text-white font-semibold hover:text-white/80"
+            >
+              <p>{newsArr[1]?.title}</p>
+            </a>
+            {/* <p className="text-start text-md font-sans line-clamp-3 text-white">
+              {newsArr[1]?.text}
+            </p> */}
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div className="grid grid-cols-10 gap-5">
+      <div className="col-span-7">
+        <div className="grid grid-cols-2 gap-5">
+          {newsArr.slice(2, 4).map((item, index) => (
+            <div key={index} onClick={handleImageClick} className="space-y-5 h-full">
+              <div className="w-full h-full">
+                <a target="_blank" rel="noreferrer">
+                  <img
+                    alt="poster"
+                    src={item.img}
+                    className="w-full h-full rounded-md"
+                    loading="lazy"
+                  />
+                </a>
+              </div>
+              <div className="space-y-2">
+                <a
+                  target="_blank"
+                  rel="noreferrer"
+                  className="font-serif text-base lg:text-xl text-white font-semibold hover:text-white/80"
+                >
+                  <p>{item.title}</p>
+                </a>
+                {/* <p className="text-start text-md font-sans line-clamp-3 text-white">
+                  {item.text}
+                </p> */}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+      <div className="col-span-3 grid grid-cols-1 gap-3">
+        {newsArr.slice(4, 8).map((item, index) => (
+          <div key={index} className="flex space-x-5" onClick={handleImageClick}>
+            <div>
+              <a target="_blank" rel="noreferrer">
+                <img
+                  alt="poster"
+                  src={item.img}
+                  className="rounded-md w-20"
+                  loading="lazy"
+                />
+              </a>
+            </div>
+            <a
+              target="_blank"
+              rel="noreferrer"
+              className="text-sm lg:text-lg font-serif font-medium text-white hover:text-white/70"
+            >
+              <p>{item.title}</p>
+            </a>
+          </div>
+        ))}
+      </div>
+    </div>
+    </div>
+
+
+
+
+
+
+
+
+    <!-- Hoa văn tiêu đề mẫu -->
+    const titleContent = (title) => (
+      <div className="w-full h-full flex flex-col justify-center items-center space-y-2 z-10">
+  
+        <div className="w-full h-full grid grid-cols-17 gap-2 justify-center items-center">
+  
+          <span className="col-span-7 w-full h-full flex  justify-end items-center space-x-3">
+            <div className="space-y-1 flex flex-col w-full">
+  
+              <div className="w-full h-full flex justify-end">
+                <div className="h-3 aspect-square rounded-full border border-color1 bg-color1"></div>
+              </div>
+              <div className="w-full h-[1px] bg-[#252525] "></div>
+              <div className="w-full h-full flex justify-end">
+                <div className="h-3 aspect-square rounded-full border border-color1 bg-color1"></div>
+              </div>
+            </div>
+            <div className="aspect-square h-full flex justify-center items-center ">
+              <div className="w-[70%] h-[40%] transform skew-x-[55deg] rotate-[-17deg] bg-color1"
+  
+              ></div>
+            </div>
+          </span>
+  
+  
+  
+          <span className="col-span-3 w-full h-full flex flex-col justify-center items-center">
+            {/* <span className="w-[30%] aspect-square rotate-45 scale-[0.5] bg-color1 rounded-full"></span> */}
+            <p className="text-white text-3xl font-normal uppercase">{title}</p>
+          </span>
+  
+  
+          <span className="col-span-7 w-full h-full flex  justify-start items-center space-x-3">
+            <div className="aspect-square h-full flex justify-center items-center ">
+              <div className="w-[70%] h-[40%] transform skew-x-[55deg] rotate-[-17deg] bg-color1"
+  
+              ></div>
+            </div>
+            <div className="space-y-1 flex flex-col w-full">
+              <div className="w-full h-full ">
+                <div className="h-3 aspect-square rounded-full border border-color1 bg-color1"></div>
+              </div>
+              <div className="w-full h-[1px] bg-[#252525] "></div>
+              <div className="w-full h-full  ">
+                <div className="h-3 aspect-square rounded-full border border-color1 bg-color1"></div>
+              </div>
+            </div>
+          </span>
+        </div>
+      </div>
+    )
+  
+    const SeparatorLine = () => (
+  
+      <div className="w-full h-24 grid grid-cols-17 justify-center items-center">
+  
+        <span className="col-span-7 w-full h-[1px] flex justify-center items-center ">
+          <span className="w-[100%] h-full bg-[#252525] "></span>
+        </span>
+  
+        <span className="col-span-3">
+        </span>
+  
+        <span className="col-span-7 w-full h-[1px] flex justify-center items-center">
+          <span className="w-[100%] h-full bg-[#252525] "></span>
+        </span>
+  
+      </div>
+  
+    )

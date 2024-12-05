@@ -121,3 +121,102 @@ Coponent có thể dùng lại
             </span>
           </div>
         </div> */}
+
+
+       
+:root {
+    --colPrimario: rgba(63, 63, 63, 0.771); /* Màu nền khi hover */
+    --bgColor: #252525; /* Màu nền ban đầu của nút */
+    --transitionDuration: 0.4s; /* Thời gian chuyển đổi */
+}
+
+/* Nút chính */
+.rap-list .discover-button {
+    position: relative; /* Để tạo vị trí cho phần tử ảo */
+    background: var(--bgColor); /* Nền nút ban đầu */
+    border: none; /* Không có đường viền */
+    color: black; /* Màu chữ */
+    cursor: pointer; /* Con trỏ chuột */
+    overflow: hidden; /* Để ẩn các phần tử vượt ra ngoài */
+    transition: color var(--transitionDuration) ease, transform var(--transitionDuration) ease; /* Hiệu ứng chuyển đổi màu chữ và kích thước */
+}
+
+/* Phần tử ảo tạo hiệu ứng nền */
+.rap-list .bg-transition {
+    content: ""; /* Phần tử nền */
+    position: absolute; /* Đặt nó ở vị trí tuyệt đối */
+    top: 100%; /* Bắt đầu từ trên cùng bên ngoài nút */
+    left: 0;
+    right: 0;
+    height: 100%; /* Chiều cao bằng chiều cao của nút */
+    background: var(--colPrimario); /* Màu nền khi hover */
+    transition: top var(--transitionDuration) ease; /* Hiệu ứng chuyển đổi cho chuyển động */
+    z-index: -1; /* Đặt dưới cùng để không che phủ nội dung */
+}
+
+
+/* Văn bản mặc định */
+.text-default {
+    position: relative;
+    z-index: 2;
+    transition: transform var(--transitionDuration) ease;
+  }
+  
+  /* Văn bản khi hover */
+  .text-hover {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--textColorHover);
+    background-color: var(--bgColorHover);
+    transform: translateY(100%);
+    transition: transform var(--transitionDuration) ease;
+  }
+
+/* Hiệu ứng khi hover */
+.rap-list .discover-button:hover .bg-transition {
+    top: 0; /* Đẩy từ trên xuống và phủ kín nút */
+}
+
+/* Hiệu ứng thay đổi kích thước khi hover */
+.rap-list .discover-button:hover {
+    color: transparent; /* Làm chữ chính của nút mờ đi để chỉ thấy chữ trong nền đen */
+    transform: scale(0.95); /* Thu nhỏ nút một chút */
+}
+
+/* Hiệu ứng hover */
+.discover-button:hover .text-default {
+    transform: translateY(-200%);
+  }
+  
+  .discover-button:hover .text-hover {
+    transform: translateY(0);
+  }
+
+
+
+   <div className="w-full h-full grid grid-cols-17 gap-3 justify-center items-center">
+
+        <div className="col-span-8 w-full h-[0.5px] flex justify-end items-center ">
+          <div className="w-[50%] h-full bg-[#252525] "></div>
+        </div>
+
+        <span className="col-span-1 w-full h-full flex justify-center items-center">
+          <span className="w-[50%] aspect-square scale-[0.5] grid grid-cols-2 grid-rows-2 gap-1 rotate-45 border-2 border-[#555555]">
+            {/* Bốn hình vuông nhỏ bên trong */}
+            {/* <span className="border-2 border-[#555555]  w-full h-full"></span>
+            <span className="border-2 border-[#555555]  w-full h-full"></span>
+            <span className="border-2 border-[#555555]  w-full h-full"></span>
+            <span className="border-2 border-[#555555]  w-full h-full"></span> */}
+          </span>
+        </span>
+
+        <span className="col-span-8 w-full h-[0.5px] flex justify-start items-center">
+          <div className="w-[50%] h-full bg-[#252525] "></div>
+        </span>
+      </div>

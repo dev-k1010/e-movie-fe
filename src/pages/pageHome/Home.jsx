@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   layDanhSachBanner,
@@ -7,22 +7,19 @@ import {
 import { layThongTinLichChieuHeThongRap } from "../../stores/quanLyRapReducer/quanLyRapReducer";
 import Banner from "../../container/banner/Banner";
 import RapList from "./listRap/RapList";
-import HomeTool from "./homeTool/HomeTool";
-import News from "./news/News";
 import AppMobile from "./appMobile/AppMobile";
 import MoviesPagination from "../../container/moviesPagination/MoviesPagination";
 import MoviesTabs from "../../container/movieTabs/MoviesTabs";
-import { useOutletContext } from "react-router-dom";
-import { ExclamationOutlined } from "@ant-design/icons";
-// import FadeIn from "../../components/fadeIn/FadeIn";
 import { useHeightContext } from "../../context/HeightHeaderContext";
 import { SliderProvider } from "../../context/SliderContext";
-import BorderWrapper from "../../components/ui/BorderWrapper";
 import BorderedContainer from "../../components/ui/BorderedContainer";
-import BorderSquareLine from "../../components/ui/BorderSquareLine";
-import PatternedContentBox from "../../components/ui/PatternedContentBox";
-import PromoSlider from "../../components/promoSlider/PromoSlider";
-import TextSwipper from "../../components/textSwipper/TextSwipper";
+import PromoBanner from "../../container/promoBanner/PromoBanner";
+import ProgramEvents from "../../container/programEvents/ProgramEvents";
+import FilmNews from "../../container/filmNews/FilmNews";
+import TitleComponent from "../../components/ui/TitleComponent";
+import SeparatorLine from "../../components/ui/SeparatorLine";
+
+
 
 
 export default function Home() {
@@ -36,23 +33,6 @@ export default function Home() {
     dispatch(layDanhSachPhim());
     dispatch(layThongTinLichChieuHeThongRap());
   }, [dispatch]);
-
-  const titleContent = (title) => (
-    <div className="w-full h-full flex flex-col justify-center items-center space-y-2 z-10">
-      <p className="text-white text-3xl font-normal uppercase">{title}</p>
-      <div className="w-full h-full grid grid-cols-17 gap-2 justify-center items-center">
-        <span className="col-span-8 w-full h-[1px] flex justify-end items-center">
-          <div className="w-full h-full bg-[#555555] "></div>
-        </span>
-        <span className="col-span-1 w-full h-full flex justify-center items-center">
-          <span className="border border-white w-[20%] aspect-square rotate-45 scale-[0.5] bg-[#555555]"></span>
-        </span>
-        <span className="col-span-8 w-full h-[1px] flex justify-start items-center">
-          <div className="w-full h-full bg-[#555555] "></div>
-        </span>
-      </div>
-    </div>
-  )
 
 
   const [backgroundY, setBackgroundY] = useState(100); // Vị trí ban đầu của nền
@@ -68,11 +48,11 @@ export default function Home() {
       // Tính toán tỷ lệ cuộn của component
       const scrollPercentage = Math.min(
         1,
-        Math.max(0, (scrollPosition + windowHeight - componentTop) / (windowHeight * 1.5)) // Tăng độ mượt khi cuộn
+        Math.max(0, (scrollPosition + windowHeight - componentTop) / (windowHeight * 3)) // Tăng độ mượt khi cuộn
       );
       // Cập nhật vị trí Y cho nền (chậm hơn so với nội dung)
-      const newY = Math.max(0, 100 - (scrollPercentage * 100 * 2)); // Nền di chuyển chậm hơn chút
-      const newOpacity = Math.min(1, scrollPercentage * 1.8); // Nền mờ dần mượt mà
+      const newY = Math.max(0, 100 - (scrollPercentage * 100 * 5)); // Nền di chuyển chậm hơn chút
+      const newOpacity = Math.min(1, scrollPercentage * 5); // Nền mờ dần mượt mà
 
       setBackgroundY(newY); // Cập nhật vị trí Y của nền
       setBackgroundOpacity(newOpacity); // Cập nhật độ mờ
@@ -88,15 +68,13 @@ export default function Home() {
 
 
 
-
-
-
   return (
     <div
       style={{
         paddingTop: `${heightHeader}px`,
         backgroundColor: "black"
       }}
+      className="home-page"
     >
 
       {/* Banner */}
@@ -106,117 +84,129 @@ export default function Home() {
 
       </SliderProvider>
 
-      {/* Line */}
-      <div
-        className="w-full h-20 bg-transparent rounded-tl-[50%] rounded-tr-[50%] border-b-0 bg-gradient-to-l from-transparent via-color1 to-transparent pt-1">
-        <div
-          style={{ borderRadius: 'inherit' }}
-          className="w-full h-full bg-gradient-to-b from-[#252525] via-black to-black"></div>
-      </div>
 
       {/* Lịch chiếu phim */}
-      <div className=" px-5 md:px-16 lg:px-28 space-y-9 w-full h-full bg-black pb-10 ">
+      <div id="lichChieuPhim">
 
-
-        <div id="lichChieuPhim" className=" bg-black ">
-
-
-          <BorderSquareLine>
-            <div className="px-20 py-3 space-y-5 bg-[#131313]">
-              <BorderedContainer>
-                <div className=" py-5 px-10">
-                  <MoviesTabs listPhim={listPhim} />
-                </div>
-              </BorderedContainer>
-            </div>
-
-          </BorderSquareLine>
-
-
+        <div className="w-full h-20 bg-transparent rounded-tl-[50%] rounded-tr-[50%] border-b-0 bg-gradient-to-l from-transparent via-color1 to-transparent pt-1">
+          <div
+            style={{ borderRadius: 'inherit' }}
+            className="w-full h-full bg-gradient-to-b from-[#252525] via-black to-black"></div>
         </div>
 
+        {TitleComponent("Lịch chiếu")}
+
+        <div className="px-24 pt-5 pb-10">
+
+          <div className="p-5 bg-[#131313]">
+            <BorderedContainer>
+              <div className="px-16">
+                <MoviesTabs listPhim={listPhim} />
+              </div>
+            </BorderedContainer>
+          </div>
+
+        </div>
       </div>
 
-
       {/* Danh sách phim */}
-      <div
-        id="danhSachPhim" className="pt-10 px-28 space-y-5 bg-black overflow-hidden flex flex-col justify-center items-center relative ">
+      <div id="danhSachPhim">
+        {SeparatorLine()}
+        {TitleComponent("Phim")}
 
-        {/* Background */}
         <div
-          id="background"
-          className="absolute z-0 w-full h-full "
           style={{
-            backgroundImage: `url("/IMG/bg-34.jpg")`,
+            backgroundImage: `url("/IMG/bg-19.jpg")`,
             backgroundRepeat: "no-repeat",
             backgroundSize: "cover",
             backgroundPosition: "center",
-            transform: `translateY(${backgroundY}%)`,
-            opacity: backgroundOpacity,
-            transition: "transform 0.9s cubic-bezier(0.25, 0.1, 0.25, 1), opacity 0.9s cubic-bezier(0.25, 0.1, 0.25, 1)", // Mượt mà hơn
+
           }}
         >
-          <div className="absolute inset-0 backdrop-blur-sm "></div>
-          <img src="/IMG/bg-34.jpg" className="h-full w-full" alt="" />
-        </div>
-
-
-
-        {/* Title */}
-        <div className="z-10 w-full">
-          {titleContent("Danh sách phim")}
-
-          {/* List Movies */}
-          <div >
-            <div className="px-[160px] py-[72px]" >
-              <MoviesPagination listPhim={listPhim} titleContent={titleContent} />
+          <div className="w-full h-full px-24 py-10"
+            style={{
+              background: `
+            linear-gradient(to bottom, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0) 10%),
+            linear-gradient(to top, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0) 10%),
+            linear-gradient(to right, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0) 20%),
+            linear-gradient(to left, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0) 20%)
+          `,
+            }}
+          >
+            <div className="w-full p-5 bg-[#131313]"
+              style={{
+                /* Hiệu ứng di chuyển dọc và mờ dần */
+                transform: `translateY(${backgroundY}%)`,
+                opacity: backgroundOpacity,
+                /* Tối ưu hóa hiệu ứng chuyển động */
+                transition: `
+              transform 0.8s cubic-bezier(0.25, 0.1, 0.25, 1),
+              opacity 0.8s cubic-bezier(0.25, 0.1, 0.25, 1)
+            `,
+              }}
+            >
+              <BorderedContainer>
+                <div className="px-16">
+                  <MoviesPagination listPhim={listPhim} />
+                </div>
+              </BorderedContainer>
             </div>
-
           </div>
-
-
         </div>
-
-      </div>
-
-      {/* Gradient overlay  */}
-      <div className="w-full h-20 -translate-y-16 bg-gradient-to-t from-black via-black/50 to-transparent"></div>
-
-
-      {/* Demo promo */}
-      <div className="w-full h-full py-[72px] px-28 space-y-5">
-        {titleContent("khuyến mãi")}
-        <TextSwipper />
-
       </div>
 
       {/* Danh sách rạp */}
-      <div
-        id="rapChieu" className="mt-10 px-28 bg-black space-y-5">
+      <div id="cumRap">
+        {SeparatorLine()}
+        {TitleComponent("Cụm rạp")}
 
-
-        {titleContent("danh sách rạp")}
-
-        <BorderSquareLine>
-
-
-          <div className="p-5 space-y-5 bg-[#131313]">
-
-            <RapList lichChieuHeThongRap={lichChieuHeThongRap} />
-
+        <div className="px-24 pt-5 pb-10 bg-black">
+          <div className="p-5 bg-[#131313]">
+            <BorderedContainer>
+              <RapList lichChieuHeThongRap={lichChieuHeThongRap} />
+            </BorderedContainer>
           </div>
+        </div>
+      </div>
 
+      {/* Sự kiện */}
+      <div id="suKien">
+        {SeparatorLine()}
+        {TitleComponent("Sự kiện")}
 
-        </BorderSquareLine>
+        <div className="px-24 pt-5 pb-10">
+          <ProgramEvents />
+        </div>
+      </div>
+
+      {/* Tin tức */}
+      <div id="tinTuc">
+        {SeparatorLine()}
+        {TitleComponent("Tin tức")}
+
+        <div className="px-24 pt-5 pb-10 bg-black">
+          <FilmNews />
+        </div>
+      </div>
+
+      {/* Khuyến mãi */}
+      <div id="khuyenMai">
+        {SeparatorLine()}
+        {TitleComponent("Khuyến mãi")}
+
+        <div className="px-24 pt-5 pb-10 bg-black">
+          <PromoBanner />
+        </div>
       </div>
 
 
-
-      <div id="tinTuc" className="mt-10 px-28 bg-black space-y-5">
-        <News />
-      </div>
-
-      <div id="appMobile" className="px-5 md:px-16 lg:px-28">
+      {/* App */}
+      <div id="appMobile" className="px-24 pt-5 pb-10"
+        style={{
+          backgroundImage: `url('IMG/bg-1.jpg')`,
+          backgroundRepeat: "repeat",
+        }}
+      >
         <AppMobile />
       </div>
 

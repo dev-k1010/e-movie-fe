@@ -1,0 +1,144 @@
+.button-trailer {
+    position: relative;
+    width: 120px;
+    height: 40px;
+    border-radius: 120px;
+    font-size: 12px;
+    font-weight: bold;
+    /* border: 1px solid white; */
+    text-transform: uppercase;
+    color: #fff;
+    background-color: black;
+    cursor: pointer;
+    padding: 0px 18px 0px 0px; /* Đảm bảo padding là 0 ban đầu */
+    transition: padding 0.7s ease, color 0.7s ease, border-color 0.7s ease; /* Thời gian chuyển đổi nhanh hơn */
+    display: flex;
+    align-items: center; /* Căn giữa dọc nội dung trong lop-phu */
+    justify-content: center; /* Căn giữa ngang nội dung trong lop-phu */
+  }
+
+.overlay-trailer {
+    position: relative;
+    background: none;
+    width: 100%; /* Chiều rộng ban đầu */
+    height: 100%; /* Chiều cao ban đầu */
+    transition: width 0.7s ease, height 0.7s ease, background 0.7s ease, border-radius 0.7s ease, padding-right 0.7s ease, justify-content 0.7s ease; /* Mượt mà hơn */
+    
+
+  }
+
+
+.arrow-trailer {
+    position: absolute;
+    transform: translate(-50%, -50%); /* Căn giữa chính xác */
+    top: 50%;
+    right: 0px;
+    transition: transform 2s ease;
+}
+
+.text-trailer {
+    font-size: 14.5px;
+    font-weight: bold;
+    display: flex;
+    align-items: center; /* Căn giữa dọc nội dung trong lop-phu */
+    justify-content: center; /* Căn giữa ngang nội dung trong lop-phu */
+   
+}
+
+.button-trailer:hover .arrow-trailer {
+  transform: translate(-50%, -50%); /* Dịch chuyển mũi tên vào giữa khi hover */
+}
+  
+  .button-trailer:hover {
+    padding: 5px 5px 5px 85px; /* Padding khi hover */
+    transition: padding 0.7s ease; /* Chuyển đổi padding nhanh hơn */
+  }
+  
+  .button-trailer:hover .overlay-trailer    {
+    background: rgba(255, 255, 255, 0.2); /* Thay đổi màu nền khi hover */
+    
+  }
+
+  .button-trailer .label-trailer {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 120px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Căn giữa tuyệt đối */
+    z-index: 1; /* Đảm bảo nó nằm trên phần tử khác */
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding-left: 25px;
+    transition: transform 0.7s ease; /* Mượt mà hơn khi chuyển đổi */
+  }
+
+
+
+  :root {
+    --transitionDuration: 0.4s; /* Thời gian chuyển đổi */
+}
+
+/* Nút chính */
+.button-card .discover-button {
+  width: 120px;
+  height: 40px;
+  border-radius: 120px;
+  border: 1px solid white;
+  position: relative; /* Để tạo vị trí cho phần tử ảo */
+  /* background: #18181879;  */
+  background:transparent;
+  cursor: pointer; /* Con trỏ chuột */
+  overflow: hidden; /* Để ẩn các phần tử vượt ra ngoài */
+  transition: color var(--transitionDuration) ease, transform var(--transitionDuration) ease, border 0.2s ease ; /* Hiệu ứng chuyển đổi màu chữ và kích thước */
+}
+
+/* Văn bản mặc định */
+.button-card .text-default {
+  position: relative;
+  z-index: 2;
+  opacity: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: opacity var(--transitionDuration) ease, transform var(--transitionDuration) ease; /* Added opacity transition */
+}
+
+/* Văn bản khi hover */
+.button-card .text-hover {
+  position: absolute;
+  width: 120px;
+  height: 40px;
+  border-radius: 120px;
+  border: 1px solid black;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--textColorHover);
+  background-color: black;
+  opacity: 0; /* Initially hidden */
+  transform: translateX(-100%);
+  transition: opacity var(--transitionDuration) ease, transform var(--transitionDuration) ease; /* Added opacity transition */
+}
+
+.button-card .discover-button:hover {
+  border:none
+    
+}
+
+/* Hiệu ứng hover */
+.button-card .discover-button:hover .text-default {
+  opacity: 0; /* Fades out */
+  /* transform: translateX(200%); */
+}
+
+.button-card .discover-button:hover .text-hover {
+  opacity: 1; /* Fades in */
+  transform: translateY(0) scale(1);
+}

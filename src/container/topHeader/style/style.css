@@ -2,16 +2,20 @@
 .Top-header .header-2-3,
 .header-3,
 .header-4,
-.header-5 {
-  box-shadow: -20px 0 25px rgba(228, 9, 9, 0.262);
+.header-5 
+{
+  /* box-shadow: -20px 0 25px rgba(228, 9, 9, 0.262); */
+  /* border: 1px solid white; */
+  /* rotate: 45deg; */
 }
 
 /* Bóng phải cho header-7, header-8, header-9, và header-10-3 */
 .Top-header .header-7,
 .header-8,
 .header-9,
-.header-10-3 {
-  box-shadow: 20px 0 25px rgba(228, 9, 9, 0.262);
+.header-10-3 
+{
+  /* box-shadow: 20px 0 25px rgba(228, 9, 9, 0.262); */
 }
 
   @keyframes animationImg1 {

@@ -2,16 +2,17 @@ import React from 'react'
 import { useLocation, useNavigate } from 'react-router-dom';
 import "../bottomHeader/style/style.css"
 import { Link } from 'react-scroll';
+import UserAccount from '../userAccount/UserAccount';
 
 const menuItems = [
 
-    // { id: "chuongTrinh", label: "Chương trình" },
-    { id: "lichChieuPhim", label: "Lịch chiếu" },
-    { id: "danhSachPhim", label: "Danh sách" },
-    { id: "rapChieu", label: "Rạp chiếu" },
-    { id: "tinTuc", label: "Tin tức" },
-    // { id: "anUong", label: "Ăn uống" },
-    // { id: "thanhVien", label: "Thành viên" },
+    { id: "lichChieuPhim", label: <span className='tracking-wide font-serif font-normal text-sm uppercase'>Lịch chiếu</span> },
+    { id: "danhSachPhim", label: <span className='tracking-wide font-serif font-normal text-sm uppercase'>Phim</span> },
+    { id: "cumRap", label: <span className='tracking-wide font-serif font-normal text-sm uppercase'>Cụm rạp</span> },
+    { id: "suKien", label: <span className='tracking-wide font-serif font-normal text-sm uppercase'>Sự kiện</span> },
+    { id: "tinTuc", label: <span className='tracking-wide font-serif font-normal text-sm uppercase'>Tin tức</span> },
+    { id: "khuyenMai", label: <span className='tracking-wide font-serif font-normal text-sm uppercase'>Khuyến mãi</span> },
+    { id: "", label: <UserAccount /> },
 ];
 
 export default function BottomHeader() {
@@ -29,7 +30,7 @@ export default function BottomHeader() {
     };
 
     return (
-        <ul className=" flex items-center justify-start space-x-8 ">
+        <ul className=" flex items-center justify-start space-x-7">
             {menuItems.map((menuItem, index) => (
                 <React.Fragment key={index}>
                     {index !== 0 && (
@@ -40,7 +41,7 @@ export default function BottomHeader() {
 
                             onClick={handleClick}
                             to={menuItem.id}
-                            className="text-[#cdcdcd] font-sans font-normal text-sm transition duration-500 hover:text-color1 hover:cursor-pointer uppercase"
+                            className=" text-[#cdcdcd]  transition duration-300 hover:text-white hover:cursor-pointer"
                             smooth={true}
                             duration={1000}
                             offset={-60}

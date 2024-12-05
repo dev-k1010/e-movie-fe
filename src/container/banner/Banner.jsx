@@ -7,6 +7,7 @@ import { PlayCircleOutlined } from "@ant-design/icons";
 import { useSliderContext } from "../../context/SliderContext";
 import FadeIn from "../../components/fadeIn/FadeIn";
 import { useTrailerContext } from "../../context/TrailerContext";
+import ButtonTicket from "../../components/buttonItem/buttonTicket/ButtonTicket";
 
 
 
@@ -74,7 +75,7 @@ function Banner() {
   const { handleOpen } = useTrailerContext();
   const imageClass = useImageClass(isVisible);
 
- 
+
 
   /**
    * Hàm render từng item của slider.
@@ -85,7 +86,7 @@ function Banner() {
    */
   const renderBannerItem = useCallback((banner, index) => (
 
-    <div className=" w-full h-[250px] lg:h-[75vh]">
+    <div className=" w-[80%] h-[250px] lg:h-[80vh]">
       <div
         key={banner.maBanner}
         className="w-full h-full flex justify-center items-center"
@@ -97,7 +98,7 @@ function Banner() {
         }}
       >
         {/* Nút bấm */}
-    
+
         <div className=" banner-button flex flex-col justify-center items-center overflow-hidden space-y-[3vh]"
           style={{ zIndex: 1 }}
 
@@ -122,21 +123,33 @@ function Banner() {
               <span className="border border-white w-[50%] "></span>
             </span>
           </div>
-          <span className="space-y-5 group">
+          <span className="space-y-3 group">
             <h1
-              className="text-white text-4xl font-sans font-normal">{banner.tenPhim}</h1>
+              className="text-white text-4xl font-serif font-normal">{banner.tenPhim}</h1>
             <div className="bg-color1 h-[0.5px] w-full transition duration-500 scale-x-0 group-hover:scale-x-100 block "></div>
           </span>
-          <button
-            className="w-[15vh] flex justify-center items-center transition duration-300  bg-color1 hover:bg-[#921616] rounded-md py-2 space-x-2 text-white"
+          <ButtonTicket />
+          {/* <button
+            className="w-[18vh] flex justify-center items-center transition duration-500 bg-color1 hover:bg-[#131313] rounded-full py-2 space-x-3 text-white"
             onClick={() =>
               handleOpen(`https://www.youtube.com/watch?v=${trailerItems[index].trailer}`)
             }
           >
-            <PlayCircleOutlined className="text-2xl " />
+            <PlayCircleOutlined className="text-xl " />
             <h1
               className=" text-lg font-sans font-normal">Trailer</h1>
-          </button>
+          </button> */}
+          {/* <button
+            className="w-[120px] h-[40px] text-sm font-sans font-normal transition duration-300 rounded-full space-x-3 text-white border hover:border-[#131313] hover:bg-[#131313]"
+            // onClick={(e) => {
+            //   e.stopPropagation();
+            //   handleOpen(movie.trailer);
+            // }}
+          >
+            <span>Trailer</span>
+            <PlayCircleOutlined className="text-lg" />
+          </button> */}
+
           <div className='w-[20vh] h-[3vh] grid grid-cols-12  relative items-start justify-center'>
             {/* Đường kẻ ngang trái */}
             <span className="col-span-5 w-full flex justify-end items-center">
@@ -173,34 +186,42 @@ function Banner() {
   return (
     <>
       <div
-        style={{
-          backgroundImage: `url("/IMG/bg-29.jpg")`,
-          backgroundRepeat: "no-repeat",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
-        className="Banner relative z-0 overflow-hidden py-16 px-28">
+        className="Banner relative z-0 overflow-hidden flex justify-center items-center">
         <div
           className="absolute inset-0"
           style={{
             background: `
-              linear-gradient(to bottom, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0) 20%),
-              linear-gradient(to top, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0) 20%),
-              linear-gradient(to right, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0) 20%),
-              linear-gradient(to left, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0) 20%)
+              linear-gradient(to bottom, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0) 20%),
+              linear-gradient(to top, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0) 10%),
+              linear-gradient(to right, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0) 30%),
+              linear-gradient(to left, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0) 30%)
             `,
           }}
         ></div>
-       
+
 
         <FadeIn />
 
-        <Slider {...settings}>
+        {/* <div className="w-[calc(13%)] h-[90vh] "
 
-          {listBanner.map(renderBannerItem)}
+        >
 
-        </Slider>
+          <img src="/IMG/bg-banner-left.jpg" alt="" className="w-full h-full " />
 
+        </div> */}
+        <div className="w-[calc(100%)] h-[100vh] px-24 pt-10">
+
+          <Slider {...settings}>
+
+            {listBanner.map(renderBannerItem)}
+
+          </Slider>
+
+        </div>
+        {/* <div className="w-[calc(13%)] h-[90vh] ">
+
+          <img src="/IMG/bg-banner-right.jpg" alt="" className="w-full h-full" />
+        </div> */}
       </div>
 
 

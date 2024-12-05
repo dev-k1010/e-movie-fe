@@ -5,17 +5,21 @@ import Header from './header/Header'
 import { HeightProvider } from '../../../context/HeightHeaderContext'
 import TrailerPreview from '../../strailerPreview/StrailerPreview'
 import { TrailerProvider } from '../../../context/TrailerContext'
+import Spacer from '../../spacer/Spacer'
 
 export default function MainLayout() {
 
    return (
       <HeightProvider>
-         <Header />
          <TrailerProvider>
-            <Outlet /> {/* Các component con sẽ sử dụng context từ đây */}
-            <TrailerPreview /> {/* Đặt TrailerPreview bên ngoài Outlet để nó có thể truy cập vào context */}
+            <Header />
+
+            <Outlet />
+
+            <TrailerPreview />
+
+            <Footer />
          </TrailerProvider>
-         <Footer />
 
       </HeightProvider>
    )

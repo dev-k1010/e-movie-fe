@@ -18,61 +18,62 @@ export default function BorderContent({ children }) {
             <div className='flex items-start'>
 
                 {/* Trái */}
-                <div ref={squareRef} className=" w-5 h-5 grid grid-cols-2">
+                <div ref={squareRef} className="aspect-square w-3 grid grid-cols-2">
                     <span className="col-span-1 grid grid-rows-2">
 
                         {/* Trên trái */}
-                        <span className="border border-[#555555] rounded-full"></span>
+                        <span ></span>
 
                         {/* Dưới trái */}
-                        <span className="border-b  border-[#555555]"></span>
+                        <span className="border-b border-[#252525]"></span>
                     </span>
                     <span className="col-span-1 grid grid-rows-2">
 
                         {/* Trên phải */}
-                        <span className=" border-r border-[#555555]"></span>
+                        <span className=" border-r border-[#252525]"></span>
 
                         {/* Dưới phải */}
-                        <span className='border-t  border-l rounded-tl-md border-[#555555]'></span>
+                        <span className='border-t border-l rounded-tl-md border-[#252525]'></span>
 
                     </span>
                 </div>
 
-                <div className="w-full h-full border-t border-[#555555] "></div>
+                <div className="w-full h-full border-t border-[#252525] "></div>
 
                 {/* Phải*/}
-                <div className="  w-5 h-5 grid grid-cols-2">
+                <div className=" aspect-square w-3 grid grid-cols-2">
                     <span className="col-span-1 grid grid-rows-2">
                         {/* Trên trái */}
-                        <span className=" border-l border-[#555555]"></span>
+                        <span className=" border-l border-[#252525]"></span>
 
                         {/* Dưới trái */}
-                        <span className="border-t border-r border-[#555555] rounded-tr-md"></span>
+                        <span className="border-t border-r border-[#252525] rounded-tr-md"></span>
                     </span>
                     <span className="col-span-1 grid grid-rows-2">
 
                         {/* Trên phải */}
-                        <span className="border border-[#555555] rounded-full"></span>
+                        <span ></span>
+
 
                         {/* Dưới phải */}
-                        <span className='border-b border-[#555555]'></span>
+                        <span className='border-b border-[#252525]'></span>
                     </span>
                 </div>
 
             </div>
 
 
-            {/* Middle Section */}
+            {/* Giữa */}
             <div className="w-full h-full overflow-hidden relative">
                 <div
                     style={{ width: `${sideLength}px` }}
-                    className="h-full absolute left-0 top-0 aspect-square flex justify-start items-center"
+                    className="h-full absolute left-0 top-0 aspect-square flex justify-start items-center border-l border-[#252525]"
                 >
-                    <span className="w-[1px] h-full bg-[#555555]"></span>
+
                 </div>
 
                 <div
-                    className="mx-auto"
+                    className="mx-auto rounded-lg "
                     style={{ width: `calc(100% - ${2 * sideLength}px)` }} // Adjust width based on side length
                 >
                     {children}
@@ -80,9 +81,9 @@ export default function BorderContent({ children }) {
 
                 <div
                     style={{ width: `${sideLength}px` }}
-                    className="h-full absolute right-0 top-0 aspect-square flex justify-end items-center"
+                    className="h-full absolute right-0 top-0 aspect-square flex justify-end items-center border-r border-[#252525]"
                 >
-                    <span className="w-[1px] h-full bg-[#555555]"></span>
+
                 </div>
             </div>
 
@@ -90,43 +91,45 @@ export default function BorderContent({ children }) {
             <div className='flex items-end'>
 
                 {/* Trái */}
-                <div className="  w-5 h-5 grid grid-cols-2">
+                <div className=" aspect-square w-3 grid grid-cols-2">
                     <span className="col-span-1 grid grid-rows-2">
 
                         {/* Trên trái */}
-                        <span className="border-t border-[#555555]"></span>
+                        <span className="border-t border-[#252525]"></span>
 
                         {/* Dưới trái */}
-                        <span className="border border-[#555555] rounded-full"></span>
+                        <span ></span>
+
                     </span>
                     <span className="col-span-1 grid grid-rows-2">
                         {/* Trên phải */}
-                        <span className='border-b border-l border-[#555555] rounded-bl-md' ></span>
+                        <span className='border-b border-l border-[#252525] rounded-bl-md' ></span>
 
                         {/* Dưới phải */}
-                        <span className=' border-r border-[#555555]'></span>
+                        <span className=' border-r border-[#252525]'></span>
                     </span>
                 </div>
 
-                <div className="w-full h-full border-t border-[#555555] "></div>
+                <div className="w-full h-full border-t border-[#252525] "></div>
 
 
                 {/* Phải */}
-                <div className="  w-5 h-5 grid grid-cols-2">
+                <div className=" aspect-square w-3 grid grid-cols-2">
                     <span className="col-span-1 grid grid-rows-2">
 
                         {/* Trên trái */}
-                        <span className="border-b border-r border-[#555555] rounded-br-md"></span>
+                        <span className="border-b border-r border-[#252525] rounded-br-md"></span>
 
                         {/* Dưới trái */}
-                        <span className=" border-l border-[#555555]"></span>
+                        <span className=" border-l border-[#252525]"></span>
                     </span>
                     <span className="col-span-1 grid grid-rows-2">
                         {/* Trên  phải*/}
-                        <span className="border-t  border-[#555555]"></span>
+                        <span className="border-t  border-[#373737]"></span>
 
                         {/* Dưới phải */}
-                        <span className="border border-[#555555] rounded-full"></span>
+                        <span ></span>
+
                     </span>
                 </div>
 

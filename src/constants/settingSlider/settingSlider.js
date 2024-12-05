@@ -48,7 +48,7 @@ const bannerSettings = (currentSlider, handleAfterChange) => {
         rows: 1,
         slidesToShow: 1,
         slidesToScroll: 1,
-        autoplay: true,
+        // autoplay: true,
         speed: 1500,
         autoplaySpeed: 4000,
       
@@ -77,7 +77,7 @@ const bannerSettings = (currentSlider, handleAfterChange) => {
                     backgroundColor: i === currentSlider ? '#d00000' : 'gray',
                     top: "50%",
                     left: "50%",
-                    transform: `translate(-50%, -50%) ${i === currentSlider ? "scale(0.75)" : "scale(1)"} rotate(45deg)`,
+                    transform: `translate(-50%, -50%) ${i === currentSlider ? "scale(1)" : "scale(0.75)"} rotate(45deg)`,
                     transition: "transform 0.3s ease, background-color 0.3s ease",
                 }}
             >
@@ -90,7 +90,7 @@ const bannerSettings = (currentSlider, handleAfterChange) => {
                 settings: {
                     slidesToShow: 1,
                     slidesToScroll: 1,
-                    centerPadding: "90px",
+                    centerPadding: "0px",
                 },
             },
             {
@@ -116,7 +116,7 @@ const movieTabsSettings = (movie) => {
         adaptiveHeight: true,
         slidesToScroll: 1,
         slidesToShow: movie.length < 5 ? movie.length : 5,
-        speed: 1500,
+        speed: 900,
         rows: 1,
         cssEase: "ease-in-out",
         nextArrow: <SampleNextArrow />,

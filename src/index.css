@@ -2,6 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 @import "~typeface-roboto";
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
 body {
   font-family: "Roboto";
 }
@@ -38,21 +43,21 @@ body::-webkit-scrollbar {
   display: none; Ẩn thanh cuộn cho các trình duyệt WebKit
 } */
 
-*::-webkit-scrollbar {
-  width: 10px; /* Độ rộng của scrollbar */
+.home-page ::-webkit-scrollbar {
+  width: 3px; /* Độ rộng của scrollbar */
 }
 
-*::-webkit-scrollbar-track {
+.home-page ::-webkit-scrollbar-track {
   background: rgba(255, 255, 255, 0.1); /* Màu nền của scrollbar */
   border-radius: 10px;
 }
 
-*::-webkit-scrollbar-thumb {
+.home-page ::-webkit-scrollbar-thumb {
   background-color: rgba(255, 255, 255, 0.4); /* Màu của thumb (phần cuộn) */
   border-radius: 10px;
   border: 2px solid transparent; /* Đường viền của thumb để tạo khoảng cách */
 }
 
-*::-webkit-scrollbar-thumb:hover {
+.home-page ::-webkit-scrollbar-thumb:hover {
   background-color: rgba(255, 255, 255, 0.6); /* Màu khi hover vào thumb */
 }

@@ -6,7 +6,6 @@ import { movieTabsSettings } from "../../constants/settingSlider/settingSlider";
 import SliderItem from "../../components/sliderItem/SliderItem";
 import CardItem from "../../components/cardItem/CardItem";
 import "../movieTabs/style/style.css";
-import { useTrailerContext } from "../../context/TrailerContext";
 
 
 // const SliderItem = React.lazy(() => import("../../components/sliderItem/SliderItem"));
@@ -17,7 +16,6 @@ const MoviesTabs = ({ listPhim }) => {
 
   const navigate = useNavigate();
   const [activeKey, setActiveKey] = useState(1);
-  const { handleOpen } = useTrailerContext();
 
   /**
    * Set the state for activeKey based on the selected tab
@@ -56,10 +54,10 @@ const MoviesTabs = ({ listPhim }) => {
   const renderCard = useCallback((movies) => {
 
     return movies.map((movie, index) => (
-      <CardItem key={index} movie={movie} navigate={navigate} handleOpen={handleOpen} isVirtual={""} />
+      <CardItem key={index} movie={movie}  />
     ));
 
-  }, [navigate, handleOpen]);
+  }, [navigate]);
 
 
   /**
@@ -94,7 +92,7 @@ const MoviesTabs = ({ listPhim }) => {
     <div >
       <div className="MovieTabs overflow-clip w-full h-full ">
         <Tabs
-          className="tabs "
+          className="tabs"
           activeKey={activeKey}
           onChange={onTabClick}
           destroyInactiveTabPane

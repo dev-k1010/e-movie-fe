@@ -1,6 +1,4 @@
 
-
-
 .tabs .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
   color: #D00000;
 }
@@ -16,6 +14,6 @@
   background: none;
 }
 
-/* .tabs .ant-tabs-nav::before {
+.tabs .ant-tabs-nav::before {
  border-bottom: none !important;
-} */
+}

@@ -56,6 +56,10 @@ module.exports = {
       "span-17": "span 17 / span 17",
       "span-full": "1 / -1",
     },
+    fontFamily: {
+      sans: ['Noto Sans', 'Inter', 'sans-serif'],
+      serif: ['Noto Serif', 'serif'],
+    },
   },
   plugins: [],
 }

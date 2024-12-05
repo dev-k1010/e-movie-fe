@@ -1,0 +1,32 @@
+.news .ant-tabs-ink-bar {
+    height: 1px !important;
+    background: none  ;
+}
+
+.news .ant-tabs-nav::before {
+    border-bottom: none !important;
+}
+
+/* .news .ant-tabs-tab .ant-tabs-tab-active button {
+    color:#D00000 !important;
+} */
+
+.news .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn button{
+    color: #D00000 !important;
+  }
+  /* Styles for tab buttons on hover and focus, but not when active */
+  .news .ant-tabs-tab:not(.ant-tabs-tab-active):hover .ant-tabs-tab-btn,
+  .news .ant-tabs-tab:not(.ant-tabs-tab-active):focus .ant-tabs-tab-btn {
+    color: #c3c3c3; 
+  }
+
+ .news-arrow {
+    transform: translateX(-350%);
+    opacity: 0;
+    transition: transform 1s ease, opacity 1s ease;
+ }  
+
+.news-container:hover .news-arrow {
+    transform: translateX(0);
+    opacity: 1;
+}

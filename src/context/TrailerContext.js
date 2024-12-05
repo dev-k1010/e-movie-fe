@@ -7,15 +7,15 @@ export const TrailerProvider = ({ children }) => {
 
     const [isOpen, setOpen] = useState(false);
 
-    const [urlTrailer, setUrlTrailer] = useState(null)
+    const [content, setContent] = useState(null)
 
     /**
      * Mở trailer của phim được chọn
      * @param {object} phim - Đối tượng phim hiện tại được chọn
      */
-    const handleOpen = useCallback((trailerUrl) => {
+    const handleOpen = useCallback((content) => {
         setOpen(true);
-        setUrlTrailer(trailerUrl);
+        setContent(content);
     }, []);
 
 
@@ -24,12 +24,12 @@ export const TrailerProvider = ({ children }) => {
      */
     const handleClose = useCallback(() => {
         setOpen(false);
-        setUrlTrailer(null);
+        setContent(null);
     }, []);
 
 
     return (
-        <TrailerContext.Provider value={{ isOpen, urlTrailer, handleOpen, handleClose }}>
+        <TrailerContext.Provider value={{ isOpen, content, handleOpen, handleClose }}>
             {children}
         </TrailerContext.Provider>
     );
