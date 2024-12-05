@@ -4,8 +4,9 @@ import { Tabs } from "antd";
 import { movieTabsItems } from "../../constants/itemTabs/itemTabs";
 import { movieTabsSettings } from "../../constants/settingSlider/settingSlider";
 import SliderItem from "../../components/sliderItem/SliderItem";
-import CardItem from "../../components/cardItem/CardItem";
+
 import "../movieTabs/style/style.css";
+import CardFilm from "../../components/cardFilm/CardFilm";
 
 
 // const SliderItem = React.lazy(() => import("../../components/sliderItem/SliderItem"));
@@ -54,7 +55,7 @@ const MoviesTabs = ({ listPhim }) => {
   const renderCard = useCallback((movies) => {
 
     return movies.map((movie, index) => (
-      <CardItem key={index} movie={movie}  />
+      <CardFilm key={index} movie={movie} />
     ));
 
   }, [navigate]);
