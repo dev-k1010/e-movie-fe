@@ -124,4 +124,4 @@ const CardItem = ({ movie, isVirtual }) => {
   );
 };
 
-export default memo(CardItem);
+export default CardItem;

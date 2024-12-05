@@ -1,15 +1,10 @@
-import React, { memo, useEffect, useState, useCallback, Suspense } from "react";
+import React, { memo, useEffect, useState, useCallback } from "react";
 import { Pagination } from "antd";
-import { useNavigate, useOutletContext } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { quanLyPhimServices } from "../../services/quanLyPhimServices";
 import styled from "styled-components";
-
-import LazyLoad from "../../components/lazyLoad/LazyLoad";
 import CardItem from "../../components/cardItem/CardItem";
 
-
-// const CardItem = React.lazy(() => import("../../components/cardItem/CardItem"));
-// const TrailerPreview = React.lazy(() => import("../../components/strailerPreview/StrailerPreview"));
 
 function MoviesPagination({ listPhim }) {
 
@@ -101,7 +96,7 @@ function MoviesPagination({ listPhim }) {
                     onChange={handlePageChange}
                 />
             </div>
-            {/* </Suspense> */}
+
         </div>
     );
 }

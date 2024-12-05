@@ -5,7 +5,7 @@ import Header from './header/Header'
 import { HeightProvider } from '../../../context/HeightHeaderContext'
 import TrailerPreview from '../../strailerPreview/StrailerPreview'
 import { TrailerProvider } from '../../../context/TrailerContext'
-import Spacer from '../../spacer/Spacer'
+
 
 export default function MainLayout() {
 
