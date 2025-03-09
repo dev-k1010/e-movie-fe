@@ -2,7 +2,6 @@ import React from "react";
 import { PlayCircleOutlined, StarFilled } from "@ant-design/icons";
 import FadeIn from "../fadeIn/FadeIn";
 import ButtonTicket from "../buttonItem/buttonTicket/ButtonTicket";
-import "../cardItem/style.css"
 import { useTrailerContext } from "../../context/TrailerContext";
 import ReactPlayer from "react-player";
 

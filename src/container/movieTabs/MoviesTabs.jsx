@@ -9,9 +9,6 @@ import "../movieTabs/style/style.css";
 import CardFilm from "../../components/cardFilm/CardFilm";
 
 
-// const SliderItem = React.lazy(() => import("../../components/sliderItem/SliderItem"));
-// const CardItem = React.lazy(() => import("../../components/cardItem/CardItem"));
-// const TrailerPreview = React.lazy(() => import("../../components/strailerPreview/StrailerPreview"));
 
 const MoviesTabs = ({ listPhim }) => {
 

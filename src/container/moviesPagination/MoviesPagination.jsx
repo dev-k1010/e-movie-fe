@@ -3,7 +3,6 @@ import { Pagination } from "antd";
 import { useNavigate } from "react-router-dom";
 import { quanLyPhimServices } from "../../services/quanLyPhimServices";
 import styled from "styled-components";
-// import CardItem from "../../components/cardItem/CardItem";
 import CardFilm from "../../components/cardFilm/CardFilm";
 
 

@@ -16,9 +16,11 @@ function RapList(props) {
   const navigate = useNavigate();
   const [position, setPosition] = useState("left");
   const { lichChieuHeThongRap } = props;
+  console.log("🙂 ~ RapList ~ lichChieuHeThongRap:", lichChieuHeThongRap)
 
   const [activeKeyParent, setActiveKeyParent] = useState(0); // Trạng thái cho tab cha
   const [activeKeyChild, setActiveKeyChild] = useState(0); // Trạng thái cho tab con
+  
 
   const handleParentTabChange = (key) => {
     setActiveKeyParent(key);
@@ -36,6 +38,8 @@ function RapList(props) {
       setPosition("left");
     }
   };
+
+
 
   const lineDemo = () => (
     <div className="w-full h-full grid grid-cols-17 gap-3 justify-center items-center">
@@ -109,7 +113,7 @@ function RapList(props) {
                     <div className="item" style={{ '--i': i + 1 }} key={i}>
                       <div className="w-56 flex items-start justify-start space-x-3">
                         <img
-                          src={cumRap.hinhAnh}
+                          src={heThongRap.logo}
                           alt={cumRap.tenCumRap}
                           className="w-14"
                           loading="lazy"

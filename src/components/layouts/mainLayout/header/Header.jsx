@@ -8,34 +8,31 @@ import { BarsOutlined } from "@ant-design/icons";
 
 function Header() {
   const navbarRef = useRef(null);
-  const { setHeightHeader } = useHeightContext();
+  const { heightHeader, setHeightHeader } = useHeightContext();
   const [scrollY, setScrollY] = useState(0);
   const [hideNavbar, setHideNavbar] = useState(false);
 
 
-  const handleScroll = debounce(() => {
-
+  const handleScroll = () => {
     const currentScrollY = window.scrollY;
 
-    if (currentScrollY > scrollY) {
-      // Cuộn xuống, ẩn navbar
+    if (currentScrollY > scrollY && currentScrollY > heightHeader) {
+
       setHideNavbar(true);
-    }
-    else {
-      // Cuộn xuống, ẩn navbar
+    } else if (currentScrollY <= heightHeader) {
+
       setHideNavbar(false);
     }
-    // Cập nhật giá trị cuộn hiện tại
+
     setScrollY(currentScrollY);
-  }, 100);
+  }
 
 
   useEffect(() => {
-
-    const rect = navbarRef.current.getBoundingClientRect();
-    setHeightHeader(rect.height);
-
-
+    if (navbarRef.current) {
+      const rect = navbarRef.current.getBoundingClientRect();
+      setHeightHeader(rect.height);
+    }
   }, []);
 
 
@@ -47,12 +44,13 @@ function Header() {
     };
   }, [scrollY]);
 
+
   const handleClick = () => setHideNavbar(!hideNavbar)
 
 
   return (
     <div ref={navbarRef} className="fixed z-50 w-full">
-      
+
       <div className="w-full h-full bg-black py-5 border-b border-[#252525]">
 
         <TopHeader />

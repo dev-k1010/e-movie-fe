@@ -109,6 +109,7 @@ export default function Home() {
         </div>
       </div>
 
+
       {/* Danh sách phim */}
       <div id="danhSachPhim">
         {SeparatorLine()}
@@ -155,6 +156,7 @@ export default function Home() {
         </div>
       </div>
 
+
       {/* Danh sách rạp */}
       <div id="cumRap">
         {SeparatorLine()}
@@ -169,6 +171,7 @@ export default function Home() {
         </div>
       </div>
 
+
       {/* Sự kiện */}
       <div id="suKien">
         {SeparatorLine()}
@@ -179,6 +182,7 @@ export default function Home() {
         </div>
       </div>
 
+
       {/* Tin tức */}
       <div id="tinTuc">
         {SeparatorLine()}
@@ -188,6 +192,7 @@ export default function Home() {
           <FilmNews />
         </div>
       </div>
+
 
       {/* Khuyến mãi */}
       <div id="khuyenMai">
