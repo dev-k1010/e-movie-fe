@@ -2,8 +2,8 @@ import React from "react";
 import { PlayCircleOutlined, StarFilled } from "@ant-design/icons";
 import FadeIn from "../fadeIn/FadeIn";
 import ButtonTicket from "../buttonItem/buttonTicket/ButtonTicket";
-import { useTrailerContext } from "../../context/TrailerContext";
 import ReactPlayer from "react-player";
+import { useModalContext } from "../../context/Modalcontext";
 
 // Hiệu ứng hover
 const getHoverEffectClasses = "opacity-0 group-hover:opacity-100 transition-opacity duration-300"
@@ -75,7 +75,7 @@ const CenterButtonGroup = ({ handleOpen, movie }) => (
 
 
 export default function CardFilm({ movie, isVirtual }) {
-    const { handleOpen } = useTrailerContext();
+    const { handleOpen } = useModalContext();
 
 
     const cardTopDemo = (

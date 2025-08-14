@@ -1,26 +1,25 @@
-import React, { useState } from 'react'
-import { Outlet } from 'react-router-dom'
-import Footer from './footer/Footer'
-import Header from './header/Header'
-import { HeightProvider } from '../../../context/HeightHeaderContext'
-import TrailerPreview from '../../strailerPreview/StrailerPreview'
-import { TrailerProvider } from '../../../context/TrailerContext'
-
+import React, { useState } from "react";
+import { Outlet } from "react-router-dom";
+import Footer from "./footer/Footer";
+import Header from "./header/Header";
+import { HeightProvider } from "../../../context/HeightHeaderContext";
+import { ModalProvider } from "../../../context/Modalcontext";
+import ModalContainer from "../../modalContainer/ModalContainer";
 
 export default function MainLayout() {
+  return (
+    <HeightProvider>
+      
+        <ModalProvider>
+          <Header />
 
-   return (
-      <HeightProvider>
-         <TrailerProvider>
-            <Header />
+          <Outlet />
 
-            <Outlet />
+          <ModalContainer />
 
-            <TrailerPreview />
-
-            <Footer />
-         </TrailerProvider>
-
-      </HeightProvider>
-   )
+          <Footer />
+        </ModalProvider>
+     
+    </HeightProvider>
+  );
 }

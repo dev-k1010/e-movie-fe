@@ -13,7 +13,7 @@ export default function PatternedContentBox({ children, bgColor }) {
     }, []);
 
     return (
-        <div className="w-full h-full bg-transparent  flex flex-col justify-between p-5 ">
+        <div className="w-full h-full bg-transparent flex flex-col justify-between p-5 ">
 
             {/* Trên */}
             <div className="flex justify-between items-start">

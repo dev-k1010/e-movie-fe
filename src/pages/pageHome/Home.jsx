@@ -18,14 +18,16 @@ import ProgramEvents from "../../container/programEvents/ProgramEvents";
 import FilmNews from "../../container/filmNews/FilmNews";
 import TitleComponent from "../../components/ui/TitleComponent";
 import SeparatorLine from "../../components/ui/SeparatorLine";
-
-
-
+import TicketSearch from "../../container/ticketSearch/TicketSearch";
 
 export default function Home() {
   const dispatch = useDispatch();
-  const { listBanner, listPhim } = useSelector((state) => state.quanLyPhimReducer);
-  const { lichChieuHeThongRap } = useSelector((state) => state.quanLyRapReducer);
+  const { listBanner, listPhim } = useSelector(
+    (state) => state.quanLyPhimReducer
+  );
+  const { lichChieuHeThongRap } = useSelector(
+    (state) => state.quanLyRapReducer
+  );
   const { heightHeader } = useHeightContext();
 
   useEffect(() => {
@@ -34,7 +36,6 @@ export default function Home() {
     dispatch(layThongTinLichChieuHeThongRap());
   }, [dispatch]);
 
-
   const [backgroundY, setBackgroundY] = useState(100); // Vị trí ban đầu của nền
   const [backgroundOpacity, setBackgroundOpacity] = useState(0); // Độ mờ ban đầu
 
@@ -42,62 +43,57 @@ export default function Home() {
     const handleScroll = () => {
       const scrollPosition = window.scrollY; // Vị trí cuộn hiện tại
       const windowHeight = window.innerHeight; // Chiều cao cửa sổ trình duyệt
-      const component = document.getElementById('danhSachPhim');
+      const component = document.getElementById("danhSachPhim");
       const componentTop = component.offsetTop; // Vị trí top của component so với trang
 
       // Tính toán tỷ lệ cuộn của component
       const scrollPercentage = Math.min(
         1,
-        Math.max(0, (scrollPosition + windowHeight - componentTop) / (windowHeight * 3)) // Tăng độ mượt khi cuộn
+        Math.max(
+          0,
+          (scrollPosition + windowHeight - componentTop) / (windowHeight * 3)
+        ) // Tăng độ mượt khi cuộn
       );
       // Cập nhật vị trí Y cho nền (chậm hơn so với nội dung)
-      const newY = Math.max(0, 100 - (scrollPercentage * 100 * 5)); // Nền di chuyển chậm hơn chút
+      const newY = Math.max(0, 100 - scrollPercentage * 100 * 5); // Nền di chuyển chậm hơn chút
       const newOpacity = Math.min(1, scrollPercentage * 5); // Nền mờ dần mượt mà
 
       setBackgroundY(newY); // Cập nhật vị trí Y của nền
       setBackgroundOpacity(newOpacity); // Cập nhật độ mờ
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
 
     return () => {
-      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener("scroll", handleScroll);
     };
   }, []);
-
-
-
 
   return (
     <div
       style={{
         paddingTop: `${heightHeader}px`,
-        backgroundColor: "black"
+        backgroundColor: "black",
       }}
       className="home-page"
     >
-
       {/* Banner */}
-      <SliderProvider >
-
+      <SliderProvider>
         <Banner listBanner={listBanner} />
-
       </SliderProvider>
-
 
       {/* Lịch chiếu phim */}
       <div id="lichChieuPhim">
-
         <div className="w-full h-20 bg-transparent rounded-tl-[50%] rounded-tr-[50%] border-b-0 bg-gradient-to-l from-transparent via-color1 to-transparent pt-1">
           <div
-            style={{ borderRadius: 'inherit' }}
-            className="w-full h-full bg-gradient-to-b from-[#252525] via-black to-black"></div>
+            style={{ borderRadius: "inherit" }}
+            className="w-full h-full bg-gradient-to-b from-[#252525] via-black to-black"
+          ></div>
         </div>
 
         {TitleComponent("Lịch chiếu")}
 
         <div className="px-24 pt-5 pb-10">
-
           <div className="p-5 bg-[#131313]">
             <BorderedContainer>
               <div className="px-16">
@@ -105,10 +101,8 @@ export default function Home() {
               </div>
             </BorderedContainer>
           </div>
-
         </div>
       </div>
-
 
       {/* Danh sách phim */}
       <div id="danhSachPhim">
@@ -121,10 +115,10 @@ export default function Home() {
             backgroundRepeat: "no-repeat",
             backgroundSize: "cover",
             backgroundPosition: "center",
-
           }}
         >
-          <div className="w-full h-full px-24 py-10"
+          <div
+            className="w-full h-full px-24 py-10"
             style={{
               background: `
             linear-gradient(to bottom, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0) 10%),
@@ -134,7 +128,8 @@ export default function Home() {
           `,
             }}
           >
-            <div className="w-full p-5 bg-[#131313]"
+            <div
+              className="w-full p-5 bg-[#131313]"
               style={{
                 /* Hiệu ứng di chuyển dọc và mờ dần */
                 transform: `translateY(${backgroundY}%)`,
@@ -156,7 +151,6 @@ export default function Home() {
         </div>
       </div>
 
-
       {/* Danh sách rạp */}
       <div id="cumRap">
         {SeparatorLine()}
@@ -171,7 +165,6 @@ export default function Home() {
         </div>
       </div>
 
-
       {/* Sự kiện */}
       <div id="suKien">
         {SeparatorLine()}
@@ -181,7 +174,6 @@ export default function Home() {
           <ProgramEvents />
         </div>
       </div>
-
 
       {/* Tin tức */}
       <div id="tinTuc">
@@ -193,7 +185,6 @@ export default function Home() {
         </div>
       </div>
 
-
       {/* Khuyến mãi */}
       <div id="khuyenMai">
         {SeparatorLine()}
@@ -204,21 +195,19 @@ export default function Home() {
         </div>
       </div>
 
-
       {/* App */}
-      <div id="appMobile" className="px-24 pt-5 pb-10"
+      <div
+        id="appMobile"
+        className="px-24 pt-5 pb-10"
         style={{
           backgroundImage: `url('IMG/bg-1.jpg')`,
           backgroundRepeat: "repeat",
         }}
       >
         <AppMobile />
-      </div>
+      </div>  
 
-    </div >
+    
+    </div>
   );
 }
-
-
-
-

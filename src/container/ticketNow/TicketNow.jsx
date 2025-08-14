@@ -6,13 +6,13 @@ import { UserLogin } from '../../config/api';
 import { quanLyRapServices } from '../../services/quanLyRapServices';
 import { Select, Tooltip } from 'antd';
 import "../ticketNow/style/style.css"
-import { useTrailerContext } from '../../context/TrailerContext';
 import styled from 'styled-components';
+import { useModalContext } from '../../context/Modalcontext';
 
 
 
 export default function TicketNow({ listPhim }) {
-    const { handleClose } = useTrailerContext()
+    const { handleClose } = useModalContext()
     const navigate = useNavigate();
     const [arrCumRap, setArrCumRap] = useState([]);
     const [arrLichChieu, setArrLichChieu] = useState([]);

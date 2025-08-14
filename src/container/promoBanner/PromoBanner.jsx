@@ -1,14 +1,14 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import Slider from 'react-slick';
-import { useTrailerContext } from '../../context/TrailerContext';
 import BorderedContainer from '../../components/ui/BorderedContainer';
 import TitleComponent from '../../components/ui/TitleComponent';
+import { useModalContext } from '../../context/Modalcontext';
 
 
 export default function PromoBanner() {
 
-    const { handleOpen } = useTrailerContext();
+    const { handleOpen } =useModalContext();
 
     const [newsData, setNewsData] = useState(null); // Lưu dữ liệu chung cho từng tab
 

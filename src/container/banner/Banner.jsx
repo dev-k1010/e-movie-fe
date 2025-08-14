@@ -3,11 +3,10 @@ import Slider from "react-slick";
 import useURLChange from "../../hooks/use_url_change/useURLChange";
 import "../banner/style/style.css";
 import { bannerSettings } from "../../constants/settingSlider/settingSlider";
-import { PlayCircleOutlined } from "@ant-design/icons";
 import { useSliderContext } from "../../context/SliderContext";
 import FadeIn from "../../components/fadeIn/FadeIn";
-import { useTrailerContext } from "../../context/TrailerContext";
 import ButtonTicket from "../../components/buttonItem/buttonTicket/ButtonTicket";
+import { useModalContext } from "../../context/Modalcontext";
 
 
 
@@ -72,7 +71,7 @@ const useImageClass = (isVisible) =>
 function Banner() {
 
   const isVisible = useURLChange();
-  const { handleOpen } = useTrailerContext();
+  const { handleOpen } = useModalContext();
   const imageClass = useImageClass(isVisible);
 
 

@@ -4,8 +4,6 @@ import Routers from "./router/Routers";
 // import SpinnerControl from "./components/spinner/spinnerControl";
 // import Spinner from "./components/spinner/spinner";
 
-
-
 function App() {
   return (
     <Router>
