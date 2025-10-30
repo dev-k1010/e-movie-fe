@@ -30,16 +30,12 @@ export default function DemoItemInnerpage({
           {/* Vòng tròn */}
           <div className="aspect-square w-16 relative rounded-full bg-black transition-colors duration-700 group-hover:bg-transparent ">
             {/* Index ban đầu */}
-            <span className="absolute inset-0 grid place-items-center text-color1 text-3xl font-serif font-medium leading-none transition-opacity duration-500 group-hover:opacity-0 -translate-y-[1px]">
+            <span className="absolute inset-0 grid place-items-center text-[#cdcdcd] text-2xl font-serif font-medium leading-none transition-opacity duration-500 group-hover:opacity-0 -translate-y-[1px]">
               {index}
             </span>
 
-            {/* Hover text */}
-            {/* <div className="absolute inset-0 grid place-items-center text-black text-2xl font-serif font-medium whitespace-nowrap opacity-0 transition-opacity duration-700 group-hover:opacity-100 uppercase  justify-end items-center">
-              {hoverText}
-            </div> */}
-
-            <div className="flex justify-center opacity-0 items-center font-serif font-bold text-5xl  h-full -translate-x-24 transition duration-700 group-hover:opacity-100 group-hover:translate-x-0">
+            {/* Hover */}
+            <div className="flex justify-center opacity-0 items-center text-5xl  h-full -translate-x-24 transition duration-700 group-hover:opacity-100 group-hover:translate-x-0">
               &rarr;
             </div>
           </div>
@@ -49,7 +45,7 @@ export default function DemoItemInnerpage({
       {/* Thanh ngang */}
       <div className="relative w-full h-[3px] flex flex-col justify-end">
         <div className="h-[1px] bg-black w-full"></div>
-        <div className="absolute inset-0 h-full bg-black origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)]"></div>
+        <div className="absolute inset-0 h-full bg-[#3f3f3f] origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)]"></div>
       </div>
 
       {/* Lớp phủ mờ khi hover */}

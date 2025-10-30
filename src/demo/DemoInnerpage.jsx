@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import BorderedContainer from "../components/ui/BorderedContainer";
 import DemoItemInnerpage from "./DemoItemInnerpage";
 export default function DemoInnerpage() {
+  const [isOpen, setIsOpen] = useState(false)
+  
   return (
     <div className="grid grid-cols-2 w-full h-screen bg-black ">
       {/* left */}
@@ -27,11 +29,11 @@ export default function DemoInnerpage() {
             {/* logo */}
             <div>
               <BorderedContainer>
-                <div className="px-32 flex flex-col justify-center items-center">
+                <div className="px-24 flex flex-col justify-center items-center">
                   <img
                     src="/logo.jpg"
                     alt="Logo"
-                    className="w-[15vw] h-[9.5vw] object-contain"
+                    className="w-[16vw] h-[7.5vw] object-contain"
                   />
                 </div>
               </BorderedContainer>
@@ -39,9 +41,9 @@ export default function DemoInnerpage() {
           </div>
 
           <div className="row-span-1 border-b border-[#cdcdcd]">
-            <div className="grid grid-cols-2 gap-x-12 px-20 md:px-[300px] w-full">
+            <div className="grid grid-cols-2 px-[230px] gap-x-12 w-full">
               {/* Cột trái */}
-              <div className="grid grid-rows-3 space-y-4">
+              <div className="grid grid-rows-3">
                 {/* Email */}
                 <div className="flex flex-col items-start">
                   <span className="uppercase font-semibold text-gray-300 text-lg">
@@ -71,7 +73,7 @@ export default function DemoInnerpage() {
                 </div>
               </div>
               {/* Cột phải */}
-              <div className="grid grid-rows-3 space-y-4">
+              <div className="grid grid-rows-3">
                 {/* Office */}
                 <div className="flex flex-col items-start">
                   <span className="uppercase font-semibold text-gray-300 text-[16.48px]">
@@ -104,7 +106,7 @@ export default function DemoInnerpage() {
         </div>
 
         {/* bottom */}
-        <div className="row-span-1 h-full grid grid-cols-2 gap-12 px-[300px] justify-center items-center">
+        <div className="row-span-1 grid grid-cols-2 gap-12 px-[230px] justify-center items-center">
           <div className="col-span-1 uppercase text-[10px]">*disclaimer</div>
           <div className="col-span-1 uppercase text-[10px]">
             2025-pkey cinema

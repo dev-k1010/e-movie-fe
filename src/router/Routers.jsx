@@ -21,20 +21,20 @@ import DemoInnerpage from "../demo/DemoInnerpage";
 
 export default function Routers() {
   return useRoutes([
-    {
-      path: "",
-      element: <DemoInnerpage />,
-      children: [
-        { path: "", element: <Navigate to="test" /> },
-        { path: "test", element: <DemoInnerpage /> },
-      ],
-    },
+    // {
+    //   path: "",
+    //   element: <DemoInnerpage />,
+    //   children: [
+    //     { path: "", element: <Navigate to="test" /> },
+    //     { path: "test", element: <DemoInnerpage /> },
+    //   ],
+    // },
 
     {
       path: "",
       element: <MainLayout />,
       children: [
-        //   { path: "", element: <Navigate to="home" /> },
+        { path: "", element: <Navigate to="home" /> },
         { path: "home", element: <Home /> },
         { path: "detail/:maphim", element: <Detail /> },
         { path: "ticket/:malichchieu", element: <Ticket /> },
